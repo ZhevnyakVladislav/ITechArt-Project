@@ -1,0 +1,22 @@
+header {
+    .navbar-default {
+        background-color: #FFF;
+        border: 0;
+        padding: 20px 0;
+    }
+    .nav li a {
+        padding: 0 21px;
+    }
+    ul .btn {
+        background-color: #eb1c23;
+        border-color: #eb1c23;
+        border-radius: 0;
+        border-top-left-radius: 5px;
+    }
+
+    ul .btn:hover {
+        background-color: #FFF;
+        color: #eb1c23;
+        border-color: #eb1c23;
+    }
+}

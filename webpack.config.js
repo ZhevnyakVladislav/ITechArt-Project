@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const webpackConfig = {
     entry: [
-        path.join(__dirname, './client/stylesheets/index.scss'),
         path.join(__dirname, './client/app.js'),
     ],
     output: {
