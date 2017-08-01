@@ -7,6 +7,12 @@ import configureStore from './store/configureStore';
 
 const store = configureStore();
 
+const user = localStorage.getItem('user');
+
+if (user) {
+    store.dispatch({type: 'USER_AUTH'});
+}
+
 render(
     <Provider store={store}>
         <Router>

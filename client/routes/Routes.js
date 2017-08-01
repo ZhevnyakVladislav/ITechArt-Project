@@ -5,6 +5,6 @@ import LogInForm from '../containers/LogInFormContainer';
 
 export default () => (
     <Switch>
-        <Route exact path="/" component={LogInForm} />
+        <Route exact path="/login" component={LogInForm} />
     </Switch>
 );

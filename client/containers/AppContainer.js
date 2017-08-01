@@ -1,15 +1,14 @@
 import React from 'react'; 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
-import Header from '../components/Header/Header';
-import Routes from '../routes/Routes';
-
 import '../stylesheets/index.scss';
+
+import Header from '../containers/HeaderContainer';
+import Routes from '../routes/Routes';
 
 function mapStateToProps (state) {
     return {
-        user: state.user
+        isUserAuth: state.userState.isUserAuth
     };
 };
 
@@ -17,7 +16,7 @@ class App extends React.Component {
     render() {
         return(
             <div className='app-container'>
-                <Header />
+                <Header isUserAuth={this.props.isUserAuth}/>
                 <Routes />
             </div>
         );

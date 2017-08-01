@@ -5,6 +5,11 @@ import './header.scss';
 
 export default class Header extends React.Component {
     render() {
+        const button = (
+            (this.props.isUserAuth) ? (
+                <Button onClick={this.props.logOut}>Log Out</Button>
+            ) : (<Button> Log In</Button>)
+        );
         return (
             <header>
                 <Navbar fluid>
@@ -16,7 +21,7 @@ export default class Header extends React.Component {
                         </Col>
                         <Col xs={3}>
                             <LinkContainer to="/login">
-                                <Button >Log In</Button>
+                                {button}
                             </LinkContainer>
                         </Col>
                     </Row>
