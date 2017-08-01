@@ -1,22 +1,27 @@
 header {
+
+
     .navbar-default {
         background-color: #FFF;
         border: 0;
         padding: 20px 0;
-    }
-    .nav li a {
-        padding: 0 21px;
-    }
-    ul .btn {
-        background-color: #eb1c23;
-        border-color: #eb1c23;
-        border-radius: 0;
-        border-top-left-radius: 5px;
+        border-bottom: 1px solid #f4f4f4;
     }
 
-    ul .btn:hover {
-        background-color: #FFF;
-        color: #eb1c23;
-        border-color: #eb1c23;
+    .row {
+        display: flex;
+        align-items: center;
+    }
+
+    .row img {
+            cursor: pointer;
+    }
+
+    .row > div:first-child{
+        text-align: start;
+    }
+    
+    .row > div:last-child{
+        text-align: end;
     }
 }
