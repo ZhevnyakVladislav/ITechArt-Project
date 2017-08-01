@@ -4,9 +4,37 @@ $fa-font-path: '~font-awesome/fonts';
 @import "~font-awesome/scss/font-awesome.scss";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
+@mixin border($width, $style, $color) {
+    border: $width $style $color;
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    box-shadow: none;
+    
+}
+
 html, body {
     min-height: 100%;
     margin: 0;
     position: relative;
-    background-color: #f4f4f4;
 }
+
+.app-container .btn {
+    background-color: #eb1c23;
+    color: #ffffff;
+    @include border(2px, solid, #eb1c23);
+}
+
+.app-container .btn:hover {
+    background-color: #ffffff;
+    color: #eb1c23;
+    @include border(2px, solid, #eb1c23);
+}
+
+.app-container .btn:focus {
+    background-color: #eb1c23;
+    color: #ffffff;
+    @include border(2px, solid, #eb1c23);
+}
+
+
+
