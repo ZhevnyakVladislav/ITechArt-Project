@@ -1,5 +1,7 @@
 import React from 'react';
-import { Grid, Row, Col, Form, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Grid, Row, Col, Form, FormGroup, FormControl, Button, ControlLabel, InputGroup } from 'react-bootstrap';
+import validation from '../../constants/validation/validation';
 import './logInForm.scss';
 
 export default class LogInform extends React.Component {
@@ -8,6 +10,8 @@ export default class LogInform extends React.Component {
         this.state = {
             email: '',
             password: '',
+            emailValid: validation.default,
+            passwordValid: validation.default, 
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,10 +24,12 @@ export default class LogInform extends React.Component {
     }
        
     handleSubmit() {
-        this.props.logIn({
-            email: this.state.email,
-            password: this.state.password
-        });
+        if(this.validation()) {
+            this.props.logIn({
+                email: this.state.email,
+                password: this.state.password
+            });
+        }
     }
     
     render() {
@@ -32,12 +38,12 @@ export default class LogInform extends React.Component {
                 <Row>
                     <Col xs={12} smOffset={2} sm={8} mdOffset={3} md={6} lgOffset={4} lg={4}>
                         <Form onChange={this.handleChange} onSubmit={this.handleSubmit}>
-                            <FormGroup>
-                                <h1>Email</h1>
-                                <FormControl type="email" placeholder="Email"/>
+                            <FormGroup  validationState={this.state.emailValid}>
+                                <ControlLabel>Email</ControlLabel>
+                                <FormControl type= "email" placeholder="Email"/>
                             </FormGroup>
-                            <FormGroup>
-                                <h1>Password</h1>
+                            <FormGroup validationState={this.state.passwordValid}>
+                                <ControlLabel>Password</ControlLabel>
                                 <FormControl type="password" placeholder="Password"/>
                             </FormGroup>
                             <FormGroup>
@@ -45,6 +51,12 @@ export default class LogInform extends React.Component {
                                 Sign in
                                 </Button>
                             </FormGroup>
+                            <ControlLabel>
+                                Don't have a account?
+                                <Link to="/signup">
+                                    Sign Up
+                                </Link>
+                            </ControlLabel>
                         </Form>
                     </Col>
                 </Row>

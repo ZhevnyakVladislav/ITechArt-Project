@@ -1,4 +1,5 @@
 header {
+    font: inherit;
     .navbar-default {
         background-color: #FFF;
         border: 0;
@@ -12,7 +13,7 @@ header {
     }
 
     .row img {
-            cursor: pointer;
+        cursor: pointer;
     }
 
     .row > div:first-child{

@@ -21,9 +21,7 @@ function mapDispatchToProps(dispatch) {
 class LogInForm extends React.PureComponent {
     render() {
         return (!this.props.isUserAuth) ? (
-            <Component 
-                logIn={this.props.logIn}
-            />
+            <Component logIn={this.props.logIn} />
         ) : (<Redirect to='/' />);
     }
 };
