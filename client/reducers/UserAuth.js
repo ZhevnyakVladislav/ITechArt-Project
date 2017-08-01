@@ -11,7 +11,7 @@ export function userState(state = initialState, action) {
             ...state,
             isUserAuth: true
         };
-    case user.LOG_IN_SUCCESFUL: 
+    case user.LOG_IN_SUCCESSFUL: 
         return {
             ...state,
             isUserAuth: true
@@ -21,6 +21,12 @@ export function userState(state = initialState, action) {
             ...state,
             isUserAuth: false,
         };
+    case user.SIGN_UP_SUCCESSFUL: {
+        return {
+            ...state,
+            isUserAuth: true
+        };
+    }
     default:
         return state;
     }
