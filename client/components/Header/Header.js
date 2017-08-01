@@ -10,16 +10,14 @@ export default class Header extends React.Component {
                 <Navbar fluid>
                     <Row> 
                         <Col xs={8}>
-                            <Image  src='https://www.itechart.com/static/img/logo.png'/>
+                            <LinkContainer to="/">
+                                <Image  src='https://www.itechart.com/static/img/logo.png'/>
+                            </LinkContainer>
                         </Col>
                         <Col xs={3}>
-                            <Nav pullRight>
-                                <LinkContainer to="/login">
-                                    <NavItem eventKey={1}>
-                                        <Button bsStyle='primary'>Log In</Button>
-                                    </NavItem>
-                                </LinkContainer>
-                            </Nav>
+                            <LinkContainer to="/login">
+                                <Button >Log In</Button>
+                            </LinkContainer>
                         </Col>
                     </Row>
                 </Navbar>
