@@ -16,7 +16,7 @@
         height: 100%;
         background-color: rgb(244, 244, 244);
         transition:  0.6s;
-        padding: 40px 0;
+        padding: 10px 0;
 
         &.opened { left: 0; }
         &.closed { left: -70%; }
@@ -28,14 +28,14 @@
 
         .logout {
             text-align: center;
-            position: fixed;
+            position: absolute;
+            bottom: 0;
+            padding: 0;
         }
-
-        h4 {
-            text-align: center;
+        button {
+            width: 100%;
         }
     }
-    
 }
 
 @media screen and (min-width: 768px) {
