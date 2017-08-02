@@ -3,24 +3,54 @@ header {
     .navbar-default {
         background-color: #FFF;
         border: 0;
-        padding: 20px 0;
+        padding: 10px 0;
         border-bottom: 1px solid #f4f4f4;
     }
 
     .row {
         display: flex;
         align-items: center;
-    }
 
-    .row img {
-        cursor: pointer;
-    }
+        img {
+            cursor: pointer;
+        }
 
-    .row > div:first-child{
-        text-align: start;
-    }
-    
-    .row > div:last-child{
-        text-align: end;
+        .links {
+            display: flex;
+            justify-content: center;
+
+            .nav {
+                font: inherit;
+            
+                li {
+                    font: inherit;
+                    font-size: 1.08em;  
+                    font-weight: 500;
+
+                    a {
+                        color: #414141;
+                        text-transform: uppercase;
+                        text-align: center;
+                    }
+
+                    a:hover {
+                        color: #eb1c23;
+                    }
+                }
+            }
+        }
+        
+        .avatar {
+            div {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+
+                h4 {
+                    margin: auto 20px;
+                }
+            }
+
+        }
     }
 }
