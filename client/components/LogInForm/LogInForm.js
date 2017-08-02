@@ -24,12 +24,10 @@ export default class LogInform extends React.Component {
     }
        
     handleSubmit() {
-        if(this.validation()) {
-            this.props.logIn({
-                email: this.state.email,
-                password: this.state.password
-            });
-        }
+        this.props.logIn({
+            email: this.state.email,
+            password: this.state.password
+        });
     }
     
     render() {
