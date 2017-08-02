@@ -2,21 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { closeDrawer } from '../actions/PageActions';
 import { logOut } from '../actions/UserAuth';
-import { openDrawer } from '../actions/PageActions';
 
-import Header from '../components/Header/Header';
+import LeftDrawer from '../components/LeftDrawer/LeftDrawer';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth
+        isUserAuth: state.userState.isUserAuth,
+        isDrawerOpen: state.drawerState.isDrawerOpen
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        logOut,
-        openDrawer
+        closeDrawer,
+        logOut
     }, dispatch);
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LeftDrawer));

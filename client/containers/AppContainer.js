@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import '../stylesheets/index.scss';
 
 import Header from '../containers/HeaderContainer';
+import LeftDrawer from '../containers/LeftDrawerContainer';
 import Routes from '../routes/Routes';
 
 function mapStateToProps (state) {
@@ -16,7 +17,8 @@ class App extends React.Component {
     render() {
         return(
             <div className='app-container'>
-                <Header isUserAuth={this.props.isUserAuth}/>
+                <Header />
+                <LeftDrawer />
                 <Routes />
             </div>
         );
