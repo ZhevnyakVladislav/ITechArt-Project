@@ -1,0 +1,56 @@
+header {
+    font: inherit;
+    .navbar-default {
+        background-color: #FFF;
+        border: 0;
+        padding: 10px 0;
+        border-bottom: 1px solid #f4f4f4;
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+
+        img {
+            cursor: pointer;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+
+            .nav {
+                font: inherit;
+            
+                li {
+                    font: inherit;
+                    font-size: 1.08em;  
+                    font-weight: 500;
+
+                    a {
+                        color: #414141;
+                        text-transform: uppercase;
+                        text-align: center;
+                    }
+
+                    a:hover {
+                        color: #eb1c23;
+                    }
+                }
+            }
+        }
+        
+        .avatar {
+            div {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+
+                h4 {
+                    margin: auto 20px;
+                }
+            }
+
+        }
+    }
+}

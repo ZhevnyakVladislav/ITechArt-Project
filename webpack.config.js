@@ -5,13 +5,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const webpackConfig = {
     entry: [
-        path.join(__dirname, './client/stylesheets/index.scss'),
         path.join(__dirname, './client/app.js'),
     ],
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.join(__dirname, './dist'),
         filename: '[name].bundle.js',
-        publicPath: '/'
+        publicPath: 'dist/'
     },
     module: {
         rules: [
@@ -45,9 +44,8 @@ const webpackConfig = {
     plugins: [
         new ExtractTextPlugin('[name].bundle.css'),
         new WebpackNotifierPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
     ],
+    devtool: 'cheap-source-map',
 };
 
 module.exports = webpackConfig;

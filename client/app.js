@@ -1,14 +1,23 @@
 import React from 'react';
 import  { render } from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import App from './containers/AppContainer';
+import configureStore from './store/configureStore';
+
+const store = configureStore();
+
+const user = localStorage.getItem('user');
+
+if (user) {
+    store.dispatch({type: 'USER_AUTH'});
+}
 
 render(
-    <div>
-        <Header />
-        <div>Content</div>
-        <Footer />
-    </div>,
+    <Provider store={store}>
+        <Router>
+            <App />
+        </Router>
+    </Provider>, 
     document.querySelector('#app')
 );
