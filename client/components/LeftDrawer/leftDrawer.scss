@@ -7,6 +7,7 @@
     z-index: 1000;
     background-color: rgba(83, 85, 88, 0.4);
     display: block;
+    font: inherit;
 
     &.opened { visibility: visible; }
     &.closed { visibility: hidden; }
@@ -17,13 +18,21 @@
         background-color: rgb(244, 244, 244);
         transition:  0.6s;
         padding: 10px 0;
+        font: inherit;
 
         &.opened { left: 0; }
         &.closed { left: -70%; }
 
         .menu-item {
-            border-bottom : 1px solid rgb(230, 230, 230);
             margin: 10px 0;
+            border-bottom : 1px solid rgb(230, 230, 230);
+            font: inherit;
+            color: #414141;
+            text-transform: uppercase;
+            
+            &.avatar {
+                text-transform: none;
+            }
         }
 
         .logout {
