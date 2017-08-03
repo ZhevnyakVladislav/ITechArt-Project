@@ -36,7 +36,9 @@ export default class Header extends React.Component {
                 </Col>
             ) : (
                 <Col xsHidden smOffset={7} sm={3}>
-                    {button}
+                    <LinkContainer to="/login">
+                        {button}
+                    </LinkContainer>
                 </Col>
             )
         );
