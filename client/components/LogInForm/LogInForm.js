@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Row, Col, Form, FormGroup, FormControl, Button, ControlLabel, InputGroup } from 'react-bootstrap';
-import validation from '../../constants/validation/validation';
+import validType from '../../constants/validation/validation';
+import { validateEmail, validatePassword } from '../../helpers/validationHelper';
 import './logInForm.scss';
 
 export default class LogInform extends React.Component {
@@ -10,15 +11,14 @@ export default class LogInform extends React.Component {
         this.state = {
             email: '',
             password: '',
-            emailValid: validation.default,
-            passwordValid: validation.default, 
+            errors: {
+                emailValid: validType.default,
+                passwordValid: validType.default,
+            }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validation = this.validation.bind(this);
-        this.emailValidation =  this.emailValidation.bind(this);
-        this.passwordValidation =  this.passwordValidation.bind(this);
-        
     }
 
     handleChange(e) {
@@ -28,8 +28,7 @@ export default class LogInform extends React.Component {
     }
        
     handleSubmit() {
-        if(this.validation()) {
-            debugger;
+        if (this.validation()) {
             this.props.logIn({
                 email: this.state.email,
                 password: this.state.password
@@ -38,40 +37,16 @@ export default class LogInform extends React.Component {
     }
     
     validation() {
-        let errors = {};
-        this.emailValidation(errors);
-        this.passwordValidation(errors);
-        this.setState({
-            emailValid: errors.emailValid,
-            passwordValid: errors.passwordValid
-        });
+        let errors = {
+            emailValid: validateEmail(this.state.email),
+            passwordValid: validatePassword(this.state.password)
+        };
 
-        if (errors.emailValid == validation.success && errors.passwordValid == validation.success) {
-            return true;
-        }
-
-        return false;
-    }
-
-    emailValidation(errors) {
-        if(!this.state.email) {
-            errors.emailValid = validation.error;
-        } else {
-            let email = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            if(email.test(this.state.email)) {
-                errors.emailValid = validation.success;
-            } else {
-                errors.emailValid = validation.warning;
-            }
-        }
-    }
-
-    passwordValidation(errors) {
-        if(!this.state.password) {
-            errors.passwordValid = validation.error;
-        } else {
-            errors.passwordValid = validation.success;
-        }
+        this.setState({ errors });
+        
+        return Object.keys(errors)
+            .map(field => errors[field] === validType.success)
+            .reduce((prev, curr) => prev && curr);
     }
 
     render() {
@@ -80,12 +55,12 @@ export default class LogInform extends React.Component {
                 <Row>
                     <Col xs={12} smOffset={2} sm={8} mdOffset={3} md={6} lgOffset={4} lg={4}>
                         <Form onChange={this.handleChange} >
-                            <FormGroup validationState={this.state.emailValid}>
+                            <FormGroup validationState={this.state.errors.emailValid}>
                                 <ControlLabel>Email</ControlLabel>
                                 <FormControl type= "email" placeholder="Email"/>
                                 <FormControl.Feedback />
                             </FormGroup>
-                            <FormGroup validationState={this.state.passwordValid}>
+                            <FormGroup validationState={this.state.errors.passwordValid}>
                                 <ControlLabel>Password</ControlLabel>
                                 <FormControl type="password" placeholder="Password"/>
                                 <FormControl.Feedback />
