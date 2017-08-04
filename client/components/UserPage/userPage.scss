@@ -1,0 +1,81 @@
+.user-page {
+    font: inherit;
+    .row {
+        font: inherit;
+        .avatar {
+            position: relative;
+            font: inherit;
+                img {
+                    height: 250px;
+                    width: 100%;
+                }   
+                h3 {
+                    position: absolute;
+                    top: 75%;
+                    color: #fff;
+                    margin-left: 5%;
+                }
+
+                button {
+                    position: absolute;
+                    background-color: rgba(0, 0, 0,0);
+                    border: 0;
+                }
+
+                .option {
+                    top: 10%;
+                    left: 85%;
+                }
+
+                .load-img {
+                    top: 80%;
+                    left: 85%;
+                }
+        }
+        .edit {
+            margin-top: 1%;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: none;
+            button {
+                width: 100%;
+            }
+        }
+        .user-info {
+            padding: 0;
+            color: #414141;
+            background-color: #f4f4f4;
+            p {
+                display: flex;
+                flex-wrap: wrap;
+                span {
+                    margin: 1% 1%;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+   .user-page {
+       margin-top: 60px;
+       .row {
+           .avatar {
+                padding: 20px;
+                background-color: #f4f4f4;
+                button {
+                    display: none;
+                }
+            }
+            .edit {
+                display: block;
+                
+            }
+           .user-info {
+                margin-left:2%; 
+                padding: 20px;
+                background-color: #f4f4f4;
+           }
+       }
+   }
+}
