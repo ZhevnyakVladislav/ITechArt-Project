@@ -1,0 +1,31 @@
+.adverts {
+    .tabs {
+        .nav {
+            li a {
+                color: #eb1c23;
+            }
+            .active a {
+                background-color: #eb1c23;
+                border: 1px solid #eb1c23;
+                color: #fff;
+            }
+
+            .active a:hover {
+                background-color: #eb1c23;
+                border: 1px solid #eb1c23;
+                color: #fff;
+            }
+            
+            .active a:focus {
+                background-color: #eb1c23;
+                border: 1px solid #eb1c23;
+                color: #fff;
+            }
+        }
+    }
+    .tab-content {
+        .row {
+            text-align: center;
+        }
+    }
+}
