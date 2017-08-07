@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import { userState } from './UserAuth';
-import { pageState } from './PageActions';
+import userState from './UserAuth';
 
 export default combineReducers({
     userState,
-    pageState
 });

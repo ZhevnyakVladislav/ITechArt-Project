@@ -1,33 +1,41 @@
 import actionType from '../constants/UserAuth';
+import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
     isUserAuth: false
 };
 
-export function userState(state = initialState, action) {
-    switch (action.type) {
-    case actionType.USER_AUTH: 
-        return {
-            ...state,
-            isUserAuth: true
-        };
-    case actionType.LOG_IN_SUCCESSFUL: 
-        return {
-            ...state,
-            isUserAuth: true
-        };
-    case actionType.LOG_OUT: 
-        return {
-            ...state,
-            isUserAuth: false,
-        };
-    case actionType.SIGN_UP_SUCCESSFUL: {
-        return {
-            ...state,
-            isUserAuth: true
-        };
-    }
-    default:
-        return state;
-    }
-};
+function userAuth(state, action) {
+    return {
+        ...state,
+        isUserAuth: true
+    };
+}
+
+function logIn(state, action) {
+    return {
+        ...state,
+        isUserAuth: true
+    };
+}
+
+function logOut(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+    };
+}
+
+function signUp(state, action) {
+    return {
+        ...state,
+        isUserAuth: true
+    };
+}
+
+export default createReducer(initialState, {
+    [actionType.USER_AUTH]: userAuth,
+    [actionType.LOG_IN_SUCCESSFUL]: logIn,
+    [actionType.LOG_OUT]: logOut,
+    [actionType.SIGN_UP_SUCCESSFUL]: signUp
+});
