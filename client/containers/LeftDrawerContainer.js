@@ -10,7 +10,7 @@ import LeftDrawer from '../components/LeftDrawer/LeftDrawer';
 function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
-        isDrawerOpen: state.drawerState.isDrawerOpen
+        isDrawerOpen: state.pageState.isDrawerOpen
     };
 };
 
