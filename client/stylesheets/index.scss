@@ -11,11 +11,19 @@ $fa-font-path: '~font-awesome/fonts';
     box-shadow: none;
 }
 
+@mixin button($ackground-color, $color) {
+    background-color: $ackground-color;
+    color: $color;
+    font-weight: 600;
+    @include border(2px, solid, #eb1c23);
+  
+}
+
 html, body {
     min-height: 100%;
     margin: 0;
     position: relative;
-    font-family: 'Open Sans',sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 400;
     color: #535558;
@@ -26,22 +34,25 @@ html, body {
     font: inherit;
 }
 .app-container .btn {
-    background-color: #eb1c23;
-    color: #ffffff;
-    @include border(2px, solid, #eb1c23);
+    @include button(#eb1c23, #ffffff);
 }
 
 .app-container .btn:hover {
-    background-color: #ffffff;
-    color: #eb1c23;
-    @include border(2px, solid, #eb1c23);
+    @include button(#ffffff, #eb1c23);
 }
 
 .app-container .btn:focus {
-    background-color: #eb1c23;
-    color: #ffffff;
-    @include border(2px, solid, #eb1c23);
+    @include button(#eb1c23, #ffffff);
 }
 
+.modal-open .btn {
+    @include button(#eb1c23, #ffffff);
+}   
 
+.modal-open .btn:hover {
+    @include button(#ffffff, #eb1c23);
+}
 
+.modal-open .btn:focus {
+    @include button(#eb1c23, #ffffff);
+}

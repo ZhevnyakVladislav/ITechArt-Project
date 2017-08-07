@@ -1,24 +1,35 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import './respondDialog.scss';
 
 export default class RespondDialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            messageText: ''
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState({
+            [e.target.id]: e.target.value
+        });
+    }
+
     render() {
         return (
-            <Modal show={this.props.isRespondDialogOpen} >
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
+            <Modal 
+                show={this.props.isRespondDialogOpen}>
                 <Modal.Body>
-                    <h4>Text in a modal</h4>
-                    <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-                    <h4>Popover in a modal</h4>
-                    <h4>Tooltips in a modal</h4>
-                    <hr />
-                    <h4>Overflowing text to show scroll behavior</h4>
+                    <FormGroup controlId="messageText" >
+                        <ControlLabel>Input message</ControlLabel>
+                        <FormControl onChange={this.handleChange} componentClass="textarea" placeholder="textarea" />
+                    </FormGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.props.closeRespondDialog}>Close</Button>
+                    <Button className="close-button" onClick={this.props.closeRespondDialog}>Close</Button>
+                    <Button onClick={this.props.sendResponse} value={this.state.messageText}>Send</Button>
                 </Modal.Footer>
             </Modal>
         );

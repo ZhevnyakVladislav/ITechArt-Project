@@ -21,23 +21,30 @@ export default class Adverts extends React.Component {
         }
         this.renderAdvertsList = this.renderAdvertsList.bind(this);
         this.changeStateDialog = this.changeStateDialog.bind(this);
+        this.handleSendResponse = this.handleSendResponse.bind(this);
     }
     
-    changeStateDialog() {
+    changeStateDialog(e) {
         this.setState({ isRespondDialogOpen: !this.state.isRespondDialogOpen});
+    }
+
+    handleSendResponse(e) {
+        this.changeStateDialog();
     }
 
     renderAdvertsList() {
         return (
             <ListGroup>
-                {this.state.adverts.map((advert,key) => 
-                    <AdvertPanel 
-                        openRespondDialog={this.changeStateDialog}
-                        key={key} 
-                        advert={{
-                            title: advert.title,
-                            discription: advert.discription
-                        }}/>
+                {this.state.adverts.map((advert, key) => 
+                    <div  key={key} className="advert">
+                        <AdvertPanel 
+                            openRespondDialog={this.changeStateDialog}
+                            advert={{
+                                title: advert.title,
+                                discription: advert.discription
+                            }}/>
+                        <Button onClick={this.changeStateDialog} value={advert.title}>respond</Button>
+                    </div>
                 )}
             </ListGroup>
         );
@@ -81,7 +88,7 @@ export default class Adverts extends React.Component {
                     </Row> 
                 </Tab.Container>
                 <RespondDialog
-                    sendResponse={true} 
+                    sendResponse={this.handleSendResponse} 
                     closeRespondDialog={this.changeStateDialog}
                     isRespondDialogOpen={this.state.isRespondDialogOpen} 
                 />
