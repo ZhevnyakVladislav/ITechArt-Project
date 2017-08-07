@@ -1,0 +1,14 @@
+.panel {
+    .panel-heading {
+        font-weight: 600;
+    }
+
+    .panel-body {
+        display: flex;
+        flex-direction: column;
+        label {
+            padding: 5px 0;
+            margin: 0;
+        }
+    }
+}
