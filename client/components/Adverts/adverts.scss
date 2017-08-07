@@ -1,0 +1,69 @@
+@mixin respond-button() {
+    bottom: 20px;
+    right: 15px;
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    color: #eb1c23;
+    padding: 0;
+}
+
+@mixin button-style() {
+    background-color: #eb1c23;
+    border: 1px solid #eb1c23;
+    color: #fff;
+}
+.adverts {
+    .tabs {
+        .nav {
+            li a {
+                color: #eb1c23;
+            }
+            .active {
+                a {
+                    @include button-style();
+                }
+
+                a:hover {
+                    @include button-style();
+                }
+
+                a:focus {
+                    @include button-style();
+                }
+            }
+        }
+    }
+    .tab-content {
+        .advert {
+            position: relative;
+            button {
+               @include respond-button();
+            }
+
+            button:hover {
+               @include respond-button();
+            }
+            
+            button:focus {
+               @include respond-button();
+            }
+        }
+
+        .row {
+            text-align: center;
+            ul {
+                li {
+                    a {
+                        color: #eb1c23;
+                    }
+                    &.active {
+                        a {
+                            @include button-style();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
 export default {
-    OPEN: 'OPEN',
-    CLOSE: 'CLOSE'
+    DRAWER_OPEN: 'DRAWER_OPEN',
+    DRAWER_CLOSE: 'DRAWER_CLOSE'
 };
