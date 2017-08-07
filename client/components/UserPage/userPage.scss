@@ -22,14 +22,9 @@
                     border: 0;
                 }
 
-                .option {
-                    top: 10%;
-                    left: 85%;
-                }
-
                 .load-img {
-                    top: 80%;
-                    left: 85%;
+                    top: 200px;
+                    right: 10px;
                 }
         }
         .edit {
@@ -52,6 +47,39 @@
                     margin: 1% 1%;
                 }
             }
+        }
+
+        .adverts {
+           .advert {
+                position: relative;
+                padding: 0;
+                .panel {
+                    margin-bottom: 0;
+                }
+
+                .btn {
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    right: 27px;
+                    top: 10px;
+                    background-color: #f5f5f5;
+                    color: #eb1c23;
+                    border: 0;
+                    padding: 0;
+                }
+
+                .message {
+                    .well {
+                        display: flex;
+                        align-items: center;
+                        img {
+                            height: 70px;
+                        }
+                    }
+                    
+                }
+           }
         }
     }
 }

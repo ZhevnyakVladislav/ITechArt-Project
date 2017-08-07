@@ -16,12 +16,12 @@ export default class Header extends React.Component {
                 <Col xsHidden sm={9}>
                     <Col sm={7} className='links'>
                         <Nav>
-                            <NavItem eventKey={1} href="/newadvert">new advert</NavItem>
-                            <NavItem eventKey={2} href="/alladvert">all advert</NavItem>
+                            <NavItem href="/newadvert">new advert</NavItem>
+                            <NavItem href="/alladverts">all advert</NavItem>
                         </Nav>
                     </Col>
                     <Col sm={3} className='avatar'>
-                        <LinkContainer to="/login">
+                        <LinkContainer to="/account">
                             <div>
                                 <h4>Vladislav</h4>
                                 <Image src="http://via.placeholder.com/50x50" circle />
