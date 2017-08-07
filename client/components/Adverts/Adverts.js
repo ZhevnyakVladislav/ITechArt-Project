@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Row, Col, ListGroup, Tab, Nav, NavItem, Button, Panel, Pagination } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, Tab, Nav, NavItem, Button, Panel, Pagination, Modal } from 'react-bootstrap';
 import './adverts.scss';
 
 import AdvertPanel from '../AdvertPanel/AdvertPanel';
+import RespondDialog from './RespondDialog/RespondDialog';
 
 export default class Adverts extends React.Component {
 
@@ -10,6 +11,7 @@ export default class Adverts extends React.Component {
         super(props);
         this.state = {
             adverts: [],
+            isRespondDialogOpen: false,
         };
         for (var i = 0; i < 3; i++) {
             this.state.adverts.push({
@@ -18,16 +20,24 @@ export default class Adverts extends React.Component {
             });
         }
         this.renderAdvertsList = this.renderAdvertsList.bind(this);
+        this.changeStateDialog = this.changeStateDialog.bind(this);
+    }
+    
+    changeStateDialog() {
+        this.setState({ isRespondDialogOpen: !this.state.isRespondDialogOpen});
     }
 
     renderAdvertsList() {
         return (
             <ListGroup>
                 {this.state.adverts.map((advert,key) => 
-                    <AdvertPanel key={key} advert={{
-                        title: advert.title,
-                        discription: advert.discription
-                    }}/>
+                    <AdvertPanel 
+                        openRespondDialog={this.changeStateDialog}
+                        key={key} 
+                        advert={{
+                            title: advert.title,
+                            discription: advert.discription
+                        }}/>
                 )}
             </ListGroup>
         );
@@ -70,6 +80,11 @@ export default class Adverts extends React.Component {
                         </Col>
                     </Row> 
                 </Tab.Container>
+                <RespondDialog
+                    sendResponse={true} 
+                    closeRespondDialog={this.changeStateDialog}
+                    isRespondDialogOpen={this.state.isRespondDialogOpen} 
+                />
             </Grid>
         );    
     }

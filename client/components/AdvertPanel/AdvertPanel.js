@@ -9,7 +9,7 @@ export default class advertPanel extends React.Component {
                 {this.props.advert.discription}
                 <ControlLabel>
                     vladislav, sdfвфцвфцвфцeda@gmail.com
-                    <Button>respond</Button>
+                    <Button onClick={this.props.openRespondDialog}>respond</Button>
                 </ControlLabel>
                 
             </Panel>
