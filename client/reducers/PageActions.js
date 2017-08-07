@@ -1,18 +1,18 @@
-import drawer from '../constants/PageActions';
+import pageActions from '../constants/PageActions';
 
 const initialState = {
     isDrawerOpen: false,
 };
 
-export function drawerState(state=initialState, action) {
+export function pageState(state=initialState, action) {
     switch (action.type) {
-    case drawer.OPEN: {
+    case pageActions.DRAWER_OPEN: {
         return {
             ...state,
             isDrawerOpen: true
         };
     }
-    case drawer.CLOSE: {
+    case pageActions.DRAWER_CLOSE: {
         return {
             ...state,
             isDrawerOpen: false

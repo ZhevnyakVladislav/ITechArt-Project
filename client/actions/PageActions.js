@@ -1,13 +1,13 @@
-import drawer from '../constants/PageActions';
+import pageAction from '../constants/PageActions';
 
 export function openDrawer() {
     return {
-        type: drawer.OPEN
+        type: pageAction.DRAWER_OPEN
     };
 };
 
 export function closeDrawer() {
     return {
-        type: drawer.CLOSE
+        type: pageAction.DRAWER_CLOSE
     };
 };
