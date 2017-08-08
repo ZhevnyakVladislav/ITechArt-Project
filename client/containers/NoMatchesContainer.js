@@ -1,2 +1,8 @@
-import React from rea
+import React from 'react';
 import { Redirect } from 'react-router-dom';
+
+export default class NoMatches extends React.PureComponent {
+    render() {
+        return (<Redirect to="/login" />);
+    }
+}
