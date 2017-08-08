@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Row, Col, Form, FormGroup, FormControl, Button, ControlLabel, InputGroup } from 'react-bootstrap';
+import { Grid, Row, Col, Form, FormGroup, FormControl, Button, ControlLabel, ListGroup, Label, Glyphicon } from 'react-bootstrap';
 import validType from '../../constants/validation/validation';
 import { validateEmail, validateOnExistence,validatePassword, validateConfirmPassword} from '../../helpers/validationHelper';
 import './SignUpForm.scss';
@@ -15,6 +15,7 @@ export default class LogInform extends React.Component {
             pseudonym: '',
             password: '', 
             confirmPassword: '',
+            languages: [],
             errors: {
                 firstNameValid: validType.default,
                 secondNameValid: validType.default,
@@ -28,14 +29,31 @@ export default class LogInform extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateData = this.validateData.bind(this);
         this.renderWarningMessage = this.renderWarningMessage.bind(this);
+        this.addLanguage = this.addLanguage.bind(this);
+        this.deleteLanguage = this.deleteLanguage.bind(this);
+        
     }
 
     handleChange(e) {
-        this.setState({
-            [e.target.id]: e.target.value
-        });
+        if(e.target.id === 'languages') {
+            this.addLanguage(e.target.value);
+        } else {
+            this.setState({
+                [e.target.id]: e.target.value
+            });
+        }
     }
        
+    addLanguage(language) {
+        this.state.languages.push(language);
+        this.setState({ languages: this.state.languages });
+    }
+
+    deleteLanguage(e) { 
+        const changedLanguages = [...this.state.languages.slice(0, e.target.id),...this.state.languages.slice(e.target.id + 1)];
+        this.setState({ languages: changedLanguages });
+    }
+
     handleSubmit() {
         if (this.validateData()) {
             this.props.signUp({
@@ -71,7 +89,20 @@ export default class LogInform extends React.Component {
     }
 
     render() {
-        
+        const renderLanguage = (
+            <ListGroup>
+                {this.state.languages.map((language, i) => 
+                    <Label key={i}>
+                        {language}
+                        <Button className="load-img" onClick={this.deleteLanguage}>
+                            <Glyphicon id={i} glyph="remove"/>
+                        </Button>
+                    </Label>
+                )}
+                
+            </ListGroup>
+        );
+
         return(
             <Grid className='login-form'>
                 <Row>
@@ -121,9 +152,17 @@ export default class LogInform extends React.Component {
                                     <option value="london">London</option>
                                 </FormControl>
                             </FormGroup>
+                            <FormGroup controlId="languages">
+                                <ControlLabel>Select languages</ControlLabel>
+                                <FormControl componentClass="select">
+                                    <option value="russian">russian</option>
+                                    <option value="belorusian">belorusian</option>
+                                </FormControl>
+                            </FormGroup>
+                            {renderLanguage}
                             <FormGroup>
                                 <Button onClick={this.handleSubmit}>
-                                Sign up
+                                    Sign up
                                 </Button>
                             </FormGroup>
                         </Form>

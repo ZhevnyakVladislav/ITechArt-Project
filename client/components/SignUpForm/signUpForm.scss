@@ -1,0 +1,28 @@
+@mixin button() {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    padding: 0;
+    margin-left: 5px;
+}
+.row {
+    >div {
+        .list-group {
+            display: flex;
+            flex-wrap: wrap;
+            button {
+               @include button();
+               color: #eb1c23;
+            }
+            button:hover {
+               @include button();
+            }
+            button:focus {
+               @include button();
+               color: #eb1c23;
+            }
+            > span {
+                margin: 1%;
+            }
+        }
+    }
+}
