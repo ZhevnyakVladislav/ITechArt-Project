@@ -1,22 +1,29 @@
 import actionType from '../constants/UserAuth';
+import userApi from './api/userApi';
 
 export function logIn(user) {
-    localStorage.setItem('user', user);
-    return {
-        type: actionType.LOG_IN_SUCCESSFUL
+    return dispatch => {
+        userApi.logIn(user)
+            .then(()=> {
+                dispatch({ type: actionType.LOG_IN_SUCCESSFUL});
+            });
     };
 }
 
 export function logOut() {
-    localStorage.removeItem('user');
-    return {
-        type: actionType.LOG_OUT
+    return dispatch => {
+        userApi.logOut()
+            .then(()=> {
+                dispatch({ type: actionType.LOG_OUT});
+            });
     };
 }
 
 export function signUp(user) {
-    localStorage.setItem('user', user);
-    return {
-        type: actionType.SIGN_UP_SUCCESSFUL
+    return dispatch => {
+        userApi.signUp(user)
+            .then(()=> {
+                dispatch({ type: actionType.SIGN_UP_SUCCESSFUL});
+            });
     };
 }
