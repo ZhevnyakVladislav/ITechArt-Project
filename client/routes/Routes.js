@@ -5,6 +5,7 @@ import LogInForm from '../containers/LogInFormContainer';
 import SignUpForm from '../containers/SignUpFormContainer';
 import Adverts from '../containers/AdvertsContainer';
 import UserPage from '../containers/UserPageContainer';
+import AddAdvertForm from '../containers/AddAdvertFormContainer';
 
 export default () => (
     <Switch>
@@ -12,5 +13,6 @@ export default () => (
         <Route path="/signup" component={SignUpForm} />
         <Route path="/account" component={UserPage} />
         <Route path="/alladverts" component={Adverts} />
+        <Route path="/newadvert" component={AddAdvertForm} />
     </Switch>
 );
