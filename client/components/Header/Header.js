@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import { Row, Col, Navbar, Nav, NavItem, Button, Image } from 'react-bootstrap';
 import './header.scss';
 
@@ -13,32 +13,30 @@ export default class Header extends React.Component {
 
         const header = (
             (this.props.isUserAuth) ? (
-                <Col xsHidden sm={9}>
-                    <Col sm={7} className='links'>
-                        <Nav>
-                            <NavItem href="/newadvert">new advert</NavItem>
-                            <NavItem href="/alladverts">all advert</NavItem>
-                        </Nav>
+                <Col xsHidden sm={9} className="nav">
+                    <Col sm={7} className="links">
+                        <Link to="/newadvert">new advert</Link>
+                        <Link to="/alladverts">all advert</Link>
                     </Col>
                     <Col sm={3} className='avatar'>
-                        <LinkContainer to="/account">
+                        <Link to="/account">
                             <div>
                                 <h4>Vladislav</h4>
                                 <Image src="http://via.placeholder.com/50x50" circle />
                             </div>
-                        </LinkContainer>
+                        </Link>
                     </Col>
                     <Col sm={2}>
-                        <LinkContainer to="/login">
+                        <Link to="/login">
                             {button}
-                        </LinkContainer>
+                        </Link>
                     </Col>
                 </Col>
             ) : (
                 <Col xsHidden smOffset={7} sm={3}>
-                    <LinkContainer to="/login">
+                    <Link to="/login">
                         {button}
-                    </LinkContainer>
+                    </Link>
                 </Col>
             )
         );
@@ -47,9 +45,9 @@ export default class Header extends React.Component {
                 <Navbar fluid>
                     <Row> 
                         <Col xs={10} sm={3}>
-                            <LinkContainer to="/">
+                            <Link to="/alladverts">
                                 <Image  src='https://www.itechart.com/static/img/logo.png'/>
-                            </LinkContainer>
+                            </Link>
                         </Col>
                         {header}
                         <Navbar.Toggle onClick={this.props.openDrawer}/>

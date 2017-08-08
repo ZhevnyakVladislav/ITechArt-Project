@@ -1,5 +1,6 @@
 header {
     font: inherit;
+    margin-bottom: 20px;
     .navbar-default {
         background-color: #FFF;
         border: 0;
@@ -16,32 +17,31 @@ header {
             cursor: pointer;
         }
 
-        .links {
+        .nav {
             display: flex;
-            justify-content: center;
+            align-items: center;
+            font: inherit;
+            .links {
+                text-align: center;
+                a {
+                    color: #414141;
+                    text-transform: uppercase;
+                    text-align: center;
+                    margin: 0 20px;
+                }
 
-            .nav {
-                font: inherit;
-            
-                li {
-                    font: inherit;
-                    font-size: 1.08em;  
-                    font-weight: 500;
-
-                    a {
-                        color: #414141;
-                        text-transform: uppercase;
-                        text-align: center;
-                    }
-
-                    a:hover {
-                        color: #eb1c23;
-                    }
+                a:hover {
+                    color: #eb1c23;
+                    text-decoration: none;
                 }
             }
         }
         
         .avatar {
+            a {
+                color: #414141;
+                text-decoration: none;
+            }
             div {
                 display: flex;
                 justify-content: flex-end;
