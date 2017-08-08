@@ -1,6 +1,8 @@
 import React from 'react'; 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { logOut } from '../actions/UserAuth';
 import '../stylesheets/index.scss';
 
 import Header from '../containers/HeaderContainer';
@@ -12,6 +14,12 @@ function mapStateToProps (state) {
         isUserAuth: state.userState.isUserAuth
     };
 };
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+        logOut,
+    }, dispatch);
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -35,11 +43,12 @@ class App extends React.Component {
                 <LeftDrawer 
                     isUserAuth={this.props.isUserAuth}
                     isDrawerOpen={this.state.isDrawerOpen}
-                    closeDrawer={this.handleChanheDrawerState}/>
+                    closeDrawer={this.handleChanheDrawerState}
+                    logOut={this.props.logOut}/>
                 <Routes />
             </div>
         );
     }
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
