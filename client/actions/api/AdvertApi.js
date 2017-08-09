@@ -4,9 +4,9 @@ import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/
 const getAllAdverts = () => AsyncWrapper(() => getFromStorage('adverts'));
 
 const addAdvert = (advert) => AsyncWrapper(() => {
-    const adverts = getFromStorage('adverts');
+    const adverts = JSON.parse(getFromStorage('adverts'));
     adverts.push(advert);
-    saveToStorage('adverts', adverts);
+    saveToStorage('adverts', JSON.stringify(adverts));
 });
 
 const removeAdvert = (advert) => AsyncWrapper(() => {

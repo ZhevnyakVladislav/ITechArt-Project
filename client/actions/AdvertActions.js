@@ -17,7 +17,7 @@ export function getFewAdwerts(page, type, count = 3) {
 
 export function addAdvert(advert) {
     return dispatch => {
-        advertApi.addAdvert()
+        advertApi.addAdvert(advert)
             .then((data) => dispatch({ type: actionType.ADD_ADVERT_SUCCESSFUL }));
     };
 }

@@ -11,7 +11,7 @@ export default class AddAdvertForm extends React.Component {
         this.state = {
             title: '',
             description: '',
-            type: 'receptions',
+            type: 'rentOf',
             errors: {
                 titleValid: validType.default,
                 descriptionValid: validType.default, 
@@ -30,7 +30,11 @@ export default class AddAdvertForm extends React.Component {
 
     handleSubmit() {
         if(this.validateData()) {
-            
+            this.props.addAdvert({
+                title: this.state.title,
+                description: this.state.description,
+                type: this.state.type
+            });
         }
     }
 
@@ -56,8 +60,8 @@ export default class AddAdvertForm extends React.Component {
                             <FormGroup controlId="type">
                                 <ControlLabel>Please, choice advert type.</ControlLabel>
                                 <FormControl componentClass="select" placeholder="Reception">
-                                    <option value="reception">Reception</option>
-                                    <option value="search">Search</option>
+                                    <option value="rentOf">Rent of</option>
+                                    <option value="rentOut">Rent out</option>
                                 </FormControl>
                             </FormGroup>
                             <FormGroup bsSize="large" controlId="title" validationState={this.state.errors.titleValid}>
