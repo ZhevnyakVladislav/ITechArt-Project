@@ -7,7 +7,6 @@
     z-index: 1000;
     background-color: rgba(83, 85, 88, 0.4);
     display: block;
-    font: inherit;
 
     &.opened { visibility: visible; }
     &.closed { visibility: hidden; }
