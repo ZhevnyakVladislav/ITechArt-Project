@@ -5,7 +5,7 @@ export function getFewAdwerts(page, type, count = 3) {
     return dispatch => {
         advertApi.getAllAdverts()
             .then(data => {
-                const allAdverts = JSON.parse(data).sort(advert => advert.type === type);
+                const allAdverts = JSON.parse(data).filter(advert => advert.type === type);
                 const fewAdverts = allAdverts.slice((page - 1) * count, (page - 1) * count + count);
                 dispatch({ 
                     type: actionType.GET_ADVERTS_SUCCESSFUL, 

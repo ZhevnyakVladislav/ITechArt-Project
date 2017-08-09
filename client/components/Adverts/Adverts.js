@@ -12,18 +12,42 @@ export default class Adverts extends React.Component {
         this.state = {
             adverts: [],
             isRespondDialogOpen: false,
+            activePage: 1,
+            activeTab: 'rentOf'
         };
-        for (var i = 0; i < 3; i++) {
-            this.state.adverts.push({
-                title: 'Czym jest Lorem Ipsum?',
-                discription: 'W przeciwieństwie do  opinii, Lorem Ipsum nie jest tylko przypadkowym tekstem. Ma ono korzenie w klasycznej łacińskiej literaturze z 45 roku przed Chrystusem, czyli ponad 2000 lat temu! Richard McClintock, wykładowca łaciny na uniwersytecie Hampden-Sydney w Virginii, przyjrzał się uważniej jednemu z najbardziej niejasnych słów w Lorem Ipsum – consectetur – i po wielu poszukiwaniach odnalazł niezaprzeczalne źródło: Lorem Ipsum pochodzi z fragmentów (1.10.32 i 1.10.33) „de Finibus Bonorum et Malorum”, czyli '
-            });
-        }
         this.renderAdvertsList = this.renderAdvertsList.bind(this);
         this.changeStateDialog = this.changeStateDialog.bind(this);
         this.handleSendResponse = this.handleSendResponse.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
+        this.changeTab = this.changeTab.bind(this);
     }
     
+    componentDidMount() {
+        this.props.getFewAdwerts(this.state.activePage, this.state.activeTab);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({ 
+            adverts: props.adverts
+        });
+    }
+    
+    handleSelect(eventKey) {
+        this.props.getFewAdwerts(eventKey, this.state.activeTab);
+        this.setState({
+            activePage: eventKey
+        });
+    }
+
+    changeTab(e) {
+        const type = e.target.id.split('-')[3];
+        this.props.getFewAdwerts(this.state.activePage, type);
+        this.setState({
+            activeTab: type
+        });
+          
+    }
+
     changeStateDialog(e) {
         this.setState({ isRespondDialogOpen: !this.state.isRespondDialogOpen});
     }
@@ -39,10 +63,7 @@ export default class Adverts extends React.Component {
                     <div  key={key} className="advert">
                         <AdvertPanel 
                             openRespondDialog={this.changeStateDialog}
-                            advert={{
-                                title: advert.title,
-                                discription: advert.discription
-                            }}/>
+                            advert={advert}/>
                         <Button onClick={this.changeStateDialog} value={advert.title}>respond</Button>
                     </div>
                 )}
@@ -53,36 +74,36 @@ export default class Adverts extends React.Component {
     render() {
         return(
             <Grid className="adverts" >
-                <Tab.Container id="left-tabs" defaultActiveKey="reception">
+                <Tab.Container id="left-tabs" defaultActiveKey="rentOf">
                     <Row>
                         <Col xs={12} sm={3} className="tabs">
-                            <Nav bsStyle="pills"  stacked>
-                                <NavItem eventKey="reception">
-                                    Reception
-                                </NavItem>
-                                <NavItem eventKey="search">
-                                    Search
+                            <Nav bsStyle="pills"  stacked onClick={this.changeTab}>
+                                <NavItem eventKey="rentOf">
+                                    Rent of
+                                </NavItem >
+                                <NavItem eventKey="rentOut">
+                                    Rent out
                                 </NavItem>
                             </Nav>
                         </Col>
                         <Col xs={12} sm={8}>
                             <Tab.Content animation>
-                                <Tab.Pane eventKey="reception">
+                                <Tab.Pane eventKey={this.state.activeTab}>
                                     {this.renderAdvertsList()}
-                                    <Row>
-                                        <Pagination
-                                            prev
-                                            next
-                                            first
-                                            last
-                                            ellipsis
-                                            boundaryLinks
-                                            items={5}
-                                            maxButtons={3}
-                                            activePage={this.state.activePage}
-                                            onSelect={this.handleSelect} />
-                                    </Row>
                                 </Tab.Pane>
+                                <Row>
+                                    <Pagination
+                                        prev
+                                        next
+                                        first
+                                        last
+                                        ellipsis
+                                        boundaryLinks
+                                        items={Math.ceil(this.props.count / 3)}
+                                        maxButtons={3}
+                                        activePage={this.state.activePage}
+                                        onSelect={this.handleSelect} />
+                                </Row>
                             </Tab.Content>
                         </Col>
                     </Row> 

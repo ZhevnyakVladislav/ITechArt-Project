@@ -6,7 +6,9 @@ export default class advertPanel extends React.Component {
     render() {
         return(
             <Panel header={this.props.advert.title}>
-                {this.props.advert.discription}
+                {this.props.advert.description}
+                {this.props.advert.id}
+                {this.props.advert.type}
                 <ControlLabel>
                     Vladislav 
                 </ControlLabel>
