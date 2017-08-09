@@ -9,9 +9,12 @@ const addAdvert = (advert) => AsyncWrapper(() => {
     saveToStorage('adverts', JSON.stringify(adverts));
 });
 
-const removeAdvert = (advert) => AsyncWrapper(() => {
-    const adverts = getFromStorage('adverts');
-    saveToStorage('adverts', adverts);
+const removeAdvert = (id) => AsyncWrapper(() => {
+    const adverts = JSON.parse(getFromStorage('adverts'));
+    const removedAdvert = adverts.find(advert => advert.id == id);
+    adverts.splice(adverts.indexOf(removedAdvert), 1);
+    saveToStorage('adverts', JSON.stringify(adverts));
+    return adverts;
 });
 
 export default {

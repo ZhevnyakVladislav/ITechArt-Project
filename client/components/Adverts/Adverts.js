@@ -23,7 +23,7 @@ export default class Adverts extends React.Component {
     }
     
     componentDidMount() {
-        this.props.getFewAdwerts(this.state.activePage, this.state.activeTab);
+        this.props.getFewAdverts(this.state.activePage, this.state.activeTab);
     }
 
     componentWillReceiveProps(props) {
@@ -33,7 +33,7 @@ export default class Adverts extends React.Component {
     }
     
     handleSelect(eventKey) {
-        this.props.getFewAdwerts(eventKey, this.state.activeTab);
+        this.props.getFewAdverts(eventKey, this.state.activeTab);
         this.setState({
             activePage: eventKey
         });
@@ -41,7 +41,7 @@ export default class Adverts extends React.Component {
 
     changeTab(e) {
         const type = e.target.id.split('-')[3];
-        this.props.getFewAdwerts(this.state.activePage, type);
+        this.props.getFewAdverts(this.state.activePage, type);
         this.setState({
             activeTab: type
         });
@@ -61,9 +61,7 @@ export default class Adverts extends React.Component {
             <ListGroup>
                 {this.state.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
-                        <AdvertPanel 
-                            openRespondDialog={this.changeStateDialog}
-                            advert={advert}/>
+                        <AdvertPanel advert={advert} />
                         <Button onClick={this.changeStateDialog} value={advert.title}>respond</Button>
                     </div>
                 )}
