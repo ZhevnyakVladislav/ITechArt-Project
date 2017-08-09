@@ -1,3 +1,4 @@
+@import 'buttons.scss';
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 $fa-font-path: '~font-awesome/fonts';
 @import '~font-awesome/scss/_variables.scss';
@@ -11,12 +12,9 @@ $fa-font-path: '~font-awesome/fonts';
     box-shadow: none;
 }
 
-@mixin button($ackground-color, $color) {
-    background-color: $ackground-color;
-    color: $color;
+@mixin button() {
     font-weight: 600;
     @include border(2px, solid, #eb1c23);
-  
 }
 
 html, body {
@@ -27,32 +25,19 @@ html, body {
     font-size: 14px;
     font-weight: 400;
     color: #535558;
-    
 }
 
-.app-container {
-    font: inherit;
-}
-.app-container .btn {
-    @include button(#eb1c23, #ffffff);
+.btn {
+    @include button();
+    transition: 0.5s;
 }
 
-.app-container .btn:hover {
-    @include button(#ffffff, #eb1c23);
+.btn:hover {
+    @include button();
+    background-color: #ffffff;
+    color: #eb1c23;
 }
 
-.app-container .btn:focus {
-    @include button(#eb1c23, #ffffff);
-}
-
-.modal-open .btn {
-    @include button(#eb1c23, #ffffff);
-}   
-
-.modal-open .btn:hover {
-    @include button(#ffffff, #eb1c23);
-}
-
-.modal-open .btn:focus {
-    @include button(#eb1c23, #ffffff);
+.btn:focus {
+    @include button();
 }
