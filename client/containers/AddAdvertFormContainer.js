@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+import { addAdvert } from '../actions/AdvertActions';
 
 import AddAdvertForm from '../components/AddAdvertForm/AddAdvertForm';
 
@@ -13,6 +14,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
+        addAdvert
     }, dispatch);
 }
 

@@ -37,6 +37,7 @@
     .tab-content {
         .advert {
             position: relative;
+            width: 100%;
             button {
                @include respond-button();
             }
