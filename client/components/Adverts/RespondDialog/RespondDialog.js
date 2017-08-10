@@ -9,12 +9,23 @@ export default class RespondDialog extends React.Component {
             messageText: ''
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(e) {
         this.setState({
             [e.target.id]: e.target.value
         });
+    }
+
+    handleSubmit(e) {
+        this.props.sendResponse({
+            id: 155,
+            text: this.state.messageText,
+            author: 2,
+            advertId: this.props.advertId,
+        });
+        this.props.closeRespondDialog(e);
     }
 
     render() {
@@ -28,8 +39,8 @@ export default class RespondDialog extends React.Component {
                     </FormGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className="close-button" onClick={this.props.closeRespondDialog}>Close</Button>
-                    <Button onClick={this.props.sendResponse} value={this.state.messageText}>Send</Button>
+                    <Button onClick={this.props.closeRespondDialog}>Close</Button>
+                    <Button onClick={this.handleSubmit}>Send</Button>
                 </Modal.Footer>
             </Modal>
         );
