@@ -20,7 +20,7 @@
                     border: 0;
                 }
 
-                .load-image-icon {
+                .load-img {
                     top: 200px;
                     right: 10px;
                 }
@@ -49,10 +49,6 @@
                 position: relative;
                 padding: 0;
                 width: 100%;
-                .panel {
-                    margin-bottom: 0;
-                }
-
                 .btn {
                     display: flex;
                     flex-direction: column;
