@@ -3,7 +3,7 @@ import { Grid, Row, Col, Image, ListGroupItem, Label, Button, Glyphicon, ListGro
 import './userPage.scss';
 
 import AdvertPanel from '../AdvertPanel/AdvertPanel';
-import MessageBox from '../../containers/MessageBoxContainer';
+import MessageBox from '../MessageBox/MessageBox';
 
 export default  class UserPage extends React.Component {
     constructor(props) {
@@ -17,47 +17,6 @@ export default  class UserPage extends React.Component {
             city: '',
             languages: ['russian','english','russian','russian','russian'],
             userAdverts: [],
-            messages:[{
-                type : 0,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Morning!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }, {
-                type: 1,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: 'Hello! Good Afternoon!'
-            }] 
         };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
@@ -105,7 +64,13 @@ export default  class UserPage extends React.Component {
                     <Button className="remove-advert-icon" onClick={this.removeAdvert}>
                         <Glyphicon id={advert.id} glyph="remove"/>
                     </Button>
-                    <MessageBox isMessageBoxOpen={advert.isMessageBoxOpen}/>
+                    {advert.isMessageBoxOpen ? (
+                        <MessageBox 
+                            messages={this.props.messages}
+                            getMessagesById={this.props.getMessagesById}
+                            addMessage={this.props.addMessage}
+                            advertId={advert.id} />
+                    ) : null}
                 </div>
             )
         );
