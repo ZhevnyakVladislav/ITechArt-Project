@@ -66,6 +66,7 @@ export default  class UserPage extends React.Component {
                     </Button>
                     {advert.isMessageBoxOpen ? (
                         <MessageBox 
+                            handleCloseMessageBox={this.handleShowMessageBox}
                             messages={this.props.messages}
                             getMessagesById={this.props.getMessagesById}
                             addMessage={this.props.addMessage}

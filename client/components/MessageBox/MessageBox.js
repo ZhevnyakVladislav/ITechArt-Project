@@ -28,7 +28,7 @@ export default class Footer extends React.Component {
             id: this.props.messages.length + 1,
             text: this.state.newMessage,
             author: 2,
-            advertId: 2,
+            advertId: this.props.advertId,
         });
     }
     
@@ -41,10 +41,19 @@ export default class Footer extends React.Component {
                 text: message.text
             };
         }); 
-        
+
+        const messageBoxHeader = (
+            <h1>
+                title
+                <Button bsSize="large" onClick={this.props.handleCloseMessageBox}>
+                    <Glyphicon id={this.props.advertId} glyph="remove"/>
+                </Button>
+            </h1>
+        );
+
         return (
             <Col xs={12} sm={5} className="message-box">
-                <Panel header="Dialogue">
+                <Panel header={messageBoxHeader}>
                     <ChatBubble 
                         messages={messages}/>
                     <FormGroup controlId="message" onChange={this.handleChange}> 

@@ -11,6 +11,12 @@
     }
     .panel {
         margin: 0;
+        .panel-heading {
+            display: flex;
+            .btn {
+                right: 40px;
+            }
+        }
         .panel-body {
             padding: 0;
             .chats {
