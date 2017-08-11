@@ -57,8 +57,12 @@ export default class LogInform extends React.Component {
     handleSubmit() {
         if (this.validateData()) {
             this.props.signUp({
+                firstName: this.state.firstName,
+                secondName: this.state.firstName,
+                pseudonym:  this.state.pseudonym,
                 email: this.state.email,
-                password: this.state.password
+                password: this.state.password,
+                languages:  this.state.languages,
             });
         }
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { signUp } from '../actions/UserAuth';
+import { signUp } from '../actions/AuthActions';
 
 import Component from '../components/SignUpForm/SignUpForm';
 

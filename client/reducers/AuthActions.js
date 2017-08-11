@@ -1,4 +1,4 @@
-import actionType from '../constants/UserAuth';
+import actionType from '../constants/AuthActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
