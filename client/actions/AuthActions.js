@@ -1,10 +1,10 @@
 import actionType from '../constants/AuthActions';
-import userApi from './api/AuthApi';
+import authApi from './api/AuthApi';
 import { saveToStorage } from '../helpers/storageHelper';
 
 export function logIn(user) {
     return dispatch => {
-        userApi.logIn(user)
+        authApi.logIn(user)
             .then(data => {
                 saveToStorage('user', JSON.stringify(data));
                 dispatch({ type: actionType.LOG_IN_SUCCESSFUL});
@@ -16,7 +16,7 @@ export function logIn(user) {
 
 export function logOut() {
     return dispatch => {
-        userApi.logOut()
+        authApi.logOut()
             .then(()=> {
                 dispatch({ type: actionType.LOG_OUT});
             }).catch(data => 
@@ -27,7 +27,7 @@ export function logOut() {
 
 export function signUp(user) {
     return dispatch => {
-        userApi.signUp(user)
+        authApi.signUp(user)
             .then(data => {
                 saveToStorage('user', JSON.stringify(data));
                 dispatch({ type: actionType.SIGN_UP_SUCCESSFUL});

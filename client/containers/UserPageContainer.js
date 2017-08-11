@@ -11,7 +11,8 @@ function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
         userAdverts: state.AdvertActions.userAdverts,   
-        messages: state.MessageAction.messages
+        messages: state.MessageAction.messages,
+        user: state.UserActions.user
     };
 };
 
@@ -28,6 +29,7 @@ class UserPage extends React.PureComponent {
     render() {
         return (this.props.isUserAuth) ? (
             <Component
+                user={this.props.user}
                 messages={this.props.messages}
                 getMessagesById={this.props.getMessagesById}
                 addMessage={this.props.addMessage}

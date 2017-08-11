@@ -19,10 +19,10 @@ export default class Header extends React.Component {
                         <Link to="/alladverts">all advert</Link>
                     </Col>
                     <Col sm={3} className='avatar'>
-                        <Link to="/account">
+                        <Link to={`/account/${this.props.user.id}`}>
                             <div>
-                                <h4>Vladislav</h4>
-                                <Image src="http://via.placeholder.com/50x50" circle />
+                                <h4>{this.props.user.firstName}</h4>
+                                <Image src={this.props.user.photo} circle />
                             </div>
                         </Link>
                     </Col>

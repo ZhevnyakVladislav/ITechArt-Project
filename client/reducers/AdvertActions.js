@@ -2,6 +2,7 @@ import actionType from '../constants/AdvertActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
+    userAdverts: [] 
 };
 
 function getFewAdverts(state, action) {

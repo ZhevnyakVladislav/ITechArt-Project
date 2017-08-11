@@ -8,16 +8,6 @@ import MessageBox from '../MessageBox/MessageBox';
 export default  class UserPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            firstName: '',
-            secondName: '',
-            email: '',
-            pseudonym: '',
-            country: '',
-            city: '',
-            languages: ['russian','english','russian','russian','russian'],
-            userAdverts: [],
-        };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
         this.removeAdvert = this.removeAdvert.bind(this);
@@ -27,21 +17,15 @@ export default  class UserPage extends React.Component {
         this.props.getUserAdverts(1);
     }
     
-    componentWillReceiveProps(props) {
-        this.setState({ 
-            userAdverts: props.userAdverts
-        });
-    }
-
     handleChangePhoto() {
         console.log('changed');
     }
 
     handleShowMessageBox(e) {
-        const advert = this.state.userAdverts.find(advert => advert.id == e.target.id);
-        const index = this.state.userAdverts.indexOf(advert);
-        this.state.userAdverts[index].isMessageBoxOpen = !this.state.userAdverts[index].isMessageBoxOpen;
-        this.setState({ userAdverts: this.state.userAdverts });
+        const advert = this.props.userAdverts.find(advert => advert.id == e.target.id);
+        const index = this.props.userAdverts.indexOf(advert);
+        this.props.userAdverts[index].isMessageBoxOpen = !this.props.userAdverts[index].isMessageBoxOpen;
+        this.setState({ userAdverts: this.props.userAdverts });
     }
     
     removeAdvert(e) {
@@ -51,11 +35,11 @@ export default  class UserPage extends React.Component {
     render() {
         const renderLanguages = (
             <ListGroupItem header="Languages">
-                {this.state.languages.map((language, i) => <Label key={i}>{language}</Label>)}       
+                {this.props.user.languages.map((language, i) => <Label key={i}>{language}</Label>)}       
             </ListGroupItem>
         );
         const renderAdverts = (
-            this.state.userAdverts.map((advert, i) => 
+            this.props.userAdverts.map((advert, i) => 
                 <div  key={advert.id} className="advert">
                     <AdvertPanel advert={advert}/>
                     <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
@@ -80,8 +64,8 @@ export default  class UserPage extends React.Component {
                 <Row>
                     <Col xs={12} smOffset={1} sm={3}>
                         <Row className="avatar">
-                            <Image src="http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg" />
-                            <h3>Vladislav Zhevnyak</h3>
+                            <Image src={this.props.user.photp} />
+                            <h3>{`${this.props.user.firstName} ${this.props.user.secondName}`}</h3>
                             <Button className="load-img" bsSize="large" onClick={this.handleChangePhoto}>
                                 <Glyphicon glyph="camera"/>
                             </Button>
@@ -91,10 +75,10 @@ export default  class UserPage extends React.Component {
                         </Row>
                     </Col>  
                     <Col xs={12} sm={7} className="user-info">
-                        <ListGroupItem header="Pseudnym">Pseudnym</ListGroupItem>
-                        <ListGroupItem header="Email">dfawdawd@gmail.com</ListGroupItem>
-                        <ListGroupItem header="Country">Belarus</ListGroupItem> 
-                        <ListGroupItem header="City">Minsk</ListGroupItem> 
+                        <ListGroupItem header="Pseudnym">{this.props.user.pseudonym}</ListGroupItem>
+                        <ListGroupItem header="Email">{this.props.user.email}</ListGroupItem>
+                        <ListGroupItem header="Country">{this.props.user.country}</ListGroupItem> 
+                        <ListGroupItem header="City">{this.props.user.city}</ListGroupItem> 
                         {renderLanguages}
                     </Col>        
                 </Row>

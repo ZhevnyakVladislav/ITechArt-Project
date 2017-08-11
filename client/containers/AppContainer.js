@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { logOut } from '../actions/AuthActions';
+import { getUserById } from '../actions/UserActions';
+import { getFromStorage } from '../helpers/storageHelper';
 import '../stylesheets/index.scss';
 
 import Header from '../containers/HeaderContainer';
@@ -11,13 +13,15 @@ import Routes from '../routes/Routes';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth
+        isUserAuth: state.userState.isUserAuth,
+        user: state.UserActions.user
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         logOut,
+        getUserById
     }, dispatch);
 }
 
@@ -36,11 +40,18 @@ class App extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.props.getUserById(JSON.parse(getFromStorage('user')).id);
+    }
+
     render() {
         return(
             <div className='app-container'>
-                <Header openDrawer={this.handleChanheDrawerState}/>
-                <LeftDrawer 
+                <Header
+                    user={this.props.user} 
+                    openDrawer={this.handleChanheDrawerState}/>
+                <LeftDrawer
+                    user={this.props.user} 
                     isUserAuth={this.props.isUserAuth}
                     isDrawerOpen={this.state.isDrawerOpen}
                     closeDrawer={this.handleChanheDrawerState}
