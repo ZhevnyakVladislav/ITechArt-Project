@@ -36,6 +36,7 @@ const getClientUser = (user) =>  ({
     country: user.country,
     city: user.city,
     languages: user.languages,
+    role: user.role
 });
 
 

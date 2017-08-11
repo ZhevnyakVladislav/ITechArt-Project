@@ -20,9 +20,8 @@ export default class RespondDialog extends React.Component {
 
     handleSubmit(e) {
         this.props.sendResponse({
-            id: 155,
             text: this.state.messageText,
-            author: 2,
+            author: this.props.userId,
             advertId: this.props.advertId,
         });
         this.props.closeRespondDialog(e);

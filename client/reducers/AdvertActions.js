@@ -2,7 +2,9 @@ import actionType from '../constants/AdvertActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
-    userAdverts: [] 
+    adverts: [],
+    authorsAdverts: [],
+    interestedAdverts: [], 
 };
 
 function getFewAdverts(state, action) {
@@ -13,10 +15,17 @@ function getFewAdverts(state, action) {
     };
 }
 
-function getUserAdverts(state, action) {
+function getAuthorsAdverts(state, action) {
     return {
         ...state,
-        userAdverts: action.payload.userAdverts
+        authorsAdverts: action.payload.authorsAdverts
+    };
+}
+
+function getInterestedAdverts(state, action) {
+    return {
+        ...state,
+        interestedAdverts: action.payload.interestedAdverts
     };
 }
 
@@ -35,7 +44,8 @@ function removeAdvert(state, action) {
 
 export default createReducer(initialState, {
     [actionType.GET_FEW_ADVERTS_SUCCESSFUL]: getFewAdverts,
+    [actionType.GET_AUTHORS_ADVERTS_SUCCESSFUL]: getAuthorsAdverts,
+    [actionType.GET_INTERESTED_ADVERTS_SUCCESSFUL]: getInterestedAdverts,
     [actionType.ADD_ADVERT_SUCCESSFUL]: addAdvert,
     [actionType.REMOVE_ADVERT_SUCCESSFUL]: removeAdvert,
-    [actionType.GET_USER_ADVERTS_SUCCESSFUL]:getUserAdverts
 });

@@ -3,26 +3,11 @@ import actionType from '../constants/AdvertActions';
 
 export function getFewAdverts(page, type, count = 3) {
     return dispatch => {
-        advertApi.getAllAdverts()
+        advertApi.getFewAdverts(page, type, count)
             .then(data => {
-                const allAdverts = JSON.parse(data).filter(advert => advert.type === type);
-                const fewAdverts = allAdverts.slice((page - 1) * count, (page - 1) * count + count);
                 dispatch({ 
                     type: actionType.GET_FEW_ADVERTS_SUCCESSFUL, 
-                    payload: { fewAdverts: fewAdverts, count: allAdverts.length } 
-                });
-            });
-    };
-}
-
-export function getUserAdverts(userId) {
-    return dispatch => {
-        advertApi.getAllAdverts()
-            .then(data => {
-                const userAdverts = JSON.parse(data).filter(advert => advert.author === userId);
-                dispatch({ 
-                    type: actionType.GET_USER_ADVERTS_SUCCESSFUL, 
-                    payload: { userAdverts: userAdverts } 
+                    payload: { fewAdverts: data.fewFilteredAdverts, count: data.count } 
                 });
             });
     };

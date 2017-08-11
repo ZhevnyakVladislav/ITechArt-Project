@@ -9,6 +9,7 @@ import AddAdvertForm from '../components/AddAdvertForm/AddAdvertForm';
 function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
+        user: state.UserActions.user
     };
 };
 

@@ -9,6 +9,8 @@ const getMessages = (id) => AsyncWrapper(() => {
 
 const addMessage = (message) => AsyncWrapper(() => {
     const messages = JSON.parse(getFromStorage('messages'));
+    messages.sort((a,b) => a.id - b.id);
+    message.id = messages[messages.length-1].id + 1;
     messages.push(message);
     saveToStorage('messages', JSON.stringify(messages));
     return messages;   

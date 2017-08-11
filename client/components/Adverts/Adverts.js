@@ -16,7 +16,6 @@ export default class Adverts extends React.Component {
             activeTab: 'rentOf',
             openResondId: null,
         };
-        this.renderAdvertsList = this.renderAdvertsList.bind(this);
         this.changeStateDialog = this.changeStateDialog.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.changeTab = this.changeTab.bind(this);
@@ -55,10 +54,10 @@ export default class Adverts extends React.Component {
         });
     }
 
-    renderAdvertsList() {
-        return (
+    render() {
+        const renderAdverts = (
             <ListGroup>
-                {this.state.adverts.map((advert, key) => 
+                {this.props.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
                         <AdvertPanel advert={advert} />
                         <Button onClick={this.changeStateDialog} id={advert.id}>respond</Button>
@@ -66,9 +65,6 @@ export default class Adverts extends React.Component {
                 )}
             </ListGroup>
         );
-    }
-
-    render() {
         return(
             <Grid className="adverts" >
                 <Tab.Container id="left-tabs" defaultActiveKey="rentOf">
@@ -86,7 +82,7 @@ export default class Adverts extends React.Component {
                         <Col xs={12} sm={8}>
                             <Tab.Content animation>
                                 <Tab.Pane eventKey={this.state.activeTab}>
-                                    {this.renderAdvertsList()}
+                                    {renderAdverts}
                                 </Tab.Pane>
                                 <Row>
                                     <Pagination
@@ -106,6 +102,7 @@ export default class Adverts extends React.Component {
                     </Row> 
                 </Tab.Container>
                 <RespondDialog
+                    userId={this.user.id}
                     advertId={this.state.openResondId}
                     sendResponse={this.props.addMessage} 
                     closeRespondDialog={this.changeStateDialog}

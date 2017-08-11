@@ -12,7 +12,8 @@ function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
         adverts: state.AdvertActions.adverts,
-        count: state.AdvertActions.count
+        count: state.AdvertActions.count,
+        userId: state.UserActions.user.id
     };
 };
 

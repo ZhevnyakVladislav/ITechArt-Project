@@ -15,11 +15,11 @@ export default  class UserPage extends React.Component {
         this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
         this.removeAdvert = this.removeAdvert.bind(this);
         this.handleClickInput = this.handleClickInput.bind(this);
+        this.renderAdverts = this.renderAdverts.bind(this);
     }
 
     componentDidMount() {
-        this.props.getUserAdverts(1);
-        this.state.input.addEventListener('change', this.handleChangePhoto);
+        this.props.getUserPageData(this.props.user.id);
     }
     
     handleClickInput() {
@@ -42,32 +42,33 @@ export default  class UserPage extends React.Component {
         this.props.removeAdvert(e.target.id);
     }
 
+    renderAdverts(adverts) {
+        return adverts.map((advert, i) => 
+            <div  key={advert.id} className="advert">
+                <AdvertPanel advert={advert}/>
+                <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
+                    <Glyphicon id={advert.id} glyph="envelope"/>
+                </Button>
+                <Button className="remove-advert-icon" onClick={this.removeAdvert}>
+                    <Glyphicon id={advert.id} glyph="remove"/>
+                </Button>
+                {advert.isMessageBoxOpen ? (
+                    <MessageBox 
+                        handleCloseMessageBox={this.handleShowMessageBox}
+                        messages={this.props.messages}
+                        getMessagesById={this.props.getMessagesById}
+                        addMessage={this.props.addMessage}
+                        advertId={advert.id} />
+                ) : null}
+            </div>
+        );
+    }
+
     render() {
         const renderLanguages = (
             <ListGroupItem header="Languages">
                 {this.props.user.languages.map((language, i) => <Label key={i}>{language}</Label>)}       
             </ListGroupItem>
-        );
-        const renderAdverts = (
-            this.props.userAdverts.map((advert, i) => 
-                <div  key={advert.id} className="advert">
-                    <AdvertPanel advert={advert}/>
-                    <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
-                        <Glyphicon id={advert.id} glyph="envelope"/>
-                    </Button>
-                    <Button className="remove-advert-icon" onClick={this.removeAdvert}>
-                        <Glyphicon id={advert.id} glyph="remove"/>
-                    </Button>
-                    {advert.isMessageBoxOpen ? (
-                        <MessageBox 
-                            handleCloseMessageBox={this.handleShowMessageBox}
-                            messages={this.props.messages}
-                            getMessagesById={this.props.getMessagesById}
-                            addMessage={this.props.addMessage}
-                            advertId={advert.id} />
-                    ) : null}
-                </div>
-            )
         );
         return(
             <Grid className="user-page">
@@ -82,7 +83,7 @@ export default  class UserPage extends React.Component {
                         </Row>
                         <Row className="edit">
                             <Button onClick={this.handleClickInput}>Change photo</Button>
-                            <input type="file" ref={input => this.state.input = input} accept="image/*"/>
+                            <input type="file" ref={input => this.state.input = input} onChange={this.handleChangePhoto} accept="image/*"/>
                         </Row>
                     </Col>  
                     <Col xs={12} sm={7} className="user-info">
@@ -95,9 +96,14 @@ export default  class UserPage extends React.Component {
                 </Row>
                 <Row>
                     <Col className="adverts" xs={12} smOffset={1} sm={10}>
-                        <h1>My adverts</h1>
+                        <h1>Submitted adverts</h1>
                         <ListGroup>
-                            {renderAdverts}
+                            {this.renderAdverts(this.props.authorsAdverts)}
+                        </ListGroup>
+
+                        <h1>Interested adverts</h1>
+                        <ListGroup>
+                            {this.renderAdverts(this.props.interestedAdverts)}
                         </ListGroup>
                     </Col>
                 </Row>
