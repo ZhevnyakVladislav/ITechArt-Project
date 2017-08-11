@@ -8,17 +8,27 @@ import MessageBox from '../MessageBox/MessageBox';
 export default  class UserPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            input: null
+        };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
         this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
         this.removeAdvert = this.removeAdvert.bind(this);
+        this.handleClickInput = this.handleClickInput.bind(this);
     }
 
     componentDidMount() {
         this.props.getUserAdverts(1);
+        this.state.input.addEventListener('change', this.handleChangePhoto);
     }
     
-    handleChangePhoto() {
-        console.log('changed');
+    handleClickInput() {
+        this.state.input.click();
+    }
+
+    handleChangePhoto(e) {
+        const image = e.target.files;
+        this.props.changeAvatar(this.props.user.id, image);
     }
 
     handleShowMessageBox(e) {
@@ -66,12 +76,13 @@ export default  class UserPage extends React.Component {
                         <Row className="avatar">
                             <Image src={this.props.user.photp} />
                             <h3>{`${this.props.user.firstName} ${this.props.user.secondName}`}</h3>
-                            <Button className="load-img" bsSize="large" onClick={this.handleChangePhoto}>
+                            <Button className="load-img" bsSize="large" onClick={this.handleClickInput}>
                                 <Glyphicon glyph="camera"/>
                             </Button>
                         </Row>
                         <Row className="edit">
-                            <Button onClick={this.handleChangePhoto}>Change photo</Button>
+                            <Button onClick={this.handleClickInput}>Change photo</Button>
+                            <input type="file" ref={input => this.state.input = input} accept="image/*"/>
                         </Row>
                     </Col>  
                     <Col xs={12} sm={7} className="user-info">
