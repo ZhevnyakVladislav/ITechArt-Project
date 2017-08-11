@@ -49,7 +49,6 @@ export default class Adverts extends React.Component {
     }
 
     changeStateDialog(e) {
-        console.log(e);
         this.setState({ 
             openResondId: e.target.id,
             isRespondDialogOpen: !this.state.isRespondDialogOpen
