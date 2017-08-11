@@ -13,11 +13,11 @@ export default class Adverts extends React.Component {
             adverts: [],
             isRespondDialogOpen: false,
             activePage: 1,
-            activeTab: 'rentOf'
+            activeTab: 'rentOf',
+            openResondId: null,
         };
         this.renderAdvertsList = this.renderAdvertsList.bind(this);
         this.changeStateDialog = this.changeStateDialog.bind(this);
-        this.handleSendResponse = this.handleSendResponse.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.changeTab = this.changeTab.bind(this);
     }
@@ -49,11 +49,10 @@ export default class Adverts extends React.Component {
     }
 
     changeStateDialog(e) {
-        this.setState({ isRespondDialogOpen: !this.state.isRespondDialogOpen});
-    }
-
-    handleSendResponse(e) {
-        this.changeStateDialog();
+        this.setState({ 
+            openResondId: e.target.id,
+            isRespondDialogOpen: !this.state.isRespondDialogOpen
+        });
     }
 
     renderAdvertsList() {
@@ -62,7 +61,7 @@ export default class Adverts extends React.Component {
                 {this.state.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
                         <AdvertPanel advert={advert} />
-                        <Button onClick={this.changeStateDialog} value={advert.title}>respond</Button>
+                        <Button onClick={this.changeStateDialog} id={advert.id}>respond</Button>
                     </div>
                 )}
             </ListGroup>
@@ -107,7 +106,8 @@ export default class Adverts extends React.Component {
                     </Row> 
                 </Tab.Container>
                 <RespondDialog
-                    sendResponse={this.handleSendResponse} 
+                    advertId={this.state.openResondId}
+                    sendResponse={this.props.addMessage} 
                     closeRespondDialog={this.changeStateDialog}
                     isRespondDialogOpen={this.state.isRespondDialogOpen} 
                 />

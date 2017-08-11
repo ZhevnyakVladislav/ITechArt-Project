@@ -3,6 +3,7 @@ import { Grid, Row, Col, Image, ListGroupItem, Label, Button, Glyphicon, ListGro
 import './userPage.scss';
 
 import AdvertPanel from '../AdvertPanel/AdvertPanel';
+import MessageBox from '../MessageBox/MessageBox';
 
 export default  class UserPage extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default  class UserPage extends React.Component {
             userAdverts: [],
         };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
-        this.handleShowMessage = this.handleShowMessage.bind(this);
+        this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
         this.removeAdvert = this.removeAdvert.bind(this);
     }
 
@@ -36,10 +37,10 @@ export default  class UserPage extends React.Component {
         console.log('changed');
     }
 
-    handleShowMessage(e) {
+    handleShowMessageBox(e) {
         const advert = this.state.userAdverts.find(advert => advert.id == e.target.id);
         const index = this.state.userAdverts.indexOf(advert);
-        this.state.userAdverts[index].isMessageOpen = !this.state.userAdverts[index].isMessageOpen;
+        this.state.userAdverts[index].isMessageBoxOpen = !this.state.userAdverts[index].isMessageBoxOpen;
         this.setState({ userAdverts: this.state.userAdverts });
     }
     
@@ -57,19 +58,20 @@ export default  class UserPage extends React.Component {
             this.state.userAdverts.map((advert, i) => 
                 <div  key={advert.id} className="advert">
                     <AdvertPanel advert={advert}/>
-                    <Button className="load-image-icon" onClick={this.handleShowMessage}>
+                    <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
                         <Glyphicon id={advert.id} glyph="envelope"/>
                     </Button>
                     <Button className="remove-advert-icon" onClick={this.removeAdvert}>
                         <Glyphicon id={advert.id} glyph="remove"/>
                     </Button>
-                    <Collapse in={advert.isMessageOpen} className='message'>
-                        <Col>
-                            <Well>
-                                Hello, Vladislav, I'd like to rent you flat. Please, call me +375-29-542-23-23
-                            </Well>
-                        </Col>
-                    </Collapse>
+                    {advert.isMessageBoxOpen ? (
+                        <MessageBox 
+                            handleCloseMessageBox={this.handleShowMessageBox}
+                            messages={this.props.messages}
+                            getMessagesById={this.props.getMessagesById}
+                            addMessage={this.props.addMessage}
+                            advertId={advert.id} />
+                    ) : null}
                 </div>
             )
         );
