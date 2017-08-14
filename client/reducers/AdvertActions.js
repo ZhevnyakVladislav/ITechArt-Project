@@ -38,9 +38,16 @@ function addAdvert(state, action) {
 function removeAdvert(state, action) {
     return {
         ...state,
-        userAdverts: action.payload.userAdverts
+        authorsAdverts: [...removeAdvertFromList(state.authorsAdverts, action.payload.advertId)],
+        interestedAdverts: [...removeAdvertFromList(state.interestedAdverts, action.payload.advertId)]
     };
 }
+
+const removeAdvertFromList = (list, id) => {
+    const removedAdvert = list.find(advert => advert.id == id);
+    list.splice(list.indexOf(removedAdvert), 1);
+    return list;
+};
 
 function changeAdvertActivity(state, action) {
     return {

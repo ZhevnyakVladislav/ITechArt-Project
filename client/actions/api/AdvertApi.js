@@ -17,7 +17,6 @@ const getFewAdverts = (page, type, count) => AsyncWrapper(() => {
     const allAdverts = JSON.parse(getFromStorage('adverts'));
     const filteredAdverts = allAdverts.filter(advert => advert.type === type && advert.isActive);
     const fewFilteredAdverts =  filteredAdverts.slice((page - 1) * count, (page - 1) * count + count);
-    console.log(filteredAdverts);
     return { fewFilteredAdverts: fewFilteredAdverts, count: filteredAdverts.length };
 });
 
@@ -40,7 +39,6 @@ const removeAdvert = (id) => AsyncWrapper(() => {
     const removedAdvert = adverts.find(advert => advert.id == id);
     adverts.splice(adverts.indexOf(removedAdvert), 1);
     saveToStorage('adverts', JSON.stringify(adverts));
-    return adverts;
 });
 
 const changeAdvertActivity = (advertId, interestedUser, pageSetting) => AsyncWrapper(() => {

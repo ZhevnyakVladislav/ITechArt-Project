@@ -44,7 +44,7 @@ export default  class UserPage extends React.Component {
     }
     
     removeAdvert(e) {
-        this.props.removeAdvert(e.target.id);
+        this.props.removeAdvert(e.target.id, this.props.user.id);
     }
 
     renderAdverts(adverts) {

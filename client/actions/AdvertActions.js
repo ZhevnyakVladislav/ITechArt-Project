@@ -22,12 +22,12 @@ export function addAdvert(advert) {
     };
 }
 
-export function removeAdvert(advert) {
+export function removeAdvert(advertId) {
     return dispatch => {
-        advertApi.removeAdvert(advert)
+        advertApi.removeAdvert(advertId)
             .then(data => dispatch({ 
                 type: actionType.REMOVE_ADVERT_SUCCESSFUL, 
-                payload: { userAdverts: data }
+                payload: { advertId: advertId }
             }));
     };
 }
