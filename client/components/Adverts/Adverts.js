@@ -53,7 +53,6 @@ export default class Adverts extends React.Component {
     }
 
     render() {
-        const pageCount = Math.ceil(this.props.adverts / 3);
         const renderAdverts = (
             <ListGroup>
                 {this.state.adverts.map((advert, key) => 
@@ -91,7 +90,7 @@ export default class Adverts extends React.Component {
                                         last
                                         ellipsis
                                         boundaryLinks
-                                        items={pageCount}
+                                        items={Math.ceil(this.props.count / 3)}
                                         maxButtons={3}
                                         activePage={this.state.activePage}
                                         onSelect={this.handleSelect} />

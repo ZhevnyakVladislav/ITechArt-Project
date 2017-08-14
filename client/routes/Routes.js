@@ -12,7 +12,7 @@ export default () => (
     <Switch>
         <Route path="/login" component={LogInForm} />
         <Route path="/signup" component={SignUpForm} />
-        <Route path="/account/:id" component={UserPage} />
+        <Route path="/account" component={UserPage} />
         <Route path="/alladverts" component={Adverts} />
         <Route path="/newadvert" component={AddAdvertForm} />
         <Route component={NoMatchesContainer} />

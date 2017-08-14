@@ -41,7 +41,10 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserById(JSON.parse(getFromStorage('user')).id);
+        const user = JSON.parse(getFromStorage('user'));
+        if (user) {
+            this.props.getUserById(user.id);
+        }
     }
 
     render() {

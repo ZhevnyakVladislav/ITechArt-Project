@@ -9,7 +9,7 @@ export default  class UserPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            adverts: null,
+            adverts: [],
             input: null
         };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
@@ -24,7 +24,6 @@ export default  class UserPage extends React.Component {
     }
     
     componentWillReceiveProps() {
-        this.state.adverts = [...this.props.authorsAdverts, ...this.props.interestedAdverts];
     }
 
     handleClickInput() {
@@ -37,6 +36,7 @@ export default  class UserPage extends React.Component {
     }
 
     handleShowMessageBox(e) {
+        this.state.adverts = [...this.props.authorsAdverts, ...this.props.interestedAdverts];
         const advert = this.state.adverts.find(advert => advert.id == e.target.id);
         const index = this.state.adverts.indexOf(advert);
         this.state.adverts[index].isMessageBoxOpen = !this.state.adverts[index].isMessageBoxOpen;
@@ -81,7 +81,7 @@ export default  class UserPage extends React.Component {
                 <Row>
                     <Col xs={12} smOffset={1} sm={3}>
                         <Row className="avatar">
-                            <Image src={this.props.user.photp} />
+                            <Image src={this.props.user.photo} />
                             <h3>{`${this.props.user.firstName} ${this.props.user.secondName}`}</h3>
                             <Button className="load-img" bsSize="large" onClick={this.handleClickInput}>
                                 <Glyphicon glyph="camera"/>

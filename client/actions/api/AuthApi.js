@@ -22,7 +22,7 @@ const signUp = (currUser) => AsyncWrapper(() => {
     if(!user) {
         currUser.id = users.length + 1;
         currUser.role = 'user';
-        currUser.photo = 'http://via.placeholder.com/50x50';
+        currUser.photo = 'https://beautycode.kz/sites/all/themes/savita/images/unknown-avatar.png';
         users.push(currUser);
         saveToStorage('users', JSON.stringify(users));
         return user = { id: currUser.id , role: currUser.role};
