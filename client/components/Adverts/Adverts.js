@@ -26,9 +26,7 @@ export default class Adverts extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ 
-            adverts: props.adverts
-        });
+        this.state.adverts = this.props.adverts.filter(advert => advert.author != this.props.userId);
     }
     
     handleSelect(eventKey) {
@@ -55,9 +53,10 @@ export default class Adverts extends React.Component {
     }
 
     render() {
+        const pageCount = Math.ceil(this.props.adverts / 3);
         const renderAdverts = (
             <ListGroup>
-                {this.props.adverts.map((advert, key) => 
+                {this.state.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
                         <AdvertPanel advert={advert} />
                         <Button onClick={this.changeStateDialog} id={advert.id}>respond</Button>
@@ -92,7 +91,7 @@ export default class Adverts extends React.Component {
                                         last
                                         ellipsis
                                         boundaryLinks
-                                        items={Math.ceil(this.props.count / 3)}
+                                        items={pageCount}
                                         maxButtons={3}
                                         activePage={this.state.activePage}
                                         onSelect={this.handleSelect} />
@@ -102,7 +101,10 @@ export default class Adverts extends React.Component {
                     </Row> 
                 </Tab.Container>
                 <RespondDialog
-                    userId={this.user.id}
+                    activePage={this.state.activePage}
+                    activeTab={this.state.activeTab}
+                    userId={this.props.userId}
+                    changeAdvertActivity={this.props.changeAdvertActivity}
                     advertId={this.state.openResondId}
                     sendResponse={this.props.addMessage} 
                     closeRespondDialog={this.changeStateDialog}

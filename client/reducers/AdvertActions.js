@@ -42,10 +42,19 @@ function removeAdvert(state, action) {
     };
 }
 
+function changeAdvertActivity(state, action) {
+    return {
+        ...state,
+        adverts: action.payload.fewAdverts,
+        count: action.payload.count
+    };
+}
+
 export default createReducer(initialState, {
     [actionType.GET_FEW_ADVERTS_SUCCESSFUL]: getFewAdverts,
     [actionType.GET_AUTHORS_ADVERTS_SUCCESSFUL]: getAuthorsAdverts,
     [actionType.GET_INTERESTED_ADVERTS_SUCCESSFUL]: getInterestedAdverts,
     [actionType.ADD_ADVERT_SUCCESSFUL]: addAdvert,
     [actionType.REMOVE_ADVERT_SUCCESSFUL]: removeAdvert,
+    [actionType.CHANGE_ADVERT_SUCCESSFUL]: changeAdvertActivity
 });

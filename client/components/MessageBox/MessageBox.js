@@ -25,18 +25,19 @@ export default class Footer extends React.Component {
     
     handleSubmit() {
         this.props.addMessage({
-            id: this.props.messages.length + 1,
             text: this.state.newMessage,
-            author: 2,
+            author: this.props.currentUserId,
             advertId: this.props.advertId,
         });
+        this.setState({ newMessage: ''});
     }
     
     render() {
         let messages = this.props.messages.filter(message => message.advertId == this.props.advertId); 
         messages = messages.map(message => {
+            const type = message.author == this.props.currentUserId ? 0 : 1;
             return { 
-                type: 0,
+                type: type,
                 image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
                 text: message.text
             };
@@ -57,7 +58,7 @@ export default class Footer extends React.Component {
                     <ChatBubble 
                         messages={messages}/>
                     <FormGroup controlId="message" onChange={this.handleChange}> 
-                        <FormControl componentClass="textarea" placeholder="textarea" />
+                        <FormControl componentClass="textarea" value={this.state.newMessage} placeholder="Enter message" />
                         <Button bsSize="large" onClick={this.handleSubmit} >
                             <Glyphicon glyph="share-alt"/>
                         </Button>

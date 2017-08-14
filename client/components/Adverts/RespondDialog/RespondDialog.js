@@ -24,6 +24,10 @@ export default class RespondDialog extends React.Component {
             author: this.props.userId,
             advertId: this.props.advertId,
         });
+        this.props.changeAdvertActivity(this.props.advertId, this.props.userId, {
+            activePage: this.props.activePage,
+            activeTab: this.props.activeTab
+        });
         this.props.closeRespondDialog(e);
     }
 

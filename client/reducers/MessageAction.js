@@ -19,7 +19,7 @@ function getMessagesById(state, action) {
 function addMessage(state, action) {
     return {
         ...state,
-        messages: action.payload.messages
+        messages: action.payload.messages,
     };
 }
 

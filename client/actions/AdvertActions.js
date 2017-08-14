@@ -25,9 +25,21 @@ export function addAdvert(advert) {
 export function removeAdvert(advert) {
     return dispatch => {
         advertApi.removeAdvert(advert)
-            .then((data) => dispatch({ 
+            .then(data => dispatch({ 
                 type: actionType.REMOVE_ADVERT_SUCCESSFUL, 
                 payload: { userAdverts: data }
             }));
+    };
+}
+
+
+export function changeAdvertActivity(advertId, interestedUser, pageSetting) {
+    return dispatch => {
+        advertApi.changeAdvertActivity(advertId, interestedUser, pageSetting)
+            .then(data => 
+                dispatch({
+                    type: actionType.CHANGE_ADVERT_SUCCESSFUL,
+                    payload: { fewAdverts: data.fewFilteredAdverts, count: data.count }
+                }));
     };
 }

@@ -3,7 +3,8 @@ import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/
 
 const logIn = (currUser) => AsyncWrapper(() => {
     const users = JSON.parse(getFromStorage('users'));
-    let user = users.find(user => user.email == user.email);
+    let user = users.find(user => user.email == currUser.email);
+    console.log(currUser);
     if (user && user.password == currUser.password) {
         return user = { id: user.id , role: user.role};
     } else {
