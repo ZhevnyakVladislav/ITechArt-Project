@@ -4,7 +4,7 @@ using System.Linq;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces;
 using System.Data.Entity;
-using server.DAL.Entity_Framework;
+using Server.DAL.Entity_Framework;
 
 namespace Server.DAL.Repositories
 {

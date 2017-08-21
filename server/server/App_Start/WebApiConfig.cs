@@ -18,12 +18,6 @@ namespace Server
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "UserRoute",
                 routeTemplate: "api/{controller}/{action}"
             );

@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity;
+﻿using Server.DAL.Entities;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.DAL.Entities
 {
-    public class User
+    public class ClientProfile
     {
-        public int Id { get; set; }
+        [Key]
+        [ForeignKey("ApplicationUser")]
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string Pseudinym { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string County { get; set; }
         public string City { get; set; }
         public string[] Languages { get; set; }
@@ -22,5 +21,7 @@ namespace Server.DAL.Entities
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

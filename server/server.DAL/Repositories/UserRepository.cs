@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces;
 using System.Data.Entity;
-using server.DAL.Entity_Framework;
+using Server.DAL.Entity_Framework;
 
 namespace Server.DAL.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<ClientProfile>
     {
         private ProjectContext db;
 
@@ -19,37 +19,37 @@ namespace Server.DAL.Repositories
             this.db = context;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<ClientProfile> GetAll()
         {
-            return db.Users;
+            return db.ClientProfiles;
         }
 
-        public User Get(int id)
+        public ClientProfile Get(int id)
         {
-            return db.Users.Find(id);
+            return db.ClientProfiles.Find(id);
         }
 
-        public void Create(User user)
+        public void Create(ClientProfile user)
         {
-            db.Users.Add(user);
+            db.ClientProfiles.Add(user);
         }
 
-        public void Update(User user)
+        public void Update(ClientProfile user)
         {
             db.Entry(user).State = EntityState.Modified;
         }
 
-        public IEnumerable<User> Find(Func<User, Boolean> predicate)
+        public IEnumerable<ClientProfile> Find(Func<ClientProfile, Boolean> predicate)
         {
-            return db.Users.Where(predicate).ToList();
+            return db.ClientProfiles.Where(predicate).ToList();
         }
 
         public void Delete(int id)
         {
-            User user = db.Users.Find(id);
+            ClientProfile user = db.ClientProfiles.Find(id);
             if (user != null)
             {
-                db.Users.Remove(user);
+                db.ClientProfiles.Remove(user);
             }
         }
     }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.WEB", "server\server.WEB.csproj", "{30DE2E7F-6B23-438C-8A03-2B3161C04073}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.WEB", "server\Server.WEB.csproj", "{30DE2E7F-6B23-438C-8A03-2B3161C04073}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.DAL", "server.DAL\Server.DAL.csproj", "{78890601-9A3A-4F34-80AB-AB44C0B78E86}"
 EndProject

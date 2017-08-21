@@ -8,6 +8,7 @@ namespace Server.BLL.DTO
         public string FirstName { get; set; }
         public string Pseudinym { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public string County { get; set; }
         public string City { get; set; }
         public string[] Languages { get; set; }

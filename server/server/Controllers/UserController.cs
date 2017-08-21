@@ -20,16 +20,16 @@ namespace Server.Controllers
         {
             _userService = userSercice;
         }
+        [Authorize]
+        [HttpGet]
         public string[] GetUser(int? id)
         {
-            _userService.GetUser(2);
             return new string[] { "hello", "world" };
         }
         public string СreateUser(UserViewModel user)
         {
                 Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
                 var userDto = Mapper.Map<UserViewModel, UserDTO>(user);
-                _userService.СreateUser(userDto);
                 return "successful";
         }
         //protected override void Dispose(bool disposing)

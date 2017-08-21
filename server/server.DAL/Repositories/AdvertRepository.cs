@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces;
 using System.Data.Entity;
-using server.DAL.Entity_Framework;
+using Server.DAL.Entity_Framework;
 
 namespace Server.DAL.Repositories
 {

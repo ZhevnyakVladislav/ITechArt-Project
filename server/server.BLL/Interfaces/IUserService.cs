@@ -1,13 +1,16 @@
 ﻿using Server.BLL.DTO;
+using Server.BLL.Infrastructure;
 using Server.DAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Server.BLL.Interfaces
 {
-    public interface IUserService
+    public interface IUserService : IDisposable
     {
-        UserDTO GetUser(int? id);
-
-        void СreateUser(UserDTO user);
-        void Dispose();
+        Task<OperationDetails> Create(UserDTO userDto);
+        Task<ClaimsIdentity> Authenticate(UserDTO userDto);
     }
 }

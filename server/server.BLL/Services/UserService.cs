@@ -8,6 +8,9 @@ using Server.BLL.DTO;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces;
 using AutoMapper;
+using Server.BLL.Infrastructure;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 
 namespace Server.BLL.Services
 {
@@ -20,29 +23,37 @@ namespace Server.BLL.Services
             Database = db;
         }
 
-        public UserDTO GetUser(int? id)
+        public async Task<OperationDetails> Create(UserDTO userDto)
         {
-            if (id == null)
-                throw new Exception("");
-            var phone = Database.Users.Get(id.Value);
-            if (phone == null)
-                throw new Exception("");
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>());
-            return Mapper.Map<User, UserDTO>(phone);
-        }
-        public void СreateUser(UserDTO userDto)
-        {
-            var date = DateTime.Now;
-            User user = new User()
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            if (user == null)
             {
-                FirstName = userDto.FirstName,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
-            };
-            Database.Users.Create(user);
-            Database.Save();
-
+                Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, ApplicationUser>());
+                user = Mapper.Map<UserDTO, ApplicationUser>(userDto);
+                var result = await Database.UserManager.CreateAsync(user, userDto.Password);
+                if (result.Errors.Count() > 0)
+                    return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
+                Mapper.Initialize(cfg => cfg.CreateMap<ApplicationUser, ClientProfile>());
+                var clientProfile = Mapper.Map<ApplicationUser, ClientProfile>(user);
+                Database.ClientManager.Create(clientProfile);
+                await Database.SaveAsync();
+                return new OperationDetails(true, "Регистрация успешно пройдена", "");
+            }
+            else
+            {
+                return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
+            }
         }
+        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
+        {
+            ClaimsIdentity claim = null;
+            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            if (user != null)
+                claim = await Database.UserManager.CreateIdentityAsync(user,
+                                            DefaultAuthenticationTypes.ApplicationCookie);
+            return claim;
+        }
+        
         public void Dispose()
         {
             Database.Dispose();

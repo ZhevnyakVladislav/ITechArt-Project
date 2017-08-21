@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Server.DAL.Interfaces;
-using Server.DAL.Repositories;
+using Server.DAL.Entity_Framework;
+using Server.DAL.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Server.DAL.Entities;
-using server.DAL.Entity_Framework;
+using System.Threading.Tasks;
 
 namespace Server.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
         private ProjectContext db;
+        private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
+        private IClientManager clientManager;
         private UserRepository userRepository;
         private AdvertRepository advertRepository;
         private MessageRepository messageRepository;
@@ -22,9 +23,27 @@ namespace Server.DAL.Repositories
         public EFUnitOfWork(string connectionString)
         {
             db = new ProjectContext(connectionString);
+            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
+            clientManager = new ClientManager(db);
         }
 
-        public IRepository<User> Users
+        public ApplicationUserManager UserManager
+        {
+            get { return userManager; }
+        }
+
+        public IClientManager ClientManager
+        {
+            get { return clientManager; }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get { return roleManager; }
+        }
+
+        public IRepository<ClientProfile> Users
         {
             get
             {
@@ -54,9 +73,9 @@ namespace Server.DAL.Repositories
             }
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            db.SaveChanges();
+            await db.SaveChangesAsync();
         }
 
         public virtual void Dispose(bool disposing)
