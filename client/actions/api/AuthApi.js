@@ -1,15 +1,9 @@
+import axios from 'axios';
 import AsyncWrapper from './AsyncWrapper';
 import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/storageHelper';
 
 const logIn = (currUser) => AsyncWrapper(() => {
-    const users = JSON.parse(getFromStorage('users'));
-    let user = users.find(user => user.email == currUser.email);
-    console.log(currUser);
-    if (user && user.password == currUser.password) {
-        return user = { id: user.id , role: user.role};
-    } else {
-        return Promise.reject('wrong login or password');
-    } 
+    return axios.post('http://localhost:34461/api/account/login', currUser); 
 });
 
 function logOut() {

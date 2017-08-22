@@ -6,8 +6,7 @@ export function logIn(user) {
     return dispatch => {
         authApi.logIn(user)
             .then(data => {
-                saveToStorage('user', JSON.stringify(data));
-                dispatch({ type: actionType.LOG_IN_SUCCESSFUL});
+                console.log(data);
             }).catch(data => {
                 console.log(data);
             });
