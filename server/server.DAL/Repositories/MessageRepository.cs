@@ -37,9 +37,9 @@ namespace Server.DAL.Repositories
             db.Entry(message).State = EntityState.Modified;
         }
 
-        public IEnumerable<Message> Find(Func<Message, bool> predicate)
+        public Message Find(Func<Message, bool> predicate)
         {
-            return db.Messages.Where(predicate).ToList();
+            return db.Messages.Find(predicate);
         }
 
         public void Delete(int id)

@@ -23,35 +23,43 @@ namespace Server.BLL.Services
             Database = db;
         }
 
-        public async Task<OperationDetails> Create(UserDTO userDto)
+        public void Create(UserDTO userDto)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(userDto.Email);
+            User user = Database.Users.Find(item => item.Email == userDto.Email);
             if (user == null)
             {
-                Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, ApplicationUser>());
-                user = Mapper.Map<UserDTO, ApplicationUser>(userDto);
-                var result = await Database.UserManager.CreateAsync(user, userDto.Password);
-                if (result.Errors.Count() > 0)
-                    return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
-                Mapper.Initialize(cfg => cfg.CreateMap<ApplicationUser, ClientProfile>());
-                var clientProfile = Mapper.Map<ApplicationUser, ClientProfile>(user);
-                Database.ClientManager.Create(clientProfile);
-                await Database.SaveAsync();
-                return new OperationDetails(true, "Регистрация успешно пройдена", "");
-            }
-            else
-            {
-                return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
+                try
+                {
+                    Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, User>());
+                    var clientProfile = Mapper.Map<UserDTO, User>(userDto);
+                    clientProfile.UpdatedAt = DateTime.Now;
+                    clientProfile.CreatedAt = DateTime.Now;
+                    Database.Users.Create(clientProfile);
+                    Database.SaveAsync();
+                }
+                catch
+                {
+                    throw new Exception("Error");
+                }
             }
         }
-        public async Task<ClaimsIdentity> Authenticate(UserDTO userDto)
+        public UserDTO FindByName(string email)
+        {
+            var user = Database.Users.Find(item => item.Email == email);
+            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>());
+            return Mapper.Map<User, UserDTO>(user);
+        }
+        public Task<ClaimsIdentity> Authenticate(UserDTO userDto)
         {
             ClaimsIdentity claim = null;
-            ApplicationUser user = await Database.UserManager.FindAsync(userDto.Email, userDto.Password);
+            User user = Database.Users.Find(item => item.Email == userDto.Email);
             if (user != null)
-                claim = await Database.UserManager.CreateIdentityAsync(user,
-                                            DefaultAuthenticationTypes.ApplicationCookie);
-            return claim;
+            {
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Email, user.Email));
+                claim = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+            }
+            return Task.FromResult(claim);
         }
         
         public void Dispose()

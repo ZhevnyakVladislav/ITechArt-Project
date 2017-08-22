@@ -10,7 +10,8 @@ namespace Server.BLL.Interfaces
 {
     public interface IUserService : IDisposable
     {
-        Task<OperationDetails> Create(UserDTO userDto);
+        void Create(UserDTO userDto);
+        UserDTO FindByName(string email);
         Task<ClaimsIdentity> Authenticate(UserDTO userDto);
     }
 }

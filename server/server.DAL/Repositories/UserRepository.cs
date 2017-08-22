@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
 using Server.DAL.Entities;
 using Server.DAL.Interfaces;
@@ -10,7 +11,7 @@ using Server.DAL.Entity_Framework;
 
 namespace Server.DAL.Repositories
 {
-    public class UserRepository : IRepository<ClientProfile>
+    public class UserRepository : IRepository<User>
     {
         private ProjectContext db;
 
@@ -19,34 +20,34 @@ namespace Server.DAL.Repositories
             this.db = context;
         }
 
-        public IEnumerable<ClientProfile> GetAll()
+        public IEnumerable<User> GetAll()
         {
             return db.ClientProfiles;
         }
 
-        public ClientProfile Get(int id)
+        public User Get(int id)
         {
             return db.ClientProfiles.Find(id);
         }
 
-        public void Create(ClientProfile user)
+        public void Create(User user)
         {
             db.ClientProfiles.Add(user);
         }
 
-        public void Update(ClientProfile user)
+        public void Update(User user)
         {
             db.Entry(user).State = EntityState.Modified;
         }
 
-        public IEnumerable<ClientProfile> Find(Func<ClientProfile, Boolean> predicate)
+        public User Find(Func<User, Boolean> predicate)
         {
-            return db.ClientProfiles.Where(predicate).ToList();
+            return db.ClientProfiles.FirstOrDefault(predicate);
         }
 
         public void Delete(int id)
         {
-            ClientProfile user = db.ClientProfiles.Find(id);
+            User user = db.ClientProfiles.Find(id);
             if (user != null)
             {
                 db.ClientProfiles.Remove(user);

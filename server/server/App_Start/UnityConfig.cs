@@ -8,6 +8,8 @@ using Server.DAL.Interfaces;
 using Server.DAL.Repositories;
 using System.Web.Http;
 using Unity.WebApi;
+using Server.Models;
+using server.Identity;
 
 namespace Server
 {
@@ -22,6 +24,7 @@ namespace Server
                 .RegisterType<AccountController>()
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IAuthenticationManager>()
+                .RegisterType<CustomUserManager>(new InjectionConstructor(new UserStore()))
                 .RegisterType<IUnitOfWork, EFUnitOfWork>(new InjectionConstructor("name=ProjectContext"));
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

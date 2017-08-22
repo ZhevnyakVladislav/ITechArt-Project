@@ -1,8 +1,6 @@
 ﻿using System;
 using Server.DAL.Interfaces;
 using Server.DAL.Entity_Framework;
-using Server.DAL.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Server.DAL.Entities;
 using System.Threading.Tasks;
 
@@ -11,9 +9,6 @@ namespace Server.DAL.Repositories
     public class EFUnitOfWork : IUnitOfWork
     {
         private ProjectContext db;
-        private ApplicationUserManager userManager;
-        private ApplicationRoleManager roleManager;
-        private IClientManager clientManager;
         private UserRepository userRepository;
         private AdvertRepository advertRepository;
         private MessageRepository messageRepository;
@@ -23,27 +18,8 @@ namespace Server.DAL.Repositories
         public EFUnitOfWork(string connectionString)
         {
             db = new ProjectContext(connectionString);
-            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            clientManager = new ClientManager(db);
         }
-
-        public ApplicationUserManager UserManager
-        {
-            get { return userManager; }
-        }
-
-        public IClientManager ClientManager
-        {
-            get { return clientManager; }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get { return roleManager; }
-        }
-
-        public IRepository<ClientProfile> Users
+        public IRepository<User> Users
         {
             get
             {

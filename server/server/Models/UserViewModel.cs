@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace Server.Models
 {
-    public class UserViewModel
+    public class UserViewModel : IUser<int>
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
-        public string Pseudinym { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string County { get; set; }

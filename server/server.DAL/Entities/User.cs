@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.DAL.Entities
 {
-    public class ClientProfile
+    public class User
     {
         [Key]
-        [ForeignKey("ApplicationUser")]
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string Pseudinym { get; set; }
         public string Email { get; set; }
+        public string PasswordHash { get; set; }
         public string County { get; set; }
         public string City { get; set; }
         public string[] Languages { get; set; }
@@ -22,6 +22,5 @@ namespace Server.DAL.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

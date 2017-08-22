@@ -1,11 +1,4 @@
-﻿using Microsoft.Practices.Unity;
-using Server.BLL.Interfaces;
-using Server.BLL.Services;
-using Server.Controllers;
-using Server.DAL.Interfaces;
-using Server.DAL.Repositories;
-using System.Web.Http;
-using Unity.WebApi;
+﻿using System.Web.Http;
 
 namespace Server
 {
@@ -13,13 +6,15 @@ namespace Server
     {
         public static void Register(HttpConfiguration config)
         {
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            config.EnableCors();
+
             config.Routes.MapHttpRoute(
                 name: "UserRoute",
-                routeTemplate: "api/{controller}/{action}"
+                routeTemplate: "api/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }

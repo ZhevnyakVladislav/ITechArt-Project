@@ -2,7 +2,8 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using Server.BLL.Interfaces;
+using Server.Models;
+
 
 [assembly: OwinStartup(typeof(Server.App_Start.Startup))]
 
