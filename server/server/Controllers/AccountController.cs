@@ -12,6 +12,7 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net.Http;
 using Microsoft.AspNet.Identity;
+using Server.BLL.Infrastructure;
 
 namespace Server.Controllers
 {
@@ -20,12 +21,13 @@ namespace Server.Controllers
     public class AccountController : ApiController
     {
         IUserService _userService;
-        public CustomUserManager UserManager
+        UserManager<UserViewModel, int> _userManager;
+        public AccountController(IUserService userSercice, UserManager<UserViewModel, int> userManager)
         {
-            get
-            {
-                return HttpContext.Current.GetOwinContext().GetUserManager<CustomUserManager>();
-            }
+            _userService = userSercice;
+            _userManager = userManager;
+
+
         }
         private IAuthenticationManager AuthenticationManager
         {
@@ -36,48 +38,47 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<string> Login(UserViewModel model)
+        public async Task<UserViewModel> Login(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.Email, model.Password);
+                var user = await _userManager.FindAsync(model.Email, model.Password);
                 if(user != null)
                 {
-                    AuthenticationManager.SignOut();
-                    var claim = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    }, claim);
-                    return "login successfull";
+                    await SignInAsync(user, true);
+                    user.Password = null;
+                    return user;
                 }
             }
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
 
         [HttpPost]
-        public Task<string> Register(UserViewModel model)
+        public async Task Register(UserViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
-            //    var userDto = Mapper.Map<UserViewModel, UserDTO>(model);
-            //    //OperationDetails operationDetails =  _userService.Create(userDto);
-            //    if (operationDetails.Succedeed)
-            //        return "SuccessRegister";
-            //    else
-            //        ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
-            //}
-            return Task.FromResult("error");
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.CreateAsync(model, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInAsync(model, isPersistent: true);
+                    return;
+                }
+            }
+            throw new HttpResponseException(HttpStatusCode.BadRequest);
+
         }
         public string Logout()
         {
             AuthenticationManager.SignOut();
             return "exit";
         }
-        public AccountController(IUserService userSercice)
+        private async Task SignInAsync(UserViewModel user, bool isPersistent)
         {
-            _userService = userSercice;
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
+
     }
 }

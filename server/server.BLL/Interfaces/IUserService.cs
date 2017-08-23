@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Server.BLL.Interfaces
 {
-    public interface IUserService : IDisposable
+    public interface IUserService
     {
         void Create(UserDTO userDto);
-        UserDTO FindByName(string email);
-        Task<ClaimsIdentity> Authenticate(UserDTO userDto);
+        UserDTO FindByEmail(string email);
     }
 }

@@ -1,7 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using server.Identity;
+using Server.BLL.Interfaces;
+using Server.DAL.Entity_Framework;
+using Server.DAL.Interfaces;
 using Server.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Models
@@ -12,7 +17,6 @@ namespace Server.Models
         {
             this.PasswordHasher = new CustomPasswordHasher();
         }
-
         public override Task<UserViewModel> FindAsync(string email, string password)
         {
             Task<UserViewModel> taskInvoke = Task<UserViewModel>.Factory.StartNew(() =>
@@ -26,6 +30,38 @@ namespace Server.Models
             });
             return taskInvoke;
         }
-        
+        public override async Task<IdentityResult> CreateAsync(UserViewModel user)
+        {
+
+            var result = await UserValidator.ValidateAsync(user);
+            if (!result.Succeeded)
+            {
+                return result;
+            }
+            await Store.CreateAsync(user);
+
+            return IdentityResult.Success;
+        }
+        public override async Task<IdentityResult> CreateAsync(UserViewModel user, string password)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            if (password == null)
+            {
+                throw new ArgumentNullException("password");
+            }
+
+            var result = await PasswordValidator.ValidateAsync(password);
+            if (!result.Succeeded)
+            {
+                return result;
+            }
+
+            user.Password = PasswordHasher.HashPassword(password);
+
+            return await CreateAsync(user);
+        }
     }
 }

@@ -9,7 +9,6 @@ namespace Server.Models
     public class UserViewModel : IUser<int>
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -17,7 +16,6 @@ namespace Server.Models
         public string City { get; set; }
         public string[] Languages { get; set; }
         public string Avatar { get; set; }
-        public string Role { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

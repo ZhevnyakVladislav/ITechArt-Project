@@ -7,22 +7,11 @@ const logIn = (currUser) => AsyncWrapper(() => {
 });
 
 function logOut() {
-    return AsyncWrapper(() => removeFromStorage(('user')));
+    return axios.post('http://localhost:34461/api/account/logout'); ;
 }
 
 const signUp = (currUser) => AsyncWrapper(() => {
-    const users = JSON.parse(getFromStorage('users'));
-    let user = users.find(user => user.email == currUser.email);
-    if(!user) {
-        currUser.id = users.length + 1;
-        currUser.role = 'user';
-        currUser.photo = 'https://beautycode.kz/sites/all/themes/savita/images/unknown-avatar.png';
-        users.push(currUser);
-        saveToStorage('users', JSON.stringify(users));
-        return user = { id: currUser.id , role: currUser.role};
-    } else {
-        return Promise.reject('wrong email');
-    }
+    return axios.post('http://localhost:34461/api/account/register', currUser); ;
 });
 
 export default {

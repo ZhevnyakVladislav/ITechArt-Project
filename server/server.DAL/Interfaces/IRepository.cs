@@ -7,7 +7,8 @@ namespace Server.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
         T Get(int id);
-        T Find(Func<T, bool> predicate);
+        T FindByField(Func<T, bool> predicate);
+        IEnumerable<T> FindFew(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);
         void Delete(int id);

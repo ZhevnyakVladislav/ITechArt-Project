@@ -256,6 +256,8 @@
     <Compile Include="Identity\CustomPasswordHasher.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Identity\CustomUserManager.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

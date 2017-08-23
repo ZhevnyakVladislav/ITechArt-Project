@@ -36,12 +36,14 @@ namespace Server.DAL.Repositories
         {
             db.Entry(message).State = EntityState.Modified;
         }
-
-        public Message Find(Func<Message, bool> predicate)
+        public Message FindByField(Func<Message, bool> predicate)
         {
             return db.Messages.Find(predicate);
         }
-
+        public IEnumerable<Message> FindFew(Func<Message, bool> predicate)
+        {
+            return db.Messages.Where(predicate).ToList();
+        }
         public void Delete(int id)
         {
             Message message = db.Messages.Find(id);
