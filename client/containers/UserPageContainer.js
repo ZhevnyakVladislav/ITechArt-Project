@@ -15,7 +15,7 @@ function mapStateToProps (state) {
         interestedAdverts: state.AdvertActions.interestedAdverts,
         authorsAdverts: state.AdvertActions.authorsAdverts,
         messages: state.MessageAction.messages,
-        user: state.UserActions.user
+        user: state.userState.user
     };
 };
 

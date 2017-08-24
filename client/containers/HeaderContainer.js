@@ -8,7 +8,8 @@ import Header from '../components/Header/Header';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth
+        isUserAuth: state.userState.isUserAuth,
+        user: state.userState.user
     };
 };
 

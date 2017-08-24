@@ -20,7 +20,7 @@ export default  class UserPage extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getUserPageData(this.props.user.id);
+        // this.props.getUserPageData(this.props.user.id);
     }
     
     componentWillReceiveProps() {
@@ -81,8 +81,8 @@ export default  class UserPage extends React.Component {
                 <Row>
                     <Col xs={12} smOffset={1} sm={3}>
                         <Row className="avatar">
-                            <Image src={this.props.user.photo} />
-                            <h3>{`${this.props.user.firstName} ${this.props.user.secondName}`}</h3>
+                            <Image src={this.props.user.avatar} />
+                            <h3>{`${this.props.user.firstName} ${this.props.user.lastName}`}</h3>
                             <Button className="load-img" bsSize="large" onClick={this.handleClickInput}>
                                 <Glyphicon glyph="camera"/>
                             </Button>

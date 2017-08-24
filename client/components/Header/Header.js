@@ -22,7 +22,7 @@ export default class Header extends React.Component {
                         <Link to="/account">
                             <div>
                                 <h4>{this.props.user.firstName}</h4>
-                                <Image src={this.props.user.photo} circle />
+                                <Image src={this.props.user.avatar} circle />
                             </div>
                         </Link>
                     </Col>

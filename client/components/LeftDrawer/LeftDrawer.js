@@ -12,13 +12,13 @@ export default class LeftDrawer extends React.Component {
                 <Link to='/account' >
                     <Col xs={12} className='avatar menu-item'>
                         <Image src={this.props.user.photo} circle />
-                        <h3>{`${this.props.user.firstName} ${this.props.user.secondName}`}</h3>
+                        <h3>{`${this.props.user.firstName} ${this.props.user.lastName}`}</h3>
                     </Col>
                 </Link>
             ) : (
                 <Link to='/login' >
                     <Col xs={12} className='avatar menu-item' >
-                        <Image src={this.props.user.photo} circle />
+                        <Image src={this.props.user.avatar} circle />
                         <h3>Please, login</h3>
                     </Col>
                 </Link>
