@@ -16,6 +16,8 @@ export default class LogInform extends React.Component {
             password: '', 
             confirmPassword: '',
             languages: [],
+            country: '',
+            city: '',
             errors: {
                 firstNameValid: validType.default,
                 secondNameValid: validType.default,
@@ -31,7 +33,6 @@ export default class LogInform extends React.Component {
         this.renderWarningMessage = this.renderWarningMessage.bind(this);
         this.addLanguage = this.addLanguage.bind(this);
         this.deleteLanguage = this.deleteLanguage.bind(this);
-        
     }
 
     handleChange(e) {
@@ -58,11 +59,13 @@ export default class LogInform extends React.Component {
         if (this.validateData()) {
             this.props.signUp({
                 firstName: this.state.firstName,
-                secondName: this.state.secondName,
+                lastName: this.state.secondName,
                 pseudonym:  this.state.pseudonym,
                 email: this.state.email,
                 password: this.state.password,
                 languages:  this.state.languages,
+                country: this.state.country,
+                city: this.state.city
             });
         }
     }

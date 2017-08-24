@@ -11,6 +11,6 @@ namespace Server.BLL.Interfaces
     public interface IUserService
     {
         void Create(UserDTO userDto);
-        UserDTO FindByEmail(string email);
+        UserDTO FindByName(string name);
     }
 }

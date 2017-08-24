@@ -34,8 +34,9 @@ namespace Server.BLL.Services
                     var clientProfile = Mapper.Map<UserDTO, User>(userDto);
                     clientProfile.UpdatedAt = DateTime.Now;
                     clientProfile.CreatedAt = DateTime.Now;
+                    clientProfile.Avatar = "http://res.cloudinary.com/luxorik/image/upload/v1503568706/unknown-avatar_ltqjwv.png";
                     _database.Users.Create(clientProfile);
-                    _database.SaveAsync();
+                    _database.Save();
                 }
                 catch
                 {

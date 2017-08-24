@@ -12,6 +12,7 @@ namespace Server.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string UserName { get; set; }
+        public string Pseudonym { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string County { get; set; }

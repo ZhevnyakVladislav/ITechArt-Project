@@ -11,5 +11,6 @@ namespace Server.DAL.Interfaces
         IRepository<Advert> Adverts { get; }
         IRepository<Message> Messages { get; }
         Task SaveAsync();
+        void Save();
     }
 }
