@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { logOut } from '../actions/AuthActions';
-import { getUserById } from '../actions/UserActions';
+import { checkUserAuth } from '../actions/AuthActions';
 import { getFromStorage } from '../helpers/storageHelper';
 import '../stylesheets/index.scss';
 
@@ -14,14 +14,14 @@ import Routes from '../routes/Routes';
 function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
-        user: state.UserActions.user
+        user: state.userState.user
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         logOut,
-        getUserById
+        checkUserAuth
     }, dispatch);
 }
 
@@ -41,10 +41,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        const user = JSON.parse(getFromStorage('user'));
-        if (user) {
-            this.props.getUserById(user.id);
-        }
+        this.props.checkUserAuth();
     }
 
     render() {

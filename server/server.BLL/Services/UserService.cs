@@ -43,9 +43,9 @@ namespace Server.BLL.Services
                 }
             }
         }
-        public UserDTO FindByEmail(string email)
+        public UserDTO FindByName(string name)
         {
-            var user = _database.Users.FindByField(item => item.Email == email);
+            var user = _database.Users.FindByField(item => item.Email == name);
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>());
             return Mapper.Map<User, UserDTO>(user);
         }

@@ -38,7 +38,7 @@ namespace server.Identity
         }
         public Task<UserViewModel> FindByNameAsync(string email)
         {
-            var user = _userService.FindByEmail(email);
+            var user = _userService.FindByName(email);
             Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
             return Task.FromResult<UserViewModel>(Mapper.Map<UserDTO, UserViewModel>(user));
         }

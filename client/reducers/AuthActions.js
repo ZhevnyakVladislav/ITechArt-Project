@@ -2,20 +2,56 @@ import actionType from '../constants/AuthActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
-    isUserAuth: false
+    isUserAuth: false,
+    user: {},
+    errors: null,
 };
 
-function userAuth(state, action) {
+function userAuthSuccessful(state, action) {
     return {
         ...state,
-        isUserAuth: true
+        isUserAuth: true,
+        user: action.payload.data
     };
 }
 
-function logIn(state, action) {
+function userAuthFailure(state, action) {
     return {
         ...state,
-        isUserAuth: true
+        isUserAuth: false,
+        errors: action.payload
+    };
+}
+
+function logInSuccessful(state, action) {
+    return {
+        ...state,
+        isUserAuth: true,
+        user: action.payload.data
+    };
+}
+
+function logInFailure(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+        errors: action.payload.data
+    };
+}
+
+function signUpSuccessful(state, action) {
+    return {
+        ...state,
+        isUserAuth: true,
+        user: action.payload.data
+    };
+}
+
+function signUpFailure(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+        errors: action.payload.data
     };
 }
 
@@ -26,16 +62,14 @@ function logOut(state, action) {
     };
 }
 
-function signUp(state, action) {
-    return {
-        ...state,
-        isUserAuth: true
-    };
-}
+
 
 export default createReducer(initialState, {
-    [actionType.USER_AUTH]: userAuth,
-    [actionType.LOG_IN_SUCCESSFUL]: logIn,
+    [actionType.USER_AUTH_SUCCESSFUL]: userAuthSuccessful,
+    [actionType.USER_AUTH_FAILURE]: userAuthFailure,
+    [actionType.LOG_IN_SUCCESSFUL]: logInFailure,
+    [actionType.LOG_IN_FAILURE]: logInSuccessful,
+    [actionType.SIGN_UP_SUCCESSFUL]: signUpSuccessful,
+    [actionType.SIGN_UP_FAILURE]: signUpFailure,
     [actionType.LOG_OUT]: logOut,
-    [actionType.SIGN_UP_SUCCESSFUL]: signUp
 });

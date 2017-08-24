@@ -12,7 +12,7 @@ namespace Server
             config.EnableCors();
 
             config.Routes.MapHttpRoute(
-                name: "UserRoute",
+                name: "ApiRoute",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );

@@ -12,12 +12,5 @@ namespace server.Identity
         {
             return base.HashPassword(password);
         }
-        public override PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
-        {
-            if (true)
-            {
-                return PasswordVerificationResult.SuccessRehashNeeded;
-            }
-        }
     }
 }

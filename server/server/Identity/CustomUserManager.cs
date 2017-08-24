@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using server.Identity;
+using Server.BLL.Infrastructure;
 using Server.BLL.Interfaces;
 using Server.DAL.Entity_Framework;
 using Server.DAL.Interfaces;
@@ -19,16 +20,17 @@ namespace Server.Models
         }
         public override Task<UserViewModel> FindAsync(string email, string password)
         {
-            Task<UserViewModel> taskInvoke = Task<UserViewModel>.Factory.StartNew(() =>
+            var user = Store.FindByNameAsync(email).Result;
+            if (user != null)
             {
-                PasswordVerificationResult result = this.PasswordHasher.VerifyHashedPassword(email, password);
-                if (result == PasswordVerificationResult.SuccessRehashNeeded)
+                PasswordVerificationResult result = this.PasswordHasher.VerifyHashedPassword(user.Password, password);
+                if (result == PasswordVerificationResult.Success)
                 {
-                    return Store.FindByNameAsync(email).Result;
+                    return Task.FromResult<UserViewModel>(user);
                 }
                 return null;
-            });
-            return taskInvoke;
+            }
+            return null;
         }
         public override async Task<IdentityResult> CreateAsync(UserViewModel user)
         {

@@ -16,8 +16,6 @@ using Server.BLL.Infrastructure;
 
 namespace Server.Controllers
 {
-    
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         IUserService _userService;
@@ -38,7 +36,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public async Task<UserViewModel> Login(UserViewModel model)
+        public async Task<object> Login(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -49,20 +47,27 @@ namespace Server.Controllers
                     user.Password = null;
                     return user;
                 }
+                return BadRequest("wrong email or password");
             }
             throw new HttpResponseException(HttpStatusCode.BadRequest);
         }
-
+        [HttpGet]
+        [Authorize]
+        public async Task<object> CheckAuth()
+        {
+            var user = _userService.FindByName(User.Identity.Name);
+            return user;
+        }
         [HttpPost]
-        public async Task Register(UserViewModel model)
+        public async Task<IHttpActionResult> Register(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
+                model.UserName = model.Email;
                 var result = await _userManager.CreateAsync(model, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInAsync(model, isPersistent: true);
-                    return;
+                    return Ok();
                 }
             }
             throw new HttpResponseException(HttpStatusCode.BadRequest);

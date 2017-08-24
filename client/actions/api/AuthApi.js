@@ -2,21 +2,18 @@ import axios from 'axios';
 import AsyncWrapper from './AsyncWrapper';
 import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/storageHelper';
 
-const logIn = (currUser) => AsyncWrapper(() => {
-    return axios.post('http://localhost:34461/api/account/login', currUser); 
-});
+const logIn = (currUser) => axios.post('/api/account/login', currUser);
 
-function logOut() {
-    return axios.post('http://localhost:34461/api/account/logout'); ;
-}
+const logOut = () => axios.post('/api/account/logout');
 
-const signUp = (currUser) => AsyncWrapper(() => {
-    return axios.post('http://localhost:34461/api/account/register', currUser); ;
-});
+const signUp = (currUser) => axios.post('/api/account/register', currUser);
+
+const chengeUserAuth = () => axios.get('/api/account/checkauth');
 
 export default {
     logIn,
     logOut,
-    signUp
+    signUp,
+    chengeUserAuth
 };
 
