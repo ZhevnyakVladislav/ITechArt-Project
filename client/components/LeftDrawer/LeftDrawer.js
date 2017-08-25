@@ -11,7 +11,7 @@ export default class LeftDrawer extends React.Component {
             (this.props.isUserAuth) ? (
                 <Link to='/account' >
                     <Col xs={12} className='avatar menu-item'>
-                        <Image src={this.props.user.photo} circle />
+                        <Image src={this.props.user.avatar} circle />
                         <h3>{`${this.props.user.firstName} ${this.props.user.lastName}`}</h3>
                     </Col>
                 </Link>

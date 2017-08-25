@@ -1,6 +1,4 @@
 import axios from 'axios';
-import AsyncWrapper from './AsyncWrapper';
-import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/storageHelper';
 
 const logIn = (currUser) => axios.post('/api/account/login', currUser);
 

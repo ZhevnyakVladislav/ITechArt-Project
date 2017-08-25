@@ -8,9 +8,11 @@ export function logIn(user) {
             type: actionType.LOG_IN_SUCCESSFUL,
             payload: data
         }))
-        .catch((data) => 
-            console.log(data, 'login')
-        );
+        .catch((data) =>  dispatch({
+            type: actionType.LOG_IN_FAILURE,
+            payload: data.response.data
+        }));
+            
 }
 
 export function logOut() {
@@ -23,10 +25,12 @@ export function logOut() {
 export function signUp(user) {
     return dispatch => authApi.signUp(user)
         .then(data =>  dispatch({ 
-            type: actionType.SIGN_UP_SUCCESSFUL 
+            type: actionType.SIGN_UP_SUCCESSFUL,
+            payload: data
         }))
         .catch(data => dispatch({ 
-            type: actionType.SIGN_UP_SUCCESSFUL 
+            type: actionType.SIGN_UP_FAILURE,
+            payload: data.response.data 
         }));
 }
 

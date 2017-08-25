@@ -13,12 +13,15 @@ namespace Server.BLL.DTO
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public string Type { get; set; }
+
         public virtual UserDTO Author { get; set; }
         public virtual UserDTO InterestedUser { get; set; }
+
         public int AuthorId { get; set; }
         public int InterestedUserId { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
     }
 }

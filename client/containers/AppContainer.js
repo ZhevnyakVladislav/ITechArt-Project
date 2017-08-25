@@ -14,7 +14,7 @@ import Routes from '../routes/Routes';
 function mapStateToProps (state) {
     return {
         isUserAuth: state.userState.isUserAuth,
-        user: state.userState.user
+        user: state.userState.user,
     };
 };
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDrawerOpen: false
+            isDrawerOpen: false,
         };
         this.handleChanheDrawerState = this.handleChanheDrawerState.bind(this);
     }
@@ -38,17 +38,17 @@ class App extends React.Component {
         this.setState({
             isDrawerOpen: !this.state.isDrawerOpen
         });
+        this.state.errors = this.refs.notificationSystem;
     }
 
-    componentDidMount() {
-        this.props.checkUserAuth();
+    async componentDidMount() {
+        await this.props.checkUserAuth();
     }
 
     render() {
         return(
             <div className='app-container'>
                 <Header
-                    user={this.props.user} 
                     openDrawer={this.handleChanheDrawerState}/>
                 <LeftDrawer
                     user={this.props.user} 

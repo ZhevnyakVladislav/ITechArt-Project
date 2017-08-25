@@ -1,61 +1,22 @@
-import AsyncWrapper from './AsyncWrapper';
-import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/storageHelper';
+import axios from 'axios';
 
-const getAuthorsAdverts = (userId) => AsyncWrapper(() => {
-    const allAdverts = JSON.parse(getFromStorage('adverts'));
-    const userAdverts = allAdverts.filter(advert => advert.author == userId);
-    return userAdverts;
-});
+const getAuthorsAdverts = (userId) => axios.get('/api/Advert?userId=' + userId);
 
-const getInterestedAdverts = (userId) => AsyncWrapper(() => {
-    const allAdverts = JSON.parse(getFromStorage('adverts'));
-    const userAdverts = allAdverts.filter(advert => advert.interestedUser == userId);
-    return userAdverts;
-});
+const getInterestedAdverts = (userId) => axios.get('/api/advert?userId=' + userId);
 
-const getFewAdverts = (page, type, count) => AsyncWrapper(() => {
-    const allAdverts = JSON.parse(getFromStorage('adverts'));
-    const filteredAdverts = allAdverts.filter(advert => advert.type === type && advert.isActive);
-    const fewFilteredAdverts =  filteredAdverts.slice((page - 1) * count, (page - 1) * count + count);
-    return { fewFilteredAdverts: fewFilteredAdverts, count: filteredAdverts.length };
-});
+const getFewAdverts = (type, page) => axios.get(`/api/advert?type=${type}&userId=${page}`);
 
-const addAdvert = (advert) => AsyncWrapper(() => {
-    const adverts = JSON.parse(getFromStorage('adverts'));
-    adverts.sort((a,b) => a.id - b.id);
-    if(adverts.length > 0) {
-        advert.id = adverts[adverts.length-1].id + 1;
-    } else {
-        advert.id = 1;
-    }
-    advert.interestedUser = null;
-    advert.isOpenRespondDialog = false;
-    adverts.push(advert);
-    saveToStorage('adverts', JSON.stringify(adverts));
-});
+const createAdverd = (advert) => axios.post('/api/advert', advert);
 
-const removeAdvert = (id) => AsyncWrapper(() => {
-    const adverts = JSON.parse(getFromStorage('adverts'));
-    const removedAdvert = adverts.find(advert => advert.id == id);
-    adverts.splice(adverts.indexOf(removedAdvert), 1);
-    saveToStorage('adverts', JSON.stringify(adverts));
-});
+const updateAdver = (advert) => axios.put('/api/advert' + advert.id, advert);
 
-const changeAdvertActivity = (advertId, interestedUser, pageSetting) => AsyncWrapper(() => {
-    const adverts = JSON.parse(getFromStorage('adverts'));
-    const oldAdvert = adverts.find(advert => advert.id == advertId);
-    const index = adverts.indexOf(oldAdvert);
-    adverts[index].isActive = false;
-    adverts[index].interestedUser = interestedUser;
-    saveToStorage('adverts', JSON.stringify(adverts));
-    return getFewAdverts(pageSetting.activePage, pageSetting.activeTab, 3);
-}); 
+const removeAdvert = (id) => axios.delete('/api/advert/' + advert.id);
 
 export default {
     getAuthorsAdverts,
     getInterestedAdverts,
     getFewAdverts,
-    changeAdvertActivity,
-    addAdvert,
+    createAdverd,
+    updateAdver,
     removeAdvert
 };

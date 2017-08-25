@@ -1,4 +1,5 @@
-﻿using Server;
+﻿using server.App_Start;
+using Server;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,11 +15,11 @@ namespace Server
     {
         protected void Application_Start()
         {
-
+           
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             UnityConfig.RegisterComponents();
-            
+            MapperConfig.RegisterMapper();
         }
     }
 }
