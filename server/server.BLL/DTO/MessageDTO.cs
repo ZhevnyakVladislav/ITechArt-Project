@@ -1,19 +1,22 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Server.DAL.Entities
+namespace Server.BLL.DTO
 {
-    public class Message
+    public class MessageDTO
     {
-        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public virtual User Author { get; set; }
-        public virtual Advert Advert { get; set; }
+        public virtual UserDTO Author { get; set; }
+        public virtual AdvertDTO Advert { get; set; }
         public int AuthorId { get; set; }
         public int AdvertId { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
     }
 }
