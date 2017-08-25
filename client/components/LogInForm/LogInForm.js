@@ -5,6 +5,8 @@ import validType from '../../constants/validation/validation';
 import { validateEmail, validatePassword } from '../../helpers/validationHelper';
 import './logInForm.scss';
 
+import Popup from '../Popup/Popup';
+
 export default class LogInform extends React.Component {
     constructor(props) {
         super(props);
@@ -79,6 +81,7 @@ export default class LogInform extends React.Component {
                         </Form>
                     </Col>
                 </Row>
+                <Popup errors={this.props.errors} />
             </Grid>
         ); 
     }

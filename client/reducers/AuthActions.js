@@ -4,7 +4,7 @@ import createReducer from '../helpers/reducerHelper';
 const initialState = {
     isUserAuth: false,
     user: {},
-    errors: null,
+    errors: null
 };
 
 function userAuthSuccessful(state, action) {
@@ -19,7 +19,6 @@ function userAuthFailure(state, action) {
     return {
         ...state,
         isUserAuth: false,
-        errors: action.payload
     };
 }
 
@@ -35,7 +34,7 @@ function logInFailure(state, action) {
     return {
         ...state,
         isUserAuth: false,
-        errors: action.payload.data
+        errors: action.payload
     };
 }
 
@@ -51,7 +50,7 @@ function signUpFailure(state, action) {
     return {
         ...state,
         isUserAuth: false,
-        errors: action.payload.data
+        errors: action.payload
     };
 }
 
@@ -67,8 +66,8 @@ function logOut(state, action) {
 export default createReducer(initialState, {
     [actionType.USER_AUTH_SUCCESSFUL]: userAuthSuccessful,
     [actionType.USER_AUTH_FAILURE]: userAuthFailure,
-    [actionType.LOG_IN_SUCCESSFUL]: logInFailure,
-    [actionType.LOG_IN_FAILURE]: logInSuccessful,
+    [actionType.LOG_IN_SUCCESSFUL]: logInSuccessful,
+    [actionType.LOG_IN_FAILURE]: logInFailure,
     [actionType.SIGN_UP_SUCCESSFUL]: signUpSuccessful,
     [actionType.SIGN_UP_FAILURE]: signUpFailure,
     [actionType.LOG_OUT]: logOut,

@@ -53,7 +53,10 @@ namespace Server.DAL.Repositories
         {
             await db.SaveChangesAsync();
         }
-
+        public void Save()
+        {
+            db.SaveChanges();
+        }
         public virtual void Dispose(bool disposing)
         {
             if (!this.disposed)
