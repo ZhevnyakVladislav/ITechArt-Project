@@ -11,11 +11,11 @@ import Component from '../components/UserPage/UserPage';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth,
+        isUserAuth: state.UserActions.isUserAuth,
         interestedAdverts: state.AdvertActions.interestedAdverts,
         authorsAdverts: state.AdvertActions.authorsAdverts,
         messages: state.MessageAction.messages,
-        user: state.userState.user
+        user: state.UserActions.user
     };
 };
 

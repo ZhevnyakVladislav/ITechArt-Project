@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { logOut } from '../actions/AuthActions';
-import { checkUserAuth } from '../actions/AuthActions';
+import { getUser, logOut } from '../actions/UserActions';
 import { getFromStorage } from '../helpers/storageHelper';
 import '../stylesheets/index.scss';
 
@@ -13,15 +12,15 @@ import Routes from '../routes/Routes';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth,
-        user: state.userState.user,
+        isUserAuth: state.UserActions.isUserAuth,
+        user: state.UserActions.user,
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         logOut,
-        checkUserAuth
+        getUser
     }, dispatch);
 }
 
@@ -42,7 +41,7 @@ class App extends React.Component {
     }
 
     async componentDidMount() {
-        await this.props.checkUserAuth();
+        await this.props.getUser();
     }
 
     render() {

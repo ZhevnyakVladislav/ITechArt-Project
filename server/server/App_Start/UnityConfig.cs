@@ -11,6 +11,8 @@ using Unity.WebApi;
 using Server.Models;
 using server.Identity;
 using Microsoft.AspNet.Identity;
+using server.Controllers;
+using server.App_Start;
 
 namespace Server
 {
@@ -23,11 +25,14 @@ namespace Server
             container
                 .RegisterType<UserController>()
                 .RegisterType<AccountController>()
+                .RegisterType<AdvertController>()
                 .RegisterType<IUserStore<UserViewModel, int>, UserStore>()
                 .RegisterType<UserManager<UserViewModel, int>, CustomUserManager>()
                 .RegisterType<IUserService, UserService>()
+                .RegisterType<IAdvertService, AdvertService>()
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IAuthenticationManager>()
+                .RegisterInstance<IMapper>(MapperConfig.GetMapper())
                 .RegisterType<IUnitOfWork, EFUnitOfWork>(new InjectionConstructor("name=ProjectContext"));
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);

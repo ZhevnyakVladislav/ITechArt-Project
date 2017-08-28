@@ -1,44 +1,54 @@
-﻿using System;
+﻿using AutoMapper;
+using Server.BLL.DTO;
+using Server.BLL.Interfaces;
+using Server.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Server.BLL.Services;
-using Server.BLL.Interfaces;
-using Server.Models;
-using AutoMapper;
-using Server.BLL.DTO;
+using System.Net.Http;
 using System.Web.Http;
 
-namespace Server.Controllers
+namespace server.Controllers
 {
     public class UserController : ApiController
     {
         IUserService _userService;
-
         public UserController(IUserService userSercice)
         {
             _userService = userSercice;
         }
-
-        [HttpGet]
         [Authorize]
-        public string[] GetUser()
+        // GET: api/User
+        public UserViewModel Get()
         {
-            return new string[] { "hello", "world" };
+            return MapOneModel(_userService.FindByName(User.Identity.Name));
         }
 
-
-        [HttpPost]
-        public string CreateUser(UserViewModel user)
+        // GET: api/User/5
+        public string Get(int id)
         {
-                Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
-                var userDto = Mapper.Map<UserViewModel, UserDTO>(user);
-                return "successful";
+            return "none";
         }
-        //protected override void Dispose(bool disposing)
-        //{
-        //    userService.Dispose();
-        //    base.Dispose(disposing);
-        //}
+
+        // POST: api/User
+        public void Post([FromBody]string value)
+        {
+        }
+
+        // PUT: api/User/5
+        public void Put(int id, [FromBody]string value)
+        {
+        }
+
+        // DELETE: api/User/5
+        public void Delete(int id)
+        {
+        }
+        private UserViewModel MapOneModel(UserDTO user)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
+            return Mapper.Map<UserDTO, UserViewModel>(user);
+        }
     }
 }

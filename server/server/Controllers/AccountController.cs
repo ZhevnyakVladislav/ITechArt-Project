@@ -14,13 +14,10 @@ namespace Server.Controllers
 {
     public class AccountController : ApiController
     {
-        IUserService _userService;
         UserManager<UserViewModel, int> _userManager;
-        public AccountController(IUserService userSercice, UserManager<UserViewModel, int> userManager)
+        public AccountController(UserManager<UserViewModel, int> userManager)
         {
-            _userService = userSercice;
             _userManager = userManager;
-
 
         }
         private IAuthenticationManager AuthenticationManager
@@ -51,15 +48,6 @@ namespace Server.Controllers
                 }
             }
             throw new HttpResponseException(HttpStatusCode.BadRequest);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/account/checkauth")]
-        public async Task<object> CheckAuth()
-        {
-            var user = _userService.FindByName(User.Identity.Name);
-            return user;
         }
 
         [HttpPost]

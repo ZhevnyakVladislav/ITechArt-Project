@@ -1,15 +1,15 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logIn } from '../actions/AuthActions';
+import { logIn } from '../actions/UserActions';
 import { bindActionCreators } from 'redux';
 
 import Component from '../components/LogInForm/LogInForm';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth,
-        errors: state.userState.errors
+        isUserAuth: state.UserActions.isUserAuth,
+        errors: state.UserActions.errors
     };
 };
 

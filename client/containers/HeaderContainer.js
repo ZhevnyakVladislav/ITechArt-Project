@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { logOut } from '../actions/AuthActions';
+import { logOut } from '../actions/UserActions';
 
 import Header from '../components/Header/Header';
 
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth,
-        user: state.userState.user
+        isUserAuth: state.UserActions.isUserAuth,
+        user: state.UserActions.user
     };
 };
 

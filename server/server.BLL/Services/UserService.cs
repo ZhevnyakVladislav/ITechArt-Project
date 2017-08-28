@@ -17,10 +17,11 @@ namespace Server.BLL.Services
     public class UserService : IUserService
     {
         IUnitOfWork _database;
-
-        public UserService(IUnitOfWork db)
+        IMapper _mapper;
+        public UserService(IUnitOfWork db, IMapper mapper)
         {
             _database = db;
+            _mapper = mapper;
         }
 
         public void Create(UserDTO userDto)
@@ -30,7 +31,6 @@ namespace Server.BLL.Services
             {
                 try
                 {
-                    Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, User>());
                     var clientProfile = Mapper.Map<UserDTO, User>(userDto);
                     clientProfile.UpdatedAt = DateTime.Now;
                     clientProfile.CreatedAt = DateTime.Now;
@@ -47,8 +47,7 @@ namespace Server.BLL.Services
         public UserDTO FindByName(string name)
         {
             var user = _database.Users.FindByField(item => item.Email == name);
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>());
-            return Mapper.Map<User, UserDTO>(user);
+            return _mapper.Map<User, UserDTO>(user);
         }
     }
 }

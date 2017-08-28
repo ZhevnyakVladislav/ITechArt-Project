@@ -10,7 +10,7 @@ import Adverts from '../components/Adverts/Adverts';
     
 function mapStateToProps (state) {
     return {
-        isUserAuth: state.userState.isUserAuth,
+        isUserAuth: state.UserActions.isUserAuth,
         adverts: state.AdvertActions.adverts,
         count: state.AdvertActions.count,
         userId: state.UserActions.user.id

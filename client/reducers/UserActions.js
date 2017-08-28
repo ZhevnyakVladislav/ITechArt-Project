@@ -2,26 +2,90 @@ import actionType from '../constants/UserActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
-    user: {
-        languages: []
-    }
+    isUserAuth: false,
+    user: {},   
+    errors: null
 };
 
-function getUserById(state, action) {
+function getUserSuccessful(state, action) {
     return {
         ...state,
-        user: action.payload.user
+        isUserAuth: true,
+        user: action.payload.data
     };
 }
 
-function changeAvatar(state, action) {
+function getUserFailure(state, action) {
+    return {
+        ...state,
+        isUserAuth:false,
+    };
+}
+
+function logInSuccessful(state, action) {
+    return {
+        ...state,
+        isUserAuth: true,
+        user: action.payload.data
+    };
+}
+
+function logInFailure(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+        errors: action.payload
+    };
+}
+
+function signUpSuccessful(state, action) {
+    return {
+        ...state,
+        isUserAuth: true,
+        user: action.payload.data
+    };
+}
+
+function signUpFailure(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+        errors: action.payload
+    };
+}
+
+function logOut(state, action) {
+    return {
+        ...state,
+        isUserAuth: false,
+    };
+}
+
+
+
+function changeAvatarSuccessful(state, action) {
     return {
         ...state,
         user: action.payload.user
     };
 } 
 
+function changeAvatarFailure(state, action) {
+    return {
+        ...state,
+        user: action.payload.user
+    };
+} 
+
+
 export default createReducer(initialState, {
-    [actionType.GET_USER_SUCCESSFUL]: getUserById,
-    [actionType.СHANGE_AVATAR_SUCCESSFUL]: changeAvatar
+    [actionType.GET_USER_SUCCESSFUL]: getUserSuccessful,
+    [actionType.GET_USER_FAILURE]: getUserFailure,
+    [actionType.LOG_IN_SUCCESSFUL]: logInSuccessful,
+    [actionType.LOG_IN_FAILURE]: logInFailure,
+    [actionType.SIGN_UP_SUCCESSFUL]: signUpSuccessful,
+    [actionType.SIGN_UP_FAILURE]: signUpFailure,
+    [actionType.LOG_OUT]: logOut,
+    [actionType.СHANGE_AVATAR_SUCCESSFUL]: changeAvatarSuccessful,
+    [actionType.СHANGE_AVATAR_FAILURE]: changeAvatarFailure
 });
