@@ -20,8 +20,8 @@ export default  class UserPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.getAuthorsAdverts(userId);
-        // this.props.getInterestedAdverts(userId);
+        this.props.getAuthorsAdverts();
+        this.props.getInterestedAdverts();
     }
     
     handleClickInput() {
@@ -42,7 +42,7 @@ export default  class UserPage extends React.Component {
     }
     
     removeAdvert(e) {
-        // this.props.removeAdvert(e.target.id, this.props.user.id);
+        this.props.removeAdvert(this.props.user.id);
     }
 
     renderAdverts(adverts) {

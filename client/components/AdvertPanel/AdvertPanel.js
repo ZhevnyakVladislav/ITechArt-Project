@@ -6,7 +6,7 @@ export default class advertPanel extends React.Component {
     render() {
         return(
             <Panel header={this.props.advert.title}>
-                {this.props.advert.description}
+                <p>{this.props.advert.description}</p>
                 <ControlLabel>
                     Vladislav 
                 </ControlLabel>

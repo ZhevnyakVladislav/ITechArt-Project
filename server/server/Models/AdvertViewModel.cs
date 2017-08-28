@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Server.Models;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
 
-namespace Server.DAL.Entities
+namespace server.Models
 {
-    public class Advert
+    public class AdvertViewModel
     {
-        [Key]
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
         public string Type { get; set; }
-
-        public virtual User Author { get; set; }
-        public virtual User InterestedUser { get; set; }
+        public virtual UserViewModel Author { get; set; }
+        public virtual UserViewModel InterestedUser { get; set; }
 
         public int AuthorId { get; set; }
         public int? InterestedUserId { get; set; }
@@ -23,3 +23,5 @@ namespace Server.DAL.Entities
         public DateTime UpdatedAt { get; set; }
     }
 }
+
+

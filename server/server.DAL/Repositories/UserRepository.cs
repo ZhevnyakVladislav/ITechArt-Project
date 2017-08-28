@@ -47,7 +47,10 @@ namespace Server.DAL.Repositories
         {
             return db.Users.FirstOrDefault(predicate);
         }
-
+        public IQueryable<User> GetQuryable()
+        {
+            return db.Users;
+        }
         public void Delete(int id)
         {
             User user = db.Users.Find(id);

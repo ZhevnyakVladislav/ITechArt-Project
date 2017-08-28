@@ -28,15 +28,15 @@ export default class AddAdvertForm extends React.Component {
         });
     }
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         if(this.validateData()) {
-            this.props.createAdvert({
+            await this.props.createAdvert({
                 title: this.state.title,
                 description: this.state.description,
                 type: this.state.type,
             });
+            this.props.history.push('/account');
         }
-        this.props.history.push('/account');
     }
 
     validateData() {

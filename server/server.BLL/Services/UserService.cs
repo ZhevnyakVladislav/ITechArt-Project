@@ -31,16 +31,16 @@ namespace Server.BLL.Services
             {
                 try
                 {
-                    var clientProfile = Mapper.Map<UserDTO, User>(userDto);
+                    var clientProfile = _mapper.Map<UserDTO, User>(userDto);
                     clientProfile.UpdatedAt = DateTime.Now;
                     clientProfile.CreatedAt = DateTime.Now;
                     clientProfile.Avatar = "http://res.cloudinary.com/luxorik/image/upload/v1503582141/Unknown_burwjw.png";
                     _database.Users.Create(clientProfile);
                     _database.Save();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    throw new Exception("Error");
+                    throw ex;
                 }
             }
         }

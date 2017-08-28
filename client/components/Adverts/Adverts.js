@@ -10,7 +10,6 @@ export default class Adverts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            adverts: [],
             isRespondDialogOpen: false,
             activePage: 1,
             activeTab: 'rentOf',
@@ -22,15 +21,11 @@ export default class Adverts extends React.Component {
     }
     
     componentDidMount() {
-        this.props.getFewAdverts(this.state.activePage, this.state.activeTab);
+        this.props.getFewAdverts(this.state.activeTab, this.state.activePage);
     }
 
-    componentWillReceiveProps(props) {
-        this.state.adverts = this.props.adverts.filter(advert => advert.author != this.props.userId);
-    }
-    
     handleSelect(eventKey) {
-        this.props.getFewAdverts(eventKey, this.state.activeTab);
+        this.props.getFewAdverts(this.state.activeTab, eventKey);
         this.setState({
             activePage: eventKey
         });
@@ -38,9 +33,10 @@ export default class Adverts extends React.Component {
 
     changeTab(e) {
         const type = e.target.id.split('-')[3];
-        this.props.getFewAdverts(this.state.activePage, type);
+        this.props.getFewAdverts(type, 1);  
         this.setState({
-            activeTab: type
+            activeTab: type,
+            activePage: 1
         });
           
     }
@@ -55,7 +51,7 @@ export default class Adverts extends React.Component {
     render() {
         const renderAdverts = (
             <ListGroup>
-                {this.state.adverts.map((advert, key) => 
+                {this.props.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
                         <AdvertPanel advert={advert} />
                         <Button onClick={this.changeStateDialog} id={advert.id}>respond</Button>
@@ -90,7 +86,7 @@ export default class Adverts extends React.Component {
                                         last
                                         ellipsis
                                         boundaryLinks
-                                        items={Math.ceil(this.props.count / 3)}
+                                        items={Math.ceil(this.props.advertsCount / 3)}
                                         maxButtons={3}
                                         activePage={this.state.activePage}
                                         onSelect={this.handleSelect} />

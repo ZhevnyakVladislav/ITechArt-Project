@@ -17,8 +17,10 @@ namespace server.App_Start
         public MappingProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<UserViewModel, UserDTO>().ReverseMap();
+
+            CreateMap<AdvertDTO, AdvertViewModel>().ReverseMap();
             CreateMap<Advert, AdvertDTO>().ReverseMap();
-            CreateMap<AdvertViewModel, AdvertDTO>().ReverseMap();
         }
     }
 
@@ -30,26 +32,8 @@ namespace server.App_Start
             {
                 cfg.AddProfile(new MappingProfile());
             });
-
-            var mapper = mapperConfiguration.CreateMapper();
-            return mapper;
-            //Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>());
-            //Mapper.
-            //return Mapper;
-            //Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, User>());
-
             
-            //Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
-
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<Advert, AdvertDTO>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<AdvertDTO, Advert>());
-
-
-            //Mapper.Initialize(cfg => cfg.CreateMap<AdvertDTO, AdvertViewModel>());
-            //Mapper.Initialize(cfg => cfg.CreateMap<AdvertViewModel, AdvertDTO>());
-
+            return mapperConfiguration.CreateMapper();
         }
     }
 }

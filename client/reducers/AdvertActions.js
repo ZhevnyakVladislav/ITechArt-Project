@@ -10,26 +10,26 @@ const initialState = {
 function getFewAdverts(state, action) {
     return {
         ...state,
-        adverts: action.payload.fewAdverts,
-        count: action.payload.count
+        adverts: action.payload.data.adverts,
+        count: action.payload.data.count
     };
 }
 
 function getAuthorsAdverts(state, action) {
     return {
         ...state,
-        authorsAdverts: action.payload.authorsAdverts
+        authorsAdverts: action.payload.data
     };
 }
 
 function getInterestedAdverts(state, action) {
     return {
         ...state,
-        interestedAdverts: action.payload.interestedAdverts
+        interestedAdverts: action.payload.data
     };
 }
 
-function addAdvert(state, action) {
+function createAdvert(state, action) {
     return {
         ...state
     };
@@ -38,18 +38,11 @@ function addAdvert(state, action) {
 function removeAdvert(state, action) {
     return {
         ...state,
-        authorsAdverts: [...removeAdvertFromList(state.authorsAdverts, action.payload.advertId)],
-        interestedAdverts: [...removeAdvertFromList(state.interestedAdverts, action.payload.advertId)]
     };
 }
 
-const removeAdvertFromList = (list, id) => {
-    const removedAdvert = list.find(advert => advert.id == id);
-    list.splice(list.indexOf(removedAdvert), 1);
-    return list;
-};
 
-function changeAdvertActivity(state, action) {
+function updateAdvert(state, action) {
     return {
         ...state,
         adverts: action.payload.fewAdverts,
@@ -61,7 +54,7 @@ export default createReducer(initialState, {
     [actionType.GET_FEW_ADVERTS_SUCCESSFUL]: getFewAdverts,
     [actionType.GET_AUTHORS_ADVERTS_SUCCESSFUL]: getAuthorsAdverts,
     [actionType.GET_INTERESTED_ADVERTS_SUCCESSFUL]: getInterestedAdverts,
-    [actionType.ADD_ADVERT_SUCCESSFUL]: addAdvert,
+    [actionType.ADD_ADVERT_SUCCESSFUL]: createAdvert,
     [actionType.REMOVE_ADVERT_SUCCESSFUL]: removeAdvert,
-    [actionType.CHANGE_ADVERT_SUCCESSFUL]: changeAdvertActivity
+    [actionType.CHANGE_ADVERT_SUCCESSFUL]: updateAdvert
 });

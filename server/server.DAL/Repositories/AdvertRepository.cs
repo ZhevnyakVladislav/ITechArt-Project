@@ -19,7 +19,7 @@ namespace Server.DAL.Repositories
 
         public IEnumerable<Advert> GetAll()
         {
-            return db.Adverts;
+            return db.Adverts.ToList();
         }
 
         public Advert Get(int id)
@@ -44,7 +44,10 @@ namespace Server.DAL.Repositories
         {
             return db.Adverts.Where(predicate).ToList();
         }
-
+        public IQueryable<Advert> GetQuryable()
+        {
+            return db.Adverts;
+        }
         public void Delete(int id)
         {
             Advert advert = db.Adverts.Find(id);

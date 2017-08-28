@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Server.DAL.Interfaces
 {
@@ -9,8 +10,11 @@ namespace Server.DAL.Interfaces
         T Get(int id);
         T FindByField(Func<T, bool> predicate);
         IEnumerable<T> FindFew(Func<T, Boolean> predicate);
+        IQueryable<T> GetQuryable();
+
         void Create(T item);
         void Update(T item);
         void Delete(int id);
+
     }
 }

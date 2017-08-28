@@ -44,8 +44,8 @@ export function signUp(user) {
         }));
 }
 
-export function changeAvatar(user) {
-    return dispatch => userApi.changeAvatar(user)
+export function changeAvatar(userId, address) {
+    return dispatch =>userApi.changeAvatar(userId, address)
         .then(data => dispatch({
             type: actionType.СHANGE_AVATAR_SUCCESSFUL,
             payload: { user: data }

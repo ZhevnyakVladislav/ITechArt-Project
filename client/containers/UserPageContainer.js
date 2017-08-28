@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { getAuthorsAdverts, getInterestedAdverts, removeAdvert } from '../actions/AdvertActions';
 import { getMessagesById, addMessage } from '../actions/MessageAction';
 import { changeAvatar } from '../actions/UserActions';
-import { getUserPageData } from '../actions/UserPageAction';
 
 import Component from '../components/UserPage/UserPage';
 
@@ -21,7 +20,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        getUserPageData,
+        getAuthorsAdverts,
+        getInterestedAdverts,
         removeAdvert,
         getMessagesById,
         addMessage, 
@@ -40,7 +40,8 @@ class UserPage extends React.PureComponent {
                 removeAdvert={this.props.removeAdvert}
                 authorsAdverts={this.props.authorsAdverts}
                 interestedAdverts={this.props.interestedAdverts}
-                getUserPageData={this.props.getUserPageData}
+                getAuthorsAdverts={this.props.getAuthorsAdverts}
+                getInterestedAdverts={this.props.getInterestedAdverts}
                 changeAvatar={this.props.changeAvatar} /> 
         ) : (<Redirect to='/login' />);
     };
