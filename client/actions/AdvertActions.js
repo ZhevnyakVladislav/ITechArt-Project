@@ -25,12 +25,10 @@ export function getInterestedAdverts() {
 } 
 
 export function createAdvert(advert) {
-    return dispatch => {
-        advertApi.createAdverd(advert)
-            .then(data => dispatch({ 
-                type: actionType.ADD_ADVERT_SUCCESSFUL, 
-            }));
-    };
+    return dispatch => advertApi.createAdverd(advert)
+        .then(data => dispatch({ 
+            type: actionType.ADD_ADVERT_SUCCESSFUL, 
+        }));
 }
 
 export function removeAdvert(advertId) {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace server.Identity
+namespace Server.Identity
 {
     // This class doesn't override anything, use standard PasswordHasher
     public class CustomPasswordHasher : PasswordHasher

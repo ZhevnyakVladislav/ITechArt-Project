@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { getUser, logOut } from '../actions/UserActions';
-import { getFromStorage } from '../helpers/storageHelper';
 import '../stylesheets/index.scss';
 
 import Header from '../containers/HeaderContainer';

@@ -11,7 +11,7 @@ namespace Server.DAL.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-        public string Type { get; set; }
+        public AdvertType Type { get; set; }
 
         public virtual User Author { get; set; }
         public virtual User InterestedUser { get; set; }

@@ -7,7 +7,7 @@ using Server.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace server.Identity
+namespace Server.Identity
 {
     public class UserStore : IUserStore<UserViewModel, int>
     {

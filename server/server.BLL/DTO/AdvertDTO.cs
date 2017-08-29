@@ -12,7 +12,7 @@ namespace Server.BLL.DTO
         public string Title { get; set; }
         public string Description { get; set; }
         public bool IsActive { get; set; }
-        public string Type { get; set; }
+        public AdvertTypeDTO Type { get; set; }
 
         public virtual UserDTO Author { get; set; }
         public virtual UserDTO InterestedUser { get; set; }

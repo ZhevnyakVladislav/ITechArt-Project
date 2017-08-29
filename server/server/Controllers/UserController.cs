@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace server.Controllers
+namespace Server.Controllers
 {
     public class UserController : ApiController
     {

@@ -9,10 +9,9 @@ using Server.DAL.Repositories;
 using System.Web.Http;
 using Unity.WebApi;
 using Server.Models;
-using server.Identity;
+using Server.Identity;
 using Microsoft.AspNet.Identity;
-using server.Controllers;
-using server.App_Start;
+using Server.App_Start;
 
 namespace Server
 {

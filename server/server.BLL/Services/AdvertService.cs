@@ -51,19 +51,22 @@ namespace Server.BLL.Services
         {
             return MapFewModel(_database.Adverts.FindFew(advert => advert.InterestedUserId == userId));
         }
-        public IEnumerable<AdvertDTO> GetAdvertsByType(string type, int page, int? userId)
+        public IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId)
         {
-           return MapFewModel(_database.Adverts.GetQuryable().Where(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
+           return MapFewModel(_database.Adverts.GetQuryable().Where(advert => (int)advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
                .OrderBy(advert => advert.Id)
                // Don't use hardcoded '3', pass 'pageSize' instead
                .Skip((page - 1) * 3)
                .Take(3)
                .ToList());
         }
-        public int GetCountByType(string type, int? userId)
+        public int GetCountByType(int type, int? userId)
         {
+<<<<<<< Updated upstream
             // 'advert.IsActive == true', you can just use advert.IsActive, it's boolean
-            return _database.Adverts.FindFew(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
+
+            return _database.Adverts.FindFew(advert => (int)advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
+
                 .ToList()
                 .Count();
         }

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using server.Models;
+using Server.Models;
 using Server.BLL.DTO;
 using Server.BLL.Interfaces;
 using System;
@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace server.Controllers
+namespace Server.Controllers
 {
     [Authorize]
     public class MessageController : ApiController

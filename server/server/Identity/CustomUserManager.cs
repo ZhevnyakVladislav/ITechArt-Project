@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using server.Identity;
+using Server.Identity;
 using Server.BLL.Infrastructure;
 using Server.BLL.Interfaces;
 using Server.DAL.Entity_Framework;

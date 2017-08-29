@@ -1,16 +1,9 @@
 ﻿using AutoMapper;
-using server.Models;
+using Server.Models;
 using Server.BLL.DTO;
 using Server.DAL.Entities;
-using Server.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-// Wrong namespace
-namespace server.App_Start
+namespace Server.App_Start
 {
 
     public class MappingProfile : Profile

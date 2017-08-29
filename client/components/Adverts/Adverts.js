@@ -1,4 +1,5 @@
 import React from 'react';
+import { advertTypeInInt, advertTypeInString } from '../../constants/AdvertType';
 import { Grid, Row, Col, ListGroup, Tab, Nav, NavItem, Button, Panel, Pagination, Modal } from 'react-bootstrap';
 import './adverts.scss';
 
@@ -12,7 +13,7 @@ export default class Adverts extends React.Component {
         this.state = {
             isRespondDialogOpen: false,
             activePage: 1,
-            activeTab: 'rentOf',
+            activeTab: advertTypeInInt[advertTypeInString[1]],
             openResondId: null,
         };
         this.changeStateDialog = this.changeStateDialog.bind(this);
@@ -46,7 +47,7 @@ export default class Adverts extends React.Component {
         const type = e.target.id.split('-')[3];
         this.props.getFewAdverts(type, 1);  
         this.setState({
-            activeTab: type,
+            activeTab: advertTypeInInt[advertTypeInString[1]],
             activePage: 1
         });
           
@@ -72,15 +73,15 @@ export default class Adverts extends React.Component {
         );
         return(
             <Grid className="adverts" >
-                <Tab.Container id="left-tabs" defaultActiveKey="rentOf">
+                <Tab.Container id="left-tabs" defaultActiveKey={advertTypeInInt[advertTypeInString[1]]}>
                     <Row>
                         <Col xs={12} sm={3} className="tabs">
-                            <Nav bsStyle="pills"  stacked onClick={this.changeTab}>
-                                <NavItem eventKey="rentOf">
-                                    Rent of
+                            <Nav bsStyle="pills" stacked onClick={this.changeTab}>
+                                <NavItem eventKey={advertTypeInInt[advertTypeInString[1]]}>
+                                    {advertTypeInString[1]}
                                 </NavItem >
-                                <NavItem eventKey="rentOut">
-                                    Rent out
+                                <NavItem eventKey={advertTypeInInt[advertTypeInString[2]]}>
+                                    {advertTypeInString[2]}
                                 </NavItem>
                             </Nav>
                         </Col>

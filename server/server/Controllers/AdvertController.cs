@@ -1,9 +1,10 @@
-﻿using server.Models;
+﻿using Server.Models;
 using System.Collections.Generic;
 using System.Web.Http;
 using Server.BLL.DTO;
 using Server.BLL.Interfaces;
 using AutoMapper;
+using System;
 
 namespace Server.Controllers
 {
@@ -20,32 +21,25 @@ namespace Server.Controllers
         }
 
         // GET: api/Advert
-        public object Get(string type, int? page = 1)
+        public object Get(bool isForUserPage, string type, int? page = 1)
         {
-            
             var user = _userService.FindByName(User.Identity.Name);
             int? userId = (user != null) ? user.Id : (int?)null;
-            switch (type)
+            if(isForUserPage)
             {
-                case "rentOf":
-                    {
-                        var adverts = MapFewModel(_advertService.GetAdvertsByType(type, (int)page, userId));
-                        var count = _advertService.GetCountByType(type, userId);
-                        return new { adverts, count };
-                    }
-                case "rentOut":
-                    {
-                        var adverts = MapFewModel(_advertService.GetAdvertsByType(type, (int)page, userId));
-                        var count = _advertService.GetCountByType(type, userId);
-                        return new { adverts, count };
-                    }
-                case "authorsAdverts": return MapFewModel(_advertService.GetAuthorAdverts(userId));
-                case "interestedAdverts": return MapFewModel(_advertService.GetInterestedAdverts(userId));
+                return GetUserPageAdverts(userId, type);
+            }
+            else
+            {
+                var adverts = MapFewModel(_advertService.GetAdvertsByType(Int32.Parse(type), (int)page, userId));
+                var count = _advertService.GetCountByType(Int32.Parse(type), userId);
+                return new { adverts, count };
             }
             return null;
         }
 
         // Remove unused endpoints
+
         // GET: api/Advert/5
         public string Get(int id)
         {
@@ -86,6 +80,20 @@ namespace Server.Controllers
         private IEnumerable<AdvertViewModel> MapFewModel(IEnumerable<AdvertDTO> adverts)
         {
             return _mapper.Map<IEnumerable<AdvertDTO>, IEnumerable<AdvertViewModel>>(adverts);
+        }
+
+        [Authorize]
+        private object GetUserPageAdverts(int? userId, string type)
+        {
+            if (type == "authorAdverts")
+            {
+                return MapFewModel(_advertService.GetAuthorAdverts(userId));
+
+            }
+            else if (type == "interestedAdverts") {
+                return MapFewModel(_advertService.GetInterestedAdverts(userId));
+            }
+            return null;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Server.BLL.Interfaces
         void Update(AdvertDTO advert);
         IEnumerable<AdvertDTO> GetAuthorAdverts(int? userId);
         IEnumerable<AdvertDTO> GetInterestedAdverts(int? userId);
-        IEnumerable<AdvertDTO> GetAdvertsByType(string type, int page, int? userId);
-        int GetCountByType(string type, int? userId);
+        IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId);
+        int GetCountByType(int type, int? userId);
     }
 }
