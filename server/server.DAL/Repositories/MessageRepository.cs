@@ -44,6 +44,10 @@ namespace Server.DAL.Repositories
         {
             return db.Messages.Where(predicate).ToList();
         }
+        public IQueryable<Message> GetQuryable()
+        {
+            return db.Messages;
+        }
         public void Delete(int id)
         {
             Message message = db.Messages.Find(id);

@@ -23,23 +23,23 @@ export default class Footer extends React.Component {
         });
     }
     
-    handleSubmit() {
-        this.props.addMessage({
-            text: this.state.newMessage,
-            author: this.props.currentUserId,
-            advertId: this.props.advertId,
-        });
+    async handleSubmit() {
         this.setState({ newMessage: ''});
+        await this.props.createMessage({
+            advertId: this.props.advertId,
+            description: this.state.newMessage
+        });
+        this.props.getMessagesById(this.props.advertId);
     }
     
     render() {
         let messages = this.props.messages.filter(message => message.advertId == this.props.advertId); 
         messages = messages.map(message => {
-            const type = message.author == this.props.currentUserId ? 0 : 1;
+            const type = message.authorId == this.props.currentUserId ? 0 : 1;
             return { 
                 type: type,
-                image: 'http://bm.img.com.ua/nxs/img/prikol/images/large/3/9/315193.jpg',
-                text: message.text
+                image: message.author.avatar,
+                text: message.description
             };
         }); 
 

@@ -21,6 +21,9 @@ namespace server.App_Start
 
             CreateMap<AdvertDTO, AdvertViewModel>().ReverseMap();
             CreateMap<Advert, AdvertDTO>().ReverseMap();
+
+            CreateMap<MessageDTO, MessageViewModel>().ReverseMap();
+            CreateMap<Message, MessageDTO>().ReverseMap();
         }
     }
 

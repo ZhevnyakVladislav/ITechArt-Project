@@ -7,23 +7,21 @@ const initialState = {
 
 function getMessagesById(state, action) {
     const oldMessages = state.messages.filter(message => {
-        return message && message.advertId != (action.payload.messages[0] && action.payload.messages[0].advertId);
-    }
-    );
+        return message && message.advertId != (action.payload.data[0] && action.payload.data[0].advertId);
+    });
     return {
         ...state,
-        messages: [...oldMessages   , ...action.payload.messages]
+        messages: [...oldMessages   , ...action.payload.data]
     };
 }
 
-function addMessage(state, action) {
+function createMessage(state, action) {
     return {
         ...state,
-        messages: action.payload.messages,
     };
 }
 
 export default createReducer(initialState, {
-    [actionType.GET_MESSAGE_SUCCESSFUL]: getMessagesById,
-    [actionType.ADD_MESSAGE_SUCCESSFUL]: addMessage,
+    [actionType.GET_MESSAGES_SUCCESSFUL]: getMessagesById,
+    [actionType.ADD_MESSAGE_SUCCESSFUL]: createMessage,
 });

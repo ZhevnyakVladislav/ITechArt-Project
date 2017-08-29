@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { getAuthorsAdverts, getInterestedAdverts, removeAdvert } from '../actions/AdvertActions';
-import { getMessagesById, addMessage } from '../actions/MessageAction';
+import { getMessagesById, createMessage } from '../actions/MessageAction';
 import { changeAvatar } from '../actions/UserActions';
 
 import Component from '../components/UserPage/UserPage';
@@ -24,7 +24,7 @@ function mapDispatchToProps(dispatch) {
         getInterestedAdverts,
         removeAdvert,
         getMessagesById,
-        addMessage, 
+        createMessage, 
         changeAvatar
     }, dispatch);
 }
@@ -36,7 +36,7 @@ class UserPage extends React.PureComponent {
                 user={this.props.user}
                 messages={this.props.messages}
                 getMessagesById={this.props.getMessagesById}
-                addMessage={this.props.addMessage}
+                createMessage={this.props.createMessage}
                 removeAdvert={this.props.removeAdvert}
                 authorsAdverts={this.props.authorsAdverts}
                 interestedAdverts={this.props.interestedAdverts}

@@ -18,10 +18,21 @@ export default class Adverts extends React.Component {
         this.changeStateDialog = this.changeStateDialog.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.changeTab = this.changeTab.bind(this);
+        this.loadAdverts = this.loadAdverts.bind(this);
+        this.createMessage = this.createMessage.bind(this);
     }
     
     componentDidMount() {
-        this.props.getFewAdverts(this.state.activeTab, this.state.activePage);
+        this.loadAdverts();
+    }
+
+    async createMessage(message) {
+        await this.props.createMessage(message);
+        await this.loadAdverts();
+    }
+
+    loadAdverts() {
+        return this.props.getFewAdverts(this.state.activeTab, this.state.activePage);
     }
 
     handleSelect(eventKey) {
@@ -96,12 +107,8 @@ export default class Adverts extends React.Component {
                     </Row> 
                 </Tab.Container>
                 <RespondDialog
-                    activePage={this.state.activePage}
-                    activeTab={this.state.activeTab}
-                    userId={this.props.userId}
-                    changeAdvertActivity={this.props.changeAdvertActivity}
                     advertId={this.state.openResondId}
-                    sendResponse={this.props.addMessage} 
+                    sendResponse={this.createMessage} 
                     closeRespondDialog={this.changeStateDialog}
                     isRespondDialogOpen={this.state.isRespondDialogOpen} 
                 />

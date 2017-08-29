@@ -52,7 +52,7 @@ namespace Server.BLL.Services
         }
         public IEnumerable<AdvertDTO> GetAdvertsByType(string type, int page, int? userId)
         {
-           return MapFewModel(_database.Adverts.GetQuryable().Where(advert => advert.Type == type && advert.AuthorId != userId)
+           return MapFewModel(_database.Adverts.GetQuryable().Where(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
                .OrderBy(advert => advert.Id)
                .Skip((page - 1) * 3)
                .Take(3)
@@ -60,7 +60,7 @@ namespace Server.BLL.Services
         }
         public int GetCountByType(string type, int? userId)
         {
-            return _database.Adverts.FindFew(advert => advert.Type == type && advert.AuthorId != userId)
+            return _database.Adverts.FindFew(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
                 .ToList()
                 .Count();
         }

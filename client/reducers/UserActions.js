@@ -2,8 +2,10 @@ import actionType from '../constants/UserActions';
 import createReducer from '../helpers/reducerHelper'; 
 
 const initialState = {
-    isUserAuth: false,
-    user: {},   
+    isUserAuth: true,
+    user: {
+        languages: []
+    },   
     errors: null
 };
 

@@ -1,26 +1,10 @@
-// import AsyncWrapper from './AsyncWrapper';
-// import { getFromStorage, saveToStorage, removeFromStorage } from '../../helpers/storageHelper';
+import axios from 'axios';
 
-// const getMessages = (id) => AsyncWrapper(() => {
-//     const messages = JSON.parse(getFromStorage('messages'));
-//     const filteredMessages = messages.filter(message => message.advertId == id);
-//     return filteredMessages;
-// });
+const getMessages = (advertId) => axios.get('/api/message?advertId=' + advertId);
 
-// const addMessage = (message) => AsyncWrapper(() => {
-//     const messages = JSON.parse(getFromStorage('messages'));
-//     messages.sort((a,b) => a.id - b.id);
-//     if(messages.length > 0) {
-//         message.id = messages[messages.length-1].id + 1;
-//     } else {
-//         message.id = 1;
-//     }
-//     messages.push(message);
-//     saveToStorage('messages', JSON.stringify(messages));
-//     return messages;   
-// });
+const createMessage = (message) => axios.post('/api/message', message); 
 
-// export default {
-//     getMessages,
-//     addMessage
-// };
+export default {
+    getMessages,
+    createMessage
+};

@@ -37,6 +37,7 @@ export function removeAdvert(advertId) {
     return dispatch => advertApi.removeAdvert(advertId)
         .then(data => dispatch({ 
             type: actionType.REMOVE_ADVERT_SUCCESSFUL,
+            payload: advertId
         }));
 }
 

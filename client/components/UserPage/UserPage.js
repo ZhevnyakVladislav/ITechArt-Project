@@ -17,9 +17,14 @@ export default  class UserPage extends React.Component {
         this.removeAdvert = this.removeAdvert.bind(this);
         this.handleClickInput = this.handleClickInput.bind(this);
         this.renderAdverts = this.renderAdverts.bind(this);
+        this.loadAdverts = this.loadAdverts.bind(this);
     }
 
     componentDidMount() {
+        this.loadAdverts();
+    }
+    
+    loadAdverts() {
         this.props.getAuthorsAdverts();
         this.props.getInterestedAdverts();
     }
@@ -41,27 +46,30 @@ export default  class UserPage extends React.Component {
         this.setState({ adverts: this.state.adverts });
     }
     
-    removeAdvert(e) {
-        this.props.removeAdvert(this.props.user.id);
+    async removeAdvert(e) {
+        await this.props.removeAdvert(e.target.id);
+        await this.loadAdverts();
     }
 
-    renderAdverts(adverts) {
+    renderAdverts(adverts, isAuthors) {
         return adverts.map((advert) => 
             <div  key={advert.id} className="advert">
                 <AdvertPanel advert={advert}/>
                 <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
                     <Glyphicon id={advert.id} glyph="envelope"/>
                 </Button>
-                <Button className="remove-advert-icon" onClick={this.removeAdvert}>
-                    <Glyphicon id={advert.id} glyph="remove"/>
-                </Button>
+                {isAuthors ? 
+                    <Button className="remove-advert-icon" onClick={this.removeAdvert}>
+                        <Glyphicon id={advert.id} glyph="remove"/>
+                    </Button> 
+                    : null}
                 {advert.isMessageBoxOpen ? (
                     <MessageBox
                         currentUserId={this.props.user.id} 
                         handleCloseMessageBox={this.handleShowMessageBox}
                         messages={this.props.messages}
                         getMessagesById={this.props.getMessagesById}
-                        addMessage={this.props.addMessage}
+                        createMessage={this.props.createMessage}
                         advertId={advert.id} />
                 ) : null}
             </div>
@@ -102,12 +110,12 @@ export default  class UserPage extends React.Component {
                     <Col className="adverts" xs={12} smOffset={1} sm={10}>
                         <h1>Submitted adverts</h1>
                         <ListGroup>
-                            {this.renderAdverts(this.props.authorsAdverts)}
+                            {this.renderAdverts(this.props.authorsAdverts, true)}
                         </ListGroup>
 
                         <h1>Interested adverts</h1>
                         <ListGroup>
-                            {this.renderAdverts(this.props.interestedAdverts)}
+                            {this.renderAdverts(this.props.interestedAdverts, false)}
                         </ListGroup>
                     </Col>
                 </Row>

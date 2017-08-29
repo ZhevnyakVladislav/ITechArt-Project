@@ -40,8 +40,8 @@ class App extends React.Component {
         this.state.errors = this.refs.notificationSystem;
     }
 
-    async componentDidMount() {
-        await this.props.getUser();
+    componentWillMount() {
+        this.props.getUser();
     }
 
     render() {

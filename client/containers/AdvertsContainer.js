@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { getFewAdverts, updateAdver } from '../actions/AdvertActions';
-import { addMessage } from '../actions/MessageAction';
+import { createMessage } from '../actions/MessageAction';
 
 
 import Adverts from '../components/Adverts/Adverts';
@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getFewAdverts,
         updateAdver,
-        addMessage
+        createMessage
     }, dispatch);
 }
 

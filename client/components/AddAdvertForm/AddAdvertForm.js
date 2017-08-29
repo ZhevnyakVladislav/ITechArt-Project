@@ -35,7 +35,7 @@ export default class AddAdvertForm extends React.Component {
                 description: this.state.description,
                 type: this.state.type,
             });
-            this.props.history.push('/account');
+            await this.props.history.push('/account');
         }
     }
 
