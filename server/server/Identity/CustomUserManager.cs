@@ -10,6 +10,7 @@ using Server.Models;
 using System;
 using System.Threading.Tasks;
 
+// Wrong namespace
 namespace Server.Models
 {
     public class CustomUserManager : UserManager<UserViewModel, int>

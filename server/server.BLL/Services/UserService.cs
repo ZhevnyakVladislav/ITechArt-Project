@@ -16,6 +16,7 @@ namespace Server.BLL.Services
 {
     public class UserService : IUserService
     {
+        // I'd name it _unitOfWork, there may be no database behind unit of work abstraction.
         IUnitOfWork _database;
         IMapper _mapper;
         public UserService(IUnitOfWork db, IMapper mapper)
@@ -38,6 +39,7 @@ namespace Server.BLL.Services
                     _database.Users.Create(clientProfile);
                     _database.Save();
                 }
+                // this try-catch does nothing
                 catch(Exception ex)
                 {
                     throw ex;

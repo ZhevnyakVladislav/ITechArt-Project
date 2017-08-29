@@ -45,6 +45,7 @@ namespace Server.Controllers
             return null;
         }
 
+        // Remove unused endpoints
         // GET: api/Advert/5
         public string Get(int id)
         {

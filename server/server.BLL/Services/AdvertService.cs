@@ -13,6 +13,7 @@ namespace Server.BLL.Services
 {
     public class AdvertService : IAdvertService
     {
+        // I'd name it _unitOfWork, there may be no database behind unit of work abstraction.
         IUnitOfWork _database;
         IMapper _mapper;
         public AdvertService(IUnitOfWork db, IMapper mapper)
@@ -54,12 +55,14 @@ namespace Server.BLL.Services
         {
            return MapFewModel(_database.Adverts.GetQuryable().Where(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
                .OrderBy(advert => advert.Id)
+               // Don't use hardcoded '3', pass 'pageSize' instead
                .Skip((page - 1) * 3)
                .Take(3)
                .ToList());
         }
         public int GetCountByType(string type, int? userId)
         {
+            // 'advert.IsActive == true', you can just use advert.IsActive, it's boolean
             return _database.Adverts.FindFew(advert => advert.Type == type && advert.AuthorId != userId && advert.IsActive == true)
                 .ToList()
                 .Count();

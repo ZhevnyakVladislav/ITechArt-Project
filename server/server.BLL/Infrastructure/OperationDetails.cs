@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.BLL.Infrastructure
 {
+    // This is unused
     public class OperationDetails
     {
         public bool Succedeed { get; private set; }

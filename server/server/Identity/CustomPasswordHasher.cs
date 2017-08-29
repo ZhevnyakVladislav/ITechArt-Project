@@ -6,6 +6,7 @@ using System.Web;
 
 namespace server.Identity
 {
+    // This class doesn't override anything, use standard PasswordHasher
     public class CustomPasswordHasher : PasswordHasher
     {
         public override string HashPassword(string password)

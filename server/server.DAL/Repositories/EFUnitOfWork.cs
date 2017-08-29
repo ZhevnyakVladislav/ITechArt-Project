@@ -8,6 +8,7 @@ namespace Server.DAL.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
+        // Start private fields with _
         private ProjectContext db;
         private UserRepository userRepository;
         private AdvertRepository advertRepository;
@@ -15,6 +16,7 @@ namespace Server.DAL.Repositories
 
         private bool disposed = false;
 
+        // inject DbContext into Unit of Work and inject connection string into DbContext
         public EFUnitOfWork(string connectionString)
         {
             db = new ProjectContext(connectionString);

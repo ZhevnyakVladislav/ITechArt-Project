@@ -8,6 +8,7 @@ using Server.DAL.Entity_Framework;
 
 namespace Server.DAL.Repositories
 {
+    // I think you can create generic repository class instead of calss per entity, all methods are the same
     class AdvertRepository : IRepository<Advert>
     {
         private ProjectContext db;

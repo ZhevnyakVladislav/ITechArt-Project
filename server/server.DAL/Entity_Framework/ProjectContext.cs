@@ -1,3 +1,4 @@
+// Use Server.DAL.EntityFramework, and folder name as well
 namespace Server.DAL.Entity_Framework
 {
     using Entities;

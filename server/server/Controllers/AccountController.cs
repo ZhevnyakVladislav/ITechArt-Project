@@ -20,6 +20,8 @@ namespace Server.Controllers
             _userManager = userManager;
 
         }
+
+        // Can't we inject it as well?
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -30,6 +32,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("api/account/login")]
+        // Don't return object, create classes for responses
         public async Task<object> Login(UserViewModel model)
         {
             if (ModelState.IsValid)
@@ -44,6 +47,7 @@ namespace Server.Controllers
                 } 
                 catch(Exception)
                 {
+                    // You use both exceptions and return  for error responses, stick with one of those and use it everywhere
                     return BadRequest("Wrong email or password");
                 }
             }

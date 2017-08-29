@@ -13,6 +13,7 @@ namespace Server.BLL.Services
 {
     public class MessageService : IMessageService
     {
+        // I'd name it _unitOfWork, there may be no database behind unit of work abstraction.
         IUnitOfWork _database;
         IMapper _mapper;
 
@@ -24,9 +25,11 @@ namespace Server.BLL.Services
         public void Create(MessageDTO model)
         {
             var advert = _database.Adverts.Get(model.AdvertId);
-            if(advert.InterestedUserId == null && advert.IsActive == true)
+            // 'advert.IsActive == true', you can just use advert.IsActive, it's boolean
+            if (advert.InterestedUserId == null && advert.IsActive == true)
             {
                 advert.IsActive = false;
+                // Is it correct?
                 advert.InterestedUserId = model.AuthorId;
             }
             var message = MapOneModel(model);
