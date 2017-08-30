@@ -1,41 +1,23 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
-using Server.Identity;
-using Server.BLL.Infrastructure;
-using Server.BLL.Interfaces;
-using Server.DAL.Entity_Framework;
-using Server.DAL.Interfaces;
-using Server.Models;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Server.Identity;
+using Server.Models;
 
-// Wrong namespace
-namespace Server.Models
+namespace Server.Identity
 {
     public class CustomUserManager : UserManager<UserViewModel, int>
     {
-        public CustomUserManager(UserStore store) : base(store)
-        {
-            this.PasswordHasher = new CustomPasswordHasher();
-        }
+        public CustomUserManager(UserStore store) : base(store) { }
         public override Task<UserViewModel> FindAsync(string email, string password)
         {
             var user = Store.FindByNameAsync(email).Result;
-            if (user != null)
-            {
-                PasswordVerificationResult result = this.PasswordHasher.VerifyHashedPassword(user.Password, password);
-                if (result == PasswordVerificationResult.Success)
-                {
-                    return Task.FromResult<UserViewModel>(user);
-                }
-                return null;
-            }
-            return null;
+            if (user == null) return null;
+            var result = PasswordHasher.VerifyHashedPassword(user.Password, password);
+            return result == PasswordVerificationResult.Success ? Task.FromResult(user) : null;
         }
         public override async Task<IdentityResult> CreateAsync(UserViewModel user)
         {
-
             var result = await UserValidator.ValidateAsync(user);
             if (!result.Succeeded)
             {
@@ -49,11 +31,11 @@ namespace Server.Models
         {
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
             if (password == null)
             {
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
             }
 
             var result = await PasswordValidator.ValidateAsync(password);

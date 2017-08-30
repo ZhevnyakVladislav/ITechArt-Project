@@ -1,9 +1,7 @@
-// Use Server.DAL.EntityFramework, and folder name as well
-namespace Server.DAL.Entity_Framework
+namespace Server.DAL.EntityFramework
 {
     using Entities;
     using System.Data.Entity;
-    using System;
 
     public class ProjectContext : DbContext
     {

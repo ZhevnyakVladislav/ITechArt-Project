@@ -34,8 +34,8 @@ export default  class UserPage extends React.Component {
     }
 
     handleChangePhoto(e) {
-        const image = e.target.files;
-        this.props.changeAvatar(this.props.user.id, image);
+        const image = e.target.files[0];
+        this.props.updateUser(this.props.user.id, image);
     }
 
     handleShowMessageBox(e) {

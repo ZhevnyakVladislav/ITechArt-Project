@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { getAuthorsAdverts, getInterestedAdverts, removeAdvert } from '../actions/AdvertActions';
 import { getMessagesById, createMessage } from '../actions/MessageAction';
-import { changeAvatar } from '../actions/UserActions';
+import { updateUser } from '../actions/UserActions';
 
 import Component from '../components/UserPage/UserPage';
 
@@ -25,7 +25,7 @@ function mapDispatchToProps(dispatch) {
         removeAdvert,
         getMessagesById,
         createMessage, 
-        changeAvatar
+        updateUser
     }, dispatch);
 }
 
@@ -42,7 +42,7 @@ class UserPage extends React.PureComponent {
                 interestedAdverts={this.props.interestedAdverts}
                 getAuthorsAdverts={this.props.getAuthorsAdverts}
                 getInterestedAdverts={this.props.getInterestedAdverts}
-                changeAvatar={this.props.changeAvatar} /> 
+                updateUser={this.props.updateUser} /> 
         ) : (<Redirect to='/login' />);
     };
 };

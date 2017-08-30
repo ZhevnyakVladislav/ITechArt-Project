@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Server.Models;
 using Server.BLL.DTO;
 using Server.DAL.Entities;
+using Server.Models;
 
-namespace Server.App_Start
+namespace Server
 {
 
     public class MappingProfile : Profile
@@ -11,7 +11,7 @@ namespace Server.App_Start
         public MappingProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<UserViewModel, UserDTO>().ReverseMap();
+            CreateMap<UserViewModel, UserDTO>().ReverseMap(); 
 
             CreateMap<AdvertDTO, AdvertViewModel>().ReverseMap();
             CreateMap<Advert, AdvertDTO>().ReverseMap();

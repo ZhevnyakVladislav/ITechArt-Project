@@ -24,26 +24,17 @@ namespace Server.Controllers
         public object Get(bool isForUserPage, string type, int? page = 1)
         {
             var user = _userService.FindByName(User.Identity.Name);
-            int? userId = (user != null) ? user.Id : (int?)null;
+            var userId = (null == user) ? (int?)null : user.Id;
             if(isForUserPage)
             {
                 return GetUserPageAdverts(userId, type);
             }
             else
             {
-                var adverts = MapFewModel(_advertService.GetAdvertsByType(Int32.Parse(type), (int)page, userId));
-                var count = _advertService.GetCountByType(Int32.Parse(type), userId);
+                var adverts = MapFewModel(_advertService.GetAdvertsByType(int.Parse(type), (int)page, userId, 3));
+                var count = _advertService.GetCountByType(int.Parse(type), userId);
                 return new { adverts, count };
             }
-            return null;
-        }
-
-        // Remove unused endpoints
-
-        // GET: api/Advert/5
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST: api/Advert
@@ -85,15 +76,14 @@ namespace Server.Controllers
         [Authorize]
         private object GetUserPageAdverts(int? userId, string type)
         {
-            if (type == "authorAdverts")
+            switch (type)
             {
-                return MapFewModel(_advertService.GetAuthorAdverts(userId));
-
+                case "authorAdverts":
+                    return MapFewModel(_advertService.GetAuthorAdverts(userId));
+                case "interestedAdverts":
+                    return MapFewModel(_advertService.GetInterestedAdverts(userId));
+                default: return null;
             }
-            else if (type == "interestedAdverts") {
-                return MapFewModel(_advertService.GetInterestedAdverts(userId));
-            }
-            return null;
         }
     }
 }

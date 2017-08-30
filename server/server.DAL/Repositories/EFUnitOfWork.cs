@@ -1,74 +1,46 @@
 ﻿using System;
 using Server.DAL.Interfaces;
-using Server.DAL.Entity_Framework;
+using Server.DAL.EntityFramework;
 using Server.DAL.Entities;
 using System.Threading.Tasks;
+using Server.DAL.Repositories;
+using System.Data.Entity;
 
 namespace Server.DAL.Repositories
 {
-    public class EFUnitOfWork : IUnitOfWork
+    public class EfUnitOfWork : IUnitOfWork
     {
-        // Start private fields with _
-        private ProjectContext db;
-        private UserRepository userRepository;
-        private AdvertRepository advertRepository;
-        private MessageRepository messageRepository;
+        private DbContext _db;
+        private CommonRepository<User> _userRepository;
+        private CommonRepository<Advert> _advertRepository;
+        private CommonRepository<Message> _messageRepository;
 
         private bool disposed = false;
 
-        // inject DbContext into Unit of Work and inject connection string into DbContext
-        public EFUnitOfWork(string connectionString)
+        public EfUnitOfWork(DbContext context)
         {
-            db = new ProjectContext(connectionString);
+            _db = context;
         }
-        public IRepository<User> Users
-        {
-            get
-            {
-                if (userRepository == null)
-                {
-                    userRepository = new UserRepository(db);
-                }
-                return userRepository;
-            }
-        }
-        public IRepository<Advert> Adverts
-        {
-            get
-            {
-                if (advertRepository == null)
-                    advertRepository = new AdvertRepository(db);
-                return advertRepository;
-            }
-        }
-        public IRepository<Message> Messages
-        {
-            get
-            {
-                if (messageRepository == null)
-                    messageRepository = new MessageRepository(db);
-                return messageRepository;
-            }
-        }
+        public IRepository<User> Users => _userRepository ?? (_userRepository = new CommonRepository<User>(_db));
+        public IRepository<Advert> Adverts => _advertRepository ?? (_advertRepository = new CommonRepository<Advert>(_db));
+        public IRepository<Message> Messages => _messageRepository ?? (_messageRepository = new CommonRepository<Message>(_db));
 
         public async Task SaveAsync()
         {
-            await db.SaveChangesAsync();
+            await _db.SaveChangesAsync();
         }
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (disposed) return;
+            if (disposing)
             {
-                if (disposing)
-                {
-                    db.Dispose();
-                }
-                this.disposed = true;
+                _db.Dispose();
             }
+            this.disposed = true;
         }
 
         public void Dispose()

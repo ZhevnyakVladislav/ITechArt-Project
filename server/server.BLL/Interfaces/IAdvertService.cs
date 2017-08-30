@@ -1,9 +1,5 @@
 ﻿using Server.BLL.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Server.BLL.Interfaces
 {
@@ -14,7 +10,7 @@ namespace Server.BLL.Interfaces
         void Update(AdvertDTO advert);
         IEnumerable<AdvertDTO> GetAuthorAdverts(int? userId);
         IEnumerable<AdvertDTO> GetInterestedAdverts(int? userId);
-        IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId);
+        IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId, int? pageSize);
         int GetCountByType(int type, int? userId);
     }
 }

@@ -6,7 +6,7 @@ const initialState = {
     user: {
         languages: []
     },   
-    errors: null
+    errors: {}
 };
 
 function getUserSuccessful(state, action) {
@@ -36,7 +36,7 @@ function logInFailure(state, action) {
     return {
         ...state,
         isUserAuth: false,
-        errors: action.payload
+        errors: { message: action.payload }
     };
 }
 
@@ -52,7 +52,7 @@ function signUpFailure(state, action) {
     return {
         ...state,
         isUserAuth: false,
-        errors: action.payload
+        errors: { message: action.payload }
     };
 }
 
@@ -62,8 +62,6 @@ function logOut(state, action) {
         isUserAuth: false,
     };
 }
-
-
 
 function changeAvatarSuccessful(state, action) {
     return {

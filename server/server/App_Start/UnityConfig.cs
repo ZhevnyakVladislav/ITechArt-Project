@@ -11,7 +11,9 @@ using Unity.WebApi;
 using Server.Models;
 using Server.Identity;
 using Microsoft.AspNet.Identity;
-using Server.App_Start;
+using System.Data.Entity;
+using Server;
+using Server.DAL.EntityFramework;
 
 namespace Server
 {
@@ -32,7 +34,8 @@ namespace Server
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<IAuthenticationManager>()
                 .RegisterInstance<IMapper>(MapperConfig.GetMapper())
-                .RegisterType<IUnitOfWork, EFUnitOfWork>(new InjectionConstructor("name=ProjectContext"));
+                .RegisterType<IUnitOfWork, EfUnitOfWork>()
+                .RegisterType<DbContext, ProjectContext>(new InjectionConstructor("name=ProjectContext"));
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

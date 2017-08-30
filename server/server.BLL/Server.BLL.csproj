@@ -121,7 +121,6 @@
     <Compile Include="DTO\AdvertTypeDTO.cs" />
     <Compile Include="DTO\MessageDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
-    <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Interfaces\IAdvertService.cs" />
     <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

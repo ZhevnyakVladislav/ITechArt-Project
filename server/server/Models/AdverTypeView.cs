@@ -2,7 +2,7 @@
 {
     public enum AdvertTypeView
     {
-        rentOf = 1,
-        rentOut
+        RentOf = 1,
+        RentOut
     }
 }

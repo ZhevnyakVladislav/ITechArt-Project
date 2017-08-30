@@ -1,10 +1,4 @@
 ﻿using Server.BLL.DTO;
-using Server.BLL.Infrastructure;
-using Server.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Server.BLL.Interfaces
 {
@@ -12,5 +6,7 @@ namespace Server.BLL.Interfaces
     {
         void Create(UserDTO userDto);
         UserDTO FindByName(string name);
+        void Update(UserDTO user);
+
     }
 }

@@ -2,11 +2,7 @@
 using Server.Models;
 using Server.BLL.DTO;
 using Server.BLL.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Server.Controllers
@@ -17,6 +13,7 @@ namespace Server.Controllers
         IMessageService _messageService;
         IUserService _userService;
         IMapper _mapper;
+
         public MessageController(IMessageService messageService, IUserService userService, IMapper mapper)
         {
             _messageService = messageService;
@@ -39,15 +36,6 @@ namespace Server.Controllers
             _messageService.Create(message);
         }
 
-        // PUT: api/Message/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Message/5
-        public void Delete(int id)
-        {
-        }
         private MessageDTO MapOneModel(MessageViewModel message)
         {
             return _mapper.Map<MessageViewModel, MessageDTO>(message);

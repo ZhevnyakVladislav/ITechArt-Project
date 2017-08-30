@@ -14,6 +14,7 @@ export default class Popup extends React.Component {
         super(props);
         this.showAlert = this.showAlert.bind(this);
     }
+    
     shouldComponentUpdate(props) {
         if(props.errors !== this.props.errors) {
             this.showAlert(props.errors);

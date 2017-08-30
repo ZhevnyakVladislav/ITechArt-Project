@@ -44,11 +44,9 @@ export function signUp(user) {
         }));
 }
 
-export function changeAvatar(userId, address) {
-    return dispatch =>userApi.changeAvatar(userId, address)
+export function updateUser(userId, image) {
+    return dispatch =>userApi.updateUser(userId, image)
         .then(data => dispatch({
             type: actionType.СHANGE_AVATAR_SUCCESSFUL,
-            payload: { user: data }
-        }))
-        .catch(data => console.log(data));
+        }));
 }

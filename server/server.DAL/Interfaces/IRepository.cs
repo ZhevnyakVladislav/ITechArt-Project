@@ -9,7 +9,7 @@ namespace Server.DAL.Interfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         T FindByField(Func<T, bool> predicate);
-        IEnumerable<T> FindFew(Func<T, Boolean> predicate);
+        IEnumerable<T> FindFew(Func<T, bool> predicate);
         IQueryable<T> GetQuryable();
 
         void Create(T item);

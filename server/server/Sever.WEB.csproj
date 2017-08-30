@@ -242,7 +242,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Identity\CustomPasswordHasher.cs" />
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Identity\CustomUserManager.cs" />
     <Compile Include="Models\AdvertViewModel.cs" />

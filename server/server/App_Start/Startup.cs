@@ -2,12 +2,11 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using Server.Models;
+using Server;
 
+[assembly: OwinStartup(typeof(Startup))]
 
-[assembly: OwinStartup(typeof(Server.App_Start.Startup))]
-
-namespace Server.App_Start
+namespace Server
 {
     public class Startup
     {

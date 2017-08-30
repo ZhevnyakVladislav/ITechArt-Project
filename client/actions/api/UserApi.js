@@ -8,12 +8,14 @@ const logOut = () => axios.post('/api/account/logout');
 
 const signUp = (currUser) => axios.post('/api/account/register', currUser);
 
-const changeAvatar = (user) => axios.put('/api/user/' + user.id);
+const updateUser = (userId, image) => axios.put('/api/user/' + userId, image, {
+    headers: { 'content-type': 'multipart/form-data' } 
+});
 
 export default {
     getUser,
     logIn,
     logOut,
     signUp,
-    changeAvatar,
+    updateUser,
 };
