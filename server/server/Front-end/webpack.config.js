@@ -8,9 +8,9 @@ const webpackConfig = {
         path.join(__dirname, './client/app.js'),
     ],
     output: {
-        path: path.join(__dirname, './server/server/dist'),
+        path: path.join(__dirname, './../dist'),
         filename: '[name].bundle.js',
-        publicPath: 'server/server/dist/'
+        publicPath: '../dist/'
     },
     module: {
         rules: [

@@ -34,7 +34,7 @@ export default  class UserPage extends React.Component {
     }
 
     handleChangePhoto(e) {
-        const image = e.target.files[0];
+        const image = e.target.files;
         this.props.updateUser(this.props.user.id, image);
     }
 

@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using AutoMapper;
 using Server.BLL.DTO;
 using Server.BLL.Interfaces;
 using Server.Models;
@@ -10,10 +16,12 @@ namespace Server.Controllers
     public class UserController : ApiController
     {
         IUserService _userService;
+        IImageService _imageService;
         IMapper _mapper;
-        public UserController(IUserService userSercice, IMapper mapper)
+        public UserController(IUserService userSercice, IMapper mapper, IImageService imageService)
         {
             _userService = userSercice;
+            _imageService = imageService;
             _mapper = mapper;
         }
 
@@ -26,12 +34,17 @@ namespace Server.Controllers
 
         [Authorize]
         // PUT: api/User/5
-        public IHttpActionResult Put(int id, [FromBody]HttpPostedFileBase model)
+        public async Task<IHttpActionResult> Put(int id)
         {
-            var user = _userService.FindByName(User.Identity.Name);
-            if (user.Id != id) return BadRequest("Are you hacker?");
-            _userService.Update(user);
-            return Ok();
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+            StreamContent content = (StreamContent) Request.Content;
+            var readOnlyStream = await content.ReadAsStreamAsync();
+            _imageService.Upload(readOnlyStream);
+            return BadRequest();
+
         }
         private UserViewModel MapOneModel(UserDTO user)
         {

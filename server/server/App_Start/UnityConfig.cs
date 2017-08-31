@@ -32,6 +32,7 @@ namespace Server
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IAdvertService, AdvertService>()
                 .RegisterType<IMessageService, MessageService>()
+                .RegisterType<IImageService, ImageService>()
                 .RegisterType<IAuthenticationManager>()
                 .RegisterInstance<IMapper>(MapperConfig.GetMapper())
                 .RegisterType<IUnitOfWork, EfUnitOfWork>()

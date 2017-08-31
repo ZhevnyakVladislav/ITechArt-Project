@@ -8,9 +8,11 @@ const logOut = () => axios.post('/api/account/logout');
 
 const signUp = (currUser) => axios.post('/api/account/register', currUser);
 
-const updateUser = (userId, image) => axios.put('/api/user/' + userId, image, {
-    headers: { 'content-type': 'multipart/form-data' } 
-});
+const updateUser = (userId, image) => {
+    var formData = new FormData();
+    formData.append('image', image[0]);
+    return axios.put('/api/user/' + userId, formData);
+};
 
 export default {
     getUser,
