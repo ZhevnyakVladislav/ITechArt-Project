@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -36,19 +37,31 @@ namespace Server.Controllers
         // PUT: api/User/5
         public async Task<IHttpActionResult> Put(int id)
         {
+            var user = _userService.FindByName(User.Identity.Name);
+            if (user.Id != id) return Unauthorized();
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
-            StreamContent content = (StreamContent) Request.Content;
-            var readOnlyStream = await content.ReadAsStreamAsync();
-            _imageService.Upload(readOnlyStream);
-            return BadRequest();
-
+            var file = LoadImage(HttpContext.Current.Request);
+            var status = _imageService.Upload(file);
+            if (status == null) return Ok();
+            user.Avatar = status;
+            _userService.UpdateUserAvatar(user.Id, status);
+            return Ok();
         }
         private UserViewModel MapOneModel(UserDTO user)
         {
             return _mapper.Map<UserDTO, UserViewModel>(user);
+        }
+
+        private Stream LoadImage(HttpRequest httpRequest)
+        {
+            if (httpRequest.Files.Count == 1)
+            {
+                return httpRequest.Files[0].InputStream;
+            }
+            throw new Exception();
         }
     }
 }

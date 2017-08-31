@@ -33,9 +33,10 @@ export default  class UserPage extends React.Component {
         this.state.input.click();
     }
 
-    handleChangePhoto(e) {
+    async handleChangePhoto(e) {
         const image = e.target.files;
-        this.props.updateUser(this.props.user.id, image);
+        await this.props.updateUser(this.props.user.id, image);
+        await this.props.getUser();
     }
 
     handleShowMessageBox(e) {

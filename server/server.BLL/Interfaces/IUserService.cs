@@ -6,7 +6,7 @@ namespace Server.BLL.Interfaces
     {
         void Create(UserDTO userDto);
         UserDTO FindByName(string name);
-        void Update(UserDTO user);
+        void UpdateUserAvatar(int userId, string url);
 
     }
 }

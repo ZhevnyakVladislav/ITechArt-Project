@@ -33,11 +33,13 @@ namespace Server.BLL.Services
             var user = _unitOfWork.Users.FindByField(item => item.Email == name);
             return _mapper.Map<User, UserDTO>(user);
         }
-        public void Update(UserDTO model)
+        public void UpdateUserAvatar(int userId, string url)
         {
-            var user = _mapper.Map<UserDTO, User>(model);
+            var user = _unitOfWork.Users.Get(userId);
             user.UpdatedAt = DateTime.Now;
+            user.Avatar = url;
             _unitOfWork.Users.Update(user);
+            _unitOfWork.Save();
         }
 
     }

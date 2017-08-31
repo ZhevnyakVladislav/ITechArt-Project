@@ -66,14 +66,12 @@ function logOut(state, action) {
 function changeAvatarSuccessful(state, action) {
     return {
         ...state,
-        user: action.payload.user
     };
 } 
 
 function changeAvatarFailure(state, action) {
     return {
         ...state,
-        user: action.payload.user
     };
 } 
 

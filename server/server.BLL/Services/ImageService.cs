@@ -24,7 +24,7 @@ namespace Server.BLL.Services
                 File = new FileDescription("userImage", content)
             };
             var uploadResult = _cloudinary.Upload(uploadParams);
-            return "asd";
+            return uploadResult.Uri.AbsoluteUri;
         }
     }
 }
