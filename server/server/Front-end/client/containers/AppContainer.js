@@ -8,11 +8,14 @@ import '../stylesheets/index.scss';
 import Header from '../containers/HeaderContainer';
 import LeftDrawer from '../components/LeftDrawer/LeftDrawer';
 import Routes from '../routes/Routes';
+import Popup from '../components/Popup/Popup';
+
 
 function mapStateToProps (state) {
     return {
         isUserAuth: state.UserActions.isUserAuth,
         user: state.UserActions.user,
+        errors: state.UserActions.errors
     };
 };
 
@@ -55,6 +58,7 @@ class App extends React.Component {
                     closeDrawer={this.handleChanheDrawerState}
                     logOut={this.props.logOut}/>
                 <Routes />
+                <Popup errors={this.props.errors} />
             </div>
         );
     }

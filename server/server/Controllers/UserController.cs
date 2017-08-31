@@ -38,17 +38,30 @@ namespace Server.Controllers
         public async Task<IHttpActionResult> Put(int id)
         {
             var user = _userService.FindByName(User.Identity.Name);
-            if (user.Id != id) return Unauthorized();
+            if (user.Id != id) throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.Unauthorized)
+            {
+                Content = new StringContent("Not authorized")
+            });
             if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             }
             var file = LoadImage(HttpContext.Current.Request);
-            var status = _imageService.Upload(file);
-            if (status == null) return Ok();
-            user.Avatar = status;
-            _userService.UpdateUserAvatar(user.Id, status);
-            return Ok();
+            try
+            {
+                var status = _imageService.Upload(file);
+                user.Avatar = status;
+                _userService.UpdateUserAvatar(user.Id, status);
+                return Ok();
+            }
+            catch
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest)
+                {
+                    Content = new StringContent("Cloud server error")
+                });
+            }
+            
         }
         private UserViewModel MapOneModel(UserDTO user)
         {

@@ -9,7 +9,6 @@ import Component from '../components/LogInForm/LogInForm';
 function mapStateToProps (state) {
     return {
         isUserAuth: state.UserActions.isUserAuth,
-        errors: state.UserActions.errors
     };
 };
 

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Server.BLL.Interfaces;
 using  CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -7,13 +8,10 @@ namespace Server.BLL.Services
 {
     public class ImageService : IImageService
     {
-        private CloudinaryDotNet.Cloudinary _cloudinary;
-        public ImageService()
+        CloudinaryDotNet.Cloudinary _cloudinary;
+        public ImageService(string userName, string password, string secret)
         {
-            Account account = new Account(
-                "luxorik",
-                "531764713868471",
-                "lGDzTO16-xZsb1F1Vryfjam-R0M");
+            var account = new Account(userName, password, secret);
             _cloudinary = new CloudinaryDotNet.Cloudinary(account);
 
         }
@@ -24,6 +22,10 @@ namespace Server.BLL.Services
                 File = new FileDescription("userImage", content)
             };
             var uploadResult = _cloudinary.Upload(uploadParams);
+            if (uploadResult.Error != null)
+            {
+                throw new Exception("error");
+            }
             return uploadResult.Uri.AbsoluteUri;
         }
     }

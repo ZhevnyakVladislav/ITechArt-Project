@@ -12,6 +12,7 @@ using Server.Models;
 using Server.Identity;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using System.Web.Configuration;
 using Server;
 using Server.DAL.EntityFramework;
 
@@ -22,7 +23,6 @@ namespace Server
         public static void RegisterComponents()
         {
 			var container = new UnityContainer();
-
             container
                 .RegisterType<UserController>()
                 .RegisterType<AccountController>()
@@ -32,12 +32,15 @@ namespace Server
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IAdvertService, AdvertService>()
                 .RegisterType<IMessageService, MessageService>()
-                .RegisterType<IImageService, ImageService>()
+                .RegisterType<IImageService, ImageService>(new InjectionConstructor(
+                    WebConfigurationManager.AppSettings["cloudinaryName"], 
+                    WebConfigurationManager.AppSettings["cloudinaryPassword"], 
+                    WebConfigurationManager.AppSettings["cloudinarySecret"]))
                 .RegisterType<IAuthenticationManager>()
                 .RegisterInstance<IMapper>(MapperConfig.GetMapper())
                 .RegisterType<IUnitOfWork, EfUnitOfWork>()
                 .RegisterType<DbContext, ProjectContext>(new InjectionConstructor("name=ProjectContext"));
-
+            var cloudinaarySetting = WebConfigurationManager.AppSettings["cloudinaryName"];
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
