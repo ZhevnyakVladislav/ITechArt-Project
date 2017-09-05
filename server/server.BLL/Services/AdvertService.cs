@@ -62,6 +62,13 @@ namespace Server.BLL.Services
                 .ToList()
                 .Count();
         }
+
+        public AdvertDTO GetAdvertById(int id)
+        {
+            var advert = _unitOfWork.Adverts.Get(id);
+            return _mapper.Map<Advert, AdvertDTO>(advert);
+        }
+
         private Advert MapOneModel(AdvertDTO advert)
         {
             return _mapper.Map<AdvertDTO, Advert>(advert);

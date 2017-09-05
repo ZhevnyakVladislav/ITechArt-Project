@@ -11,6 +11,7 @@ namespace Server.BLL.Interfaces
         IEnumerable<AdvertDTO> GetAuthorAdverts(int? userId);
         IEnumerable<AdvertDTO> GetInterestedAdverts(int? userId);
         IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId, int? pageSize);
+        AdvertDTO GetAdvertById(int id);
         int GetCountByType(int type, int? userId);
     }
 }
