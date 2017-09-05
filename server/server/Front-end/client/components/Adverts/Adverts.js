@@ -4,36 +4,22 @@ import { Grid, Row, Col, ListGroup, Tab, Nav, NavItem, Button, Panel, Pagination
 import './adverts.scss';
 
 import AdvertPanel from '../AdvertPanel/AdvertPanel';
-import RespondDialog from './RespondDialog/RespondDialog';
 
 export default class Adverts extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isRespondDialogOpen: false,
             activePage: 1,
             activeTab: advertTypeInInt[advertTypeInString[1]],
-            openResondId: null,
         };
-        this.changeStateDialog = this.changeStateDialog.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
         this.changeTab = this.changeTab.bind(this);
-        this.loadAdverts = this.loadAdverts.bind(this);
-        this.createMessage = this.createMessage.bind(this);
     }
     
     componentDidMount() {
-        this.loadAdverts();
-    }
-
-    async createMessage(message) {
-        await this.props.createMessage(message);
-        await this.loadAdverts();
-    }
-
-    loadAdverts() {
-        return this.props.getFewAdverts(this.state.activeTab, this.state.activePage);
+        this.props.getFewAdverts(this.state.activeTab, this.state.activePage);
+        
     }
 
     handleSelect(eventKey) {
@@ -52,21 +38,15 @@ export default class Adverts extends React.Component {
         });
           
     }
-
-    changeStateDialog(e) {
-        this.setState({ 
-            openResondId: e.target.id,
-            isRespondDialogOpen: !this.state.isRespondDialogOpen
-        });
-    }
-
+    
     render() {
         const renderAdverts = (
             <ListGroup>
                 {this.props.adverts.map((advert, key) => 
                     <div  key={key} className="advert">
-                        <AdvertPanel advert={advert} />
-                        <Button onClick={this.changeStateDialog} id={advert.id}>respond</Button>
+                        <AdvertPanel 
+                            history={this.props.history}
+                            advert={advert} />
                     </div>
                 )}
             </ListGroup>
@@ -107,12 +87,6 @@ export default class Adverts extends React.Component {
                         </Col>
                     </Row> 
                 </Tab.Container>
-                <RespondDialog
-                    advertId={this.state.openResondId}
-                    sendResponse={this.createMessage} 
-                    closeRespondDialog={this.changeStateDialog}
-                    isRespondDialogOpen={this.state.isRespondDialogOpen} 
-                />
             </Grid>
         );    
     }

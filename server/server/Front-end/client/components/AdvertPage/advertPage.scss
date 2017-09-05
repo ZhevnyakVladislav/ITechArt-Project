@@ -1,0 +1,16 @@
+.advert-info {
+    background-color: #f4f4f4;
+}
+
+.advert-comments {
+    background-color: #f4f4f4;
+}
+
+.map {
+    display: flex;
+    justify-content: center;
+    >div{
+        height: 500px;
+        margin: 50px 0;
+    }
+}

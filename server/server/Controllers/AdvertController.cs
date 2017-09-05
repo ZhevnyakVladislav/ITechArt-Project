@@ -5,6 +5,9 @@ using Server.BLL.DTO;
 using Server.BLL.Interfaces;
 using AutoMapper;
 using System;
+using System.Net;
+using System.Web;
+using server.Models;
 
 namespace Server.Controllers
 {
@@ -21,22 +24,37 @@ namespace Server.Controllers
         }
 
         // GET: api/Advert
-        public object Get(bool isForUserPage, string type, int? page = 1)
+        public AdvertPaginationModel Get(bool isForUserPage, string type, int? page = 1)
         {
             var user = _userService.FindByName(User.Identity.Name);
-            var userId = (null == user) ? (int?)null : user.Id;
             if(isForUserPage)
             {
-                return GetUserPageAdverts(userId, type);
+                if (user != null)
+                {
+                    var userId = user.Id;
+                    return new AdvertPaginationModel(1, GetUserPageAdverts(userId, type));
+                }
+                else
+                {
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                }
             }
             else
             {
+                var userId = user?.Id;
                 var adverts = MapFewModel(_advertService.GetAdvertsByType(int.Parse(type), (int)page, userId, 3));
                 var count = _advertService.GetCountByType(int.Parse(type), userId);
-                return new { adverts, count };
+                return new AdvertPaginationModel(count, adverts);
             }
         }
 
+        //GET: api/Advert/:id
+        [Authorize]
+        public AdvertViewModel Get(int id)
+        {
+            var advert = _advertService.GetAdvertById(id);
+            return _mapper.Map<AdvertDTO, AdvertViewModel>(advert);
+        }
         // POST: api/Advert
         [Authorize]
         public void Post([FromBody]AdvertViewModel advert)
@@ -74,7 +92,7 @@ namespace Server.Controllers
         }
 
         [Authorize]
-        private object GetUserPageAdverts(int? userId, string type)
+        private IEnumerable<AdvertViewModel> GetUserPageAdverts(int? userId, string type)
         {
             switch (type)
             {

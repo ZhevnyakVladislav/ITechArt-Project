@@ -44,7 +44,8 @@ class UserPage extends React.PureComponent {
                 getAuthorsAdverts={this.props.getAuthorsAdverts}
                 getInterestedAdverts={this.props.getInterestedAdverts}
                 updateUser={this.props.updateUser}
-                getUser={this.props.getUser} /> 
+                getUser={this.props.getUser} 
+                history={this.props.history} /> 
         ) : (<Redirect to='/login' />);
     };
 };

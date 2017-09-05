@@ -1,14 +1,18 @@
 .panel {
     .panel-heading {
-        font-weight: 600;
+        padding: 0;
+        h1 {
+            font-weight: 600;
+            padding: 10px;
+        }
+        cursor: pointer;
     }
 
     .panel-body {
-        display: flex;
-        flex-direction: column;
-        label {
-            padding: 5px 0;
-            margin: 0;
+        b {
+            position: absolute;
+            bottom: 25px;
+            right: 20px;
         }
     }
 }

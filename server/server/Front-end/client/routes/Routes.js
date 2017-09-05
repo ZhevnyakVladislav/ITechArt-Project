@@ -6,6 +6,7 @@ import SignUpForm from '../containers/SignUpFormContainer';
 import Adverts from '../containers/AdvertsContainer';
 import UserPage from '../containers/UserPageContainer';
 import AddAdvertForm from '../containers/AddAdvertFormContainer';
+import AdvertPage from '../containers/AdvertPageContainer';
 import NoMatchesContainer from '../containers/NoMatchesContainer';
 
 export default () => (
@@ -15,6 +16,7 @@ export default () => (
         <Route path="/account" component={UserPage} />
         <Route path="/alladverts" component={Adverts} />
         <Route path="/newadvert" component={AddAdvertForm} />
+        <Route path="/advert/:id" component={AdvertPage} />
         <Route component={NoMatchesContainer} />
     </Switch>
 );

@@ -5,6 +5,7 @@ const initialState = {
     adverts: [],
     authorsAdverts: [],
     interestedAdverts: [], 
+    advert: {}
 };
 
 function getFewAdverts(state, action) {
@@ -18,14 +19,14 @@ function getFewAdverts(state, action) {
 function getAuthorsAdverts(state, action) {
     return {
         ...state,
-        authorsAdverts: action.payload.data
+        authorsAdverts: action.payload.data.adverts
     };
 }
 
 function getInterestedAdverts(state, action) {
     return {
         ...state,
-        interestedAdverts: action.payload.data
+        interestedAdverts: action.payload.data.adverts
     };
 }
 
@@ -51,13 +52,21 @@ function updateAdvert(state, action) {
     };
 }
 
+function getAdvertSuccessful(state, action) {
+    return {
+        ...state,
+        advert: action.payload.data
+    };
+}
+
 export default createReducer(initialState, {
     [actionType.GET_FEW_ADVERTS_SUCCESSFUL]: getFewAdverts,
     [actionType.GET_AUTHORS_ADVERTS_SUCCESSFUL]: getAuthorsAdverts,
     [actionType.GET_INTERESTED_ADVERTS_SUCCESSFUL]: getInterestedAdverts,
     [actionType.ADD_ADVERT_SUCCESSFUL]: createAdvert,
     [actionType.REMOVE_ADVERT_SUCCESSFUL]: removeAdvert,
-    [actionType.CHANGE_ADVERT_SUCCESSFUL]: updateAdvert
+    [actionType.CHANGE_ADVERT_SUCCESSFUL]: updateAdvert,
+    [actionType.GET_ADVERT_SUCCESSFUL]: getAdvertSuccessful
 });
 
 function removeAdvertFromState(array, advertId) {

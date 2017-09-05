@@ -6,12 +6,9 @@ const initialState = {
 };
 
 function getMessagesById(state, action) {
-    const oldMessages = state.messages.filter(message => {
-        return message && message.advertId != (action.payload.data[0] && action.payload.data[0].advertId);
-    });
     return {
         ...state,
-        messages: [...oldMessages   , ...action.payload.data]
+        messages: action.payload.data
     };
 }
 

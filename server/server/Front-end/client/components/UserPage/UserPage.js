@@ -13,7 +13,6 @@ export default  class UserPage extends React.Component {
             input: null
         };
         this.handleChangePhoto = this.handleChangePhoto.bind(this);
-        this.handleShowMessageBox = this.handleShowMessageBox.bind(this);
         this.removeAdvert = this.removeAdvert.bind(this);
         this.handleClickInput = this.handleClickInput.bind(this);
         this.renderAdverts = this.renderAdverts.bind(this);
@@ -39,13 +38,6 @@ export default  class UserPage extends React.Component {
         await this.props.getUser();
     }
 
-    handleShowMessageBox(e) {
-        this.state.adverts = [...this.props.authorsAdverts, ...this.props.interestedAdverts];
-        const advert = this.state.adverts.find(advert => advert.id == e.target.id);
-        const index = this.state.adverts.indexOf(advert);
-        this.state.adverts[index].isMessageBoxOpen = !this.state.adverts[index].isMessageBoxOpen;
-        this.setState({ adverts: this.state.adverts });
-    }
     
     async removeAdvert(e) {
         await this.props.removeAdvert(e.target.id);
@@ -55,24 +47,14 @@ export default  class UserPage extends React.Component {
     renderAdverts(adverts, isAuthors) {
         return adverts.map((advert) => 
             <div  key={advert.id} className="advert">
-                <AdvertPanel advert={advert}/>
-                <Button className="load-image-icon" onClick={this.handleShowMessageBox}>
-                    <Glyphicon id={advert.id} glyph="envelope"/>
-                </Button>
+                <AdvertPanel 
+                    history={this.props.history}
+                    advert={advert}/>
                 {isAuthors ? 
                     <Button className="remove-advert-icon" onClick={this.removeAdvert}>
                         <Glyphicon id={advert.id} glyph="remove"/>
                     </Button> 
                     : null}
-                {advert.isMessageBoxOpen ? (
-                    <MessageBox
-                        currentUserId={this.props.user.id} 
-                        handleCloseMessageBox={this.handleShowMessageBox}
-                        messages={this.props.messages}
-                        getMessagesById={this.props.getMessagesById}
-                        createMessage={this.props.createMessage}
-                        advertId={advert.id} />
-                ) : null}
             </div>
         );
     }

@@ -8,6 +8,7 @@ export function getFewAdverts(type, page) {
             payload: data
         }));
 }
+
 export function getAuthorsAdverts() {
     return dispatch => advertApi.getAuthorsAdverts()
         .then(data => dispatch({
@@ -46,4 +47,16 @@ export function updateAdver(advert) {
             type: actionType.CHANGE_ADVERT_SUCCESSFUL,
             payload: { fewAdverts: data.fewFilteredAdverts, count: data.count }
         }));
+}
+
+export function getAdvert(id) {
+    return async dispatch => {
+        let advert = await advertApi.getAdvert(id);
+        let coordinates = await advertApi.getAdvertCoordinates(advert.address);
+        dispatch({
+            type: actionType.GET_ADVERT_SUCCESSFUL,
+            payload: advert
+        });
+    }
+       
 }

@@ -6,7 +6,7 @@ import { createAdvert } from '../actions/AdvertActions';
 
 import AddAdvertForm from '../components/AddAdvertForm/AddAdvertForm';
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
     return {
         isUserAuth: state.UserActions.isUserAuth,
         user: state.UserActions.user

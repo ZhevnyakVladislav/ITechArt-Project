@@ -250,6 +250,7 @@
     </Compile>
     <Compile Include="Identity\UserStore.cs" />
     <Compile Include="Identity\CustomUserManager.cs" />
+    <Compile Include="Models\AdvertPaginationModel.cs" />
     <Compile Include="Models\AdvertViewModel.cs" />
     <Compile Include="Models\AdverTypeView.cs" />
     <Compile Include="Models\MessageViewModel.cs" />
