@@ -26,9 +26,6 @@ namespace Server
 
             CreateMap<AddressDTO, AddressViewModel>().ReverseMap();
             CreateMap<Address, AddressDTO>().ReverseMap();
-
-            CreateMap<CoordinateDTO, CoordinateViewModel>().ReverseMap();
-            CreateMap<Coordinate, CoordinateDTO>().ReverseMap();
         }
     }
 

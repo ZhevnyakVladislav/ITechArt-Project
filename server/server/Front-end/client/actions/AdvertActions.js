@@ -50,9 +50,19 @@ export function updateAdver(advert) {
 }
 
 export function getAdvert(id) {
-    return dispatch => advertApi.getAdvert(id)
-        .then(data =>  dispatch({
+    return async dispatch => {
+        let advert = null;
+        await advertApi.getAdvert(id).then(data => advert = data.data);
+        const address = `${advert.address.street}+${advert.address.city}+${advert.address.country}`;
+        advert.address.coordinate = await getCoordinate(address);
+        return dispatch({
             type: actionType.GET_ADVERT_SUCCESSFUL,
-            payload: data
-        }));
+            payload: advert
+        });
+    }
+}
+
+const getCoordinate = (address) => {
+    let coordinate;
+    return advertApi.getCoordinate(address).then(data => data.data.results[0].geometry.location);
 }

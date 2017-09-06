@@ -4,6 +4,7 @@ import createReducer from '../helpers/reducerHelper';
 const initialState = {
     isUserAuth: true,
     user: {
+        avatar: null,
         languages: []
     },   
     errors: {}

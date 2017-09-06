@@ -5,7 +5,9 @@ const initialState = {
     adverts: [],
     authorsAdverts: [],
     interestedAdverts: [], 
-    advert: {}
+    advert: {
+        address: {}
+    }
 };
 
 function getFewAdverts(state, action) {
@@ -55,7 +57,7 @@ function updateAdvert(state, action) {
 function getAdvertSuccessful(state, action) {
     return {
         ...state,
-        advert: action.payload.data
+        advert: action.payload
     };
 }
 

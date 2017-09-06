@@ -1,21 +1,26 @@
 import React from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import GoogleMapReact  from 'google-map-react';
 import apiKey from '../../constants/GoogleMapsApiKey';
 
-export class MapContainer extends React.Component {
+const AnyReactComponent = ({ text }) => <div><img src="http://s1.iconbird.com/ico/2013/1/569/w16h26138981479607mapmarker.png"/></div>;
+
+export default class MapContainer extends React.Component {
     render() {
+        console.log('render', this.props.coordinate);
         return (
-            <Map google={this.props.google} zoom={13}  initialCenter={{
-                lat: 53.888358,
-                lng: 27.544162
-            }}>
-                <Marker 
-                    position={{lat: 54.6961521, lng: 30.5045073}}/>
-            </Map>
+            <GoogleMapReact
+                bootstrapURLKeys={{
+                    key: apiKey,
+                    language: 'ru',
+                }} 
+                center={this.props.coordinate}
+                defaultZoom={15}>   
+                <AnyReactComponent
+                    lat={this.props.coordinate.lat}
+                    lng={this.props.coordinate.lng}
+                    text={'Kreyser Avrora'}/>
+            </GoogleMapReact >
         );
     }
 }
 
-export default GoogleApiWrapper({
-    apiKey: apiKey
-})(MapContainer);

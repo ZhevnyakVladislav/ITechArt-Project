@@ -13,7 +13,6 @@ export default class AdvertPape extends React.Component {
     }
     
     render() {
-        console.log(this.props.advert);
         return (
             <Grid>
                 <Row className="advert-info"> 
@@ -24,11 +23,12 @@ export default class AdvertPape extends React.Component {
                         <p>{this.props.advert.description}</p>
                     </Col>
                 </Row>
-                <Row className="map">
-                    <Col xs={12} sm={10}>
-                        <Map />
-                    </Col>
-                </Row>
+                {!this.props.advert.address.coordinate ? null : (
+                    <Row className="map">
+                        <Col xs={12} sm={10}>
+                            <Map coordinate={this.props.advert.address.coordinate} />
+                        </Col>
+                    </Row>)}
                 <Row className="advert-comments">
                     <Col xs={12} sm={10} smOffset={1}>
                         <h3>Comments</h3>

@@ -68,7 +68,6 @@ namespace Server.Controllers
                 City = advert.Address.City,
                 Country = advert.Address.Country,
                 Street = advert.Address.Street,
-                Coordinate = _mapper.Map<CoordinateViewModel, CoordinateDTO>(advert.Address.Coordinate)
             };
             _advertService.Create(mappedAdvert);
         }
