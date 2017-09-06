@@ -1,4 +1,5 @@
 ﻿using System;
+using server.Models;
 
 namespace Server.Models
 {
@@ -14,6 +15,9 @@ namespace Server.Models
 
         public int AuthorId { get; set; }
         public int? InterestedUserId { get; set; }
+
+        public int AddressId { get; set; }
+        public virtual AddressViewModel Address { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

@@ -125,8 +125,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AddressDTO.cs" />
     <Compile Include="DTO\AdvertDTO.cs" />
     <Compile Include="DTO\AdvertTypeDTO.cs" />
+    <Compile Include="DTO\CoordinateDTO.cs" />
     <Compile Include="DTO\MessageDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Interfaces\IAdvertService.cs" />

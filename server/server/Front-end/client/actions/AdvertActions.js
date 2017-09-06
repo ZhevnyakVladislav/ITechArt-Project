@@ -50,13 +50,9 @@ export function updateAdver(advert) {
 }
 
 export function getAdvert(id) {
-    return async dispatch => {
-        let advert = await advertApi.getAdvert(id);
-        let coordinates = await advertApi.getAdvertCoordinates(advert.address);
-        dispatch({
+    return dispatch => advertApi.getAdvert(id)
+        .then(data =>  dispatch({
             type: actionType.GET_ADVERT_SUCCESSFUL,
-            payload: advert
-        });
-    }
-       
+            payload: data
+        }));
 }

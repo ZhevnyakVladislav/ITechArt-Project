@@ -16,6 +16,9 @@ namespace Server.BLL.DTO
         public int AuthorId { get; set; }
         public int? InterestedUserId { get; set; }
 
+        public int AddressId { get; set; }
+        public virtual AddressDTO Address { get; set; }
+
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

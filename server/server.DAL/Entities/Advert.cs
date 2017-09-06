@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using server.DAL.Entities;
 
 namespace Server.DAL.Entities
 {
@@ -17,6 +18,9 @@ namespace Server.DAL.Entities
 
         public int AuthorId { get; set; }
         public int? InterestedUserId { get; set; }
+
+        public  int AddressId { get; set; }
+        public virtual  Address Address { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

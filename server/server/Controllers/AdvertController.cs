@@ -63,6 +63,13 @@ namespace Server.Controllers
             var mappedAdvert = MapOneModel(advert);
             mappedAdvert.AuthorId = user.Id;
             mappedAdvert.InterestedUserId = null;
+            mappedAdvert.Address = new AddressDTO()
+            {
+                City = advert.Address.City,
+                Country = advert.Address.Country,
+                Street = advert.Address.Street,
+                Coordinate = _mapper.Map<CoordinateViewModel, CoordinateDTO>(advert.Address.Coordinate)
+            };
             _advertService.Create(mappedAdvert);
         }
         

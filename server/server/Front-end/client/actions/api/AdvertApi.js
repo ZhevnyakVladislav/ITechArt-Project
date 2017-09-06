@@ -1,5 +1,4 @@
 import axios from 'axios';
-import apiKey from '../../constants/GoogleMapsApiKey';
 
 const getAuthorsAdverts = () => axios.get('/api/advert?isForUserPage=true&type=authorAdverts');
 
@@ -15,8 +14,6 @@ const removeAdvert = (id) => axios.delete('/api/advert/' + id);
 
 const getAdvert = (id) => axios.get('/api/advert/' + id);
 
-const getAdvertCoordinates = (address) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`); 
-
 export default {
     getAuthorsAdverts,
     getInterestedAdverts,
@@ -25,5 +22,4 @@ export default {
     updateAdver,
     removeAdvert,
     getAdvert,
-    getAdvertCoordinates
 };

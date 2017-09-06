@@ -1,10 +1,9 @@
 ﻿using System;
 using Server.DAL.Interfaces;
-using Server.DAL.EntityFramework;
 using Server.DAL.Entities;
 using System.Threading.Tasks;
-using Server.DAL.Repositories;
 using System.Data.Entity;
+using server.DAL.Entities;
 
 namespace Server.DAL.Repositories
 {
@@ -14,6 +13,7 @@ namespace Server.DAL.Repositories
         private CommonRepository<User> _userRepository;
         private CommonRepository<Advert> _advertRepository;
         private CommonRepository<Message> _messageRepository;
+        private CommonRepository<Address> _addressRposiRepository;
 
         private bool disposed = false;
 
@@ -25,6 +25,8 @@ namespace Server.DAL.Repositories
         public IRepository<Advert> Adverts => _advertRepository ?? (_advertRepository = new CommonRepository<Advert>(_db));
         public IRepository<Message> Messages => _messageRepository ?? (_messageRepository = new CommonRepository<Message>(_db));
 
+        public IRepository<Address> Addresses => _addressRposiRepository ?? (_addressRposiRepository = new CommonRepository<Address>(_db));
+       
         public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();

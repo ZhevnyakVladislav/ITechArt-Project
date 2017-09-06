@@ -1,3 +1,5 @@
+using server.DAL.Entities;
+
 namespace Server.DAL.EntityFramework
 {
     using Entities;
@@ -10,6 +12,7 @@ namespace Server.DAL.EntityFramework
         public DbSet<User> Users { get; set;}
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

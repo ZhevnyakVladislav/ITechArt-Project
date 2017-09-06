@@ -126,8 +126,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Advert.cs" />
     <Compile Include="Entities\AdvertType.cs" />
+    <Compile Include="Entities\Coordinate.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFramework\ProjectContext.cs" />

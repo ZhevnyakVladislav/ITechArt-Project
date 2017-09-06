@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using server.DAL.Entities;
+using server.Models;
 using Server.BLL.DTO;
 using Server.DAL.Entities;
 using Server.Models;
@@ -18,6 +20,15 @@ namespace Server
 
             CreateMap<MessageDTO, MessageViewModel>().ReverseMap();
             CreateMap<Message, MessageDTO>().ReverseMap();
+
+            CreateMap<AddressDTO, AddressViewModel>().ReverseMap();
+            CreateMap<Address, AddressDTO>().ReverseMap();
+
+            CreateMap<AddressDTO, AddressViewModel>().ReverseMap();
+            CreateMap<Address, AddressDTO>().ReverseMap();
+
+            CreateMap<CoordinateDTO, CoordinateViewModel>().ReverseMap();
+            CreateMap<Coordinate, CoordinateDTO>().ReverseMap();
         }
     }
 
