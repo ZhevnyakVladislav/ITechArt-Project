@@ -6,7 +6,6 @@ const AnyReactComponent = ({ text }) => <div><img src="http://s1.iconbird.com/ic
 
 export default class MapContainer extends React.Component {
     render() {
-        console.log('render', this.props.coordinate);
         return (
             <GoogleMapReact
                 bootstrapURLKeys={{
