@@ -13,7 +13,10 @@ using Server.Identity;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Web.Configuration;
+using Infrastructure.Cache;
+using Infrastructure.Interfaces;
 using Server;
+using Server.BLL.DTO;
 using Server.DAL.EntityFramework;
 
 namespace Server
@@ -39,7 +42,9 @@ namespace Server
                 .RegisterType<IAuthenticationManager>()
                 .RegisterInstance<IMapper>(MapperConfig.GetMapper())
                 .RegisterType<IUnitOfWork, EfUnitOfWork>()
-                .RegisterType<DbContext, ProjectContext>(new InjectionConstructor("name=ProjectContext"));
+                .RegisterType<DbContext, ProjectContext>(new InjectionConstructor("name=ProjectContext"))
+                .RegisterType<IAdvertCache<AdvertDTO>, AdvertCache<AdvertDTO>>();
+
             var cloudinaarySetting = WebConfigurationManager.AppSettings["cloudinaryName"];
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

@@ -8,6 +8,7 @@ using System;
 using System.Net;
 using System.Web;
 using server.Models;
+using WebApi.OutputCache.V2;
 
 namespace Server.Controllers
 {
@@ -50,6 +51,7 @@ namespace Server.Controllers
 
         //GET: api/Advert/:id
         [Authorize]
+        [CacheOutput(ServerTimeSpan = 10)]
         public AdvertViewModel Get(int id)
         {
             var advert = _advertService.GetAdvertById(id);

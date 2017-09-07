@@ -6,6 +6,7 @@ using Server.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Infrastructure.Interfaces;
 using server.DAL.Entities;
 
 namespace Server.BLL.Services
@@ -14,10 +15,12 @@ namespace Server.BLL.Services
     {
         IUnitOfWork _unitOfWork;
         IMapper _mapper;
-        public AdvertService(IUnitOfWork db, IMapper mapper)
+        IAdvertCache<AdvertDTO> _cache;
+        public AdvertService(IUnitOfWork db, IMapper mapper, IAdvertCache<AdvertDTO> cache)
         {
             _unitOfWork = db;
             _mapper = mapper;
+            _cache = cache;
         }
         public void Create(AdvertDTO model)
         {
@@ -43,19 +46,37 @@ namespace Server.BLL.Services
         }
         public IEnumerable<AdvertDTO> GetAuthorAdverts(int? userId)
         {
-            return MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.AuthorId == userId));
+            var result = _cache.GetAuthorAdverts();
+            if (result == null)
+            {
+                result = MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.AuthorId == userId));
+                _cache.AddAuthorAdverts(result);
+            }
+            return result;
         }
         public IEnumerable<AdvertDTO> GetInterestedAdverts(int? userId)
         {
-            return MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.InterestedUserId == userId));
+            var result = _cache.GetInterestedAdverts();
+            if (result == null)
+            {
+                result =  MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.InterestedUserId == userId));
+                _cache.AddInterestedAdverts(result);
+            }
+            return result;
         }
         public IEnumerable<AdvertDTO> GetAdvertsByType(int type, int page, int? userId, int? pageSize = 3)
         {
-           return MapFewModel(_unitOfWork.Adverts.GetQuryable().Where(advert => (int)advert.Type == type && advert.AuthorId != userId && advert.IsActive)
-               .OrderBy(advert => advert.Id)
-               .Skip((page - 1) * (int)pageSize)
-               .Take((int)pageSize)
-               .ToList());
+            var result = _cache.GetAdvertsByType((type + page).ToString());
+            if (result == null)
+            {
+                result =  MapFewModel(_unitOfWork.Adverts.GetQuryable().Where(advert => (int)advert.Type == type && advert.AuthorId != userId && advert.IsActive)
+                    .OrderBy(advert => advert.Id)
+                    .Skip((page - 1) * (int)pageSize)
+                    .Take((int)pageSize)
+                    .ToList());
+                _cache.AddTypedAdverts((type + page).ToString(), result);
+            }
+            return result;
         }
         public int GetCountByType(int type, int? userId)
         {

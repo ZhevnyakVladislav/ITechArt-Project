@@ -145,6 +145,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{e5868daa-3860-4850-a649-ffa5daa73ebf}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\server.DAL\Server.DAL.csproj">
       <Project>{78890601-9a3a-4f34-80ab-ab44c0b78e86}</Project>
       <Name>Server.DAL</Name>
