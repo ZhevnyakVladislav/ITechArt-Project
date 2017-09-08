@@ -251,6 +251,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -263,6 +265,8 @@
     <Compile Include="Models\AdvertPaginationModel.cs" />
     <Compile Include="Models\AdvertViewModel.cs" />
     <Compile Include="Models\AdverTypeView.cs" />
+    <Compile Include="Models\CityViewModel.cs" />
+    <Compile Include="Models\CountryViewModel.cs" />
     <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,8 +8,8 @@ namespace server.Models
     public class AddressViewModel
     {
         public int Id { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
         public string Street { get; set; }
+        public virtual CityViewModel City { get; set; }
+        public int CityId { get; set; }
     }
 }

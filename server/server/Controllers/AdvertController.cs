@@ -65,12 +65,6 @@ namespace Server.Controllers
             var mappedAdvert = MapOneModel(advert);
             mappedAdvert.AuthorId = user.Id;
             mappedAdvert.InterestedUserId = null;
-            mappedAdvert.Address = new AddressDTO()
-            {
-                City = advert.Address.City,
-                Country = advert.Address.Country,
-                Street = advert.Address.Street,
-            };
             _advertService.Create(mappedAdvert);
         }
         

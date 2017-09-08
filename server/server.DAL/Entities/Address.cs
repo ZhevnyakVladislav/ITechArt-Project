@@ -6,8 +6,8 @@ namespace server.DAL.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
+        public virtual City City { get; set; }
+        public int CityId { get; set; }
         public string Street { get; set; }
     }
 }

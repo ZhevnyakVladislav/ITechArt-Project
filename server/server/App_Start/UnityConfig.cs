@@ -27,14 +27,13 @@ namespace Server
         {
 			var container = new UnityContainer();
             container
-                .RegisterType<UserController>()
-                .RegisterType<AccountController>()
-                .RegisterType<AdvertController>()
                 .RegisterType<IUserStore<UserViewModel, int>, UserStore>()
                 .RegisterType<UserManager<UserViewModel, int>, CustomUserManager>()
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IAdvertService, AdvertService>()
                 .RegisterType<IMessageService, MessageService>()
+                .RegisterType<ICountryService, CountryService>()
+                .RegisterType<ICityService, CityService>()
                 .RegisterType<IImageService, ImageService>(new InjectionConstructor(
                     WebConfigurationManager.AppSettings["cloudinaryName"], 
                     WebConfigurationManager.AppSettings["cloudinaryPassword"], 

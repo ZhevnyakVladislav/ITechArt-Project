@@ -26,6 +26,12 @@ namespace Server
 
             CreateMap<AddressDTO, AddressViewModel>().ReverseMap();
             CreateMap<Address, AddressDTO>().ReverseMap();
+
+            CreateMap<CountryDTO, CountryViewModel>().ReverseMap();
+            CreateMap<Country, CountryDTO>().ReverseMap();
+
+            CreateMap<CityDTO, CityViewModel>().ReverseMap();
+            CreateMap<City, CityDTO>().ReverseMap();
         }
     }
 

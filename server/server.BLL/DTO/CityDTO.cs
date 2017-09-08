@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Server.BLL.DTO
 {
-    public class AddressDTO
+    public class CityDTO
     {
         public int Id { get; set; }
-        public string Street { get; set; }
-        public virtual  CityDTO City { get; set; }
-        public int  CityId { get; set; }
-
+        public string Name { get; set; }
+        public virtual CountryDTO Country { get; set; }
+        public  int CountryId { get; set; }
     }
 }

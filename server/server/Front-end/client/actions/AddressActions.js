@@ -9,16 +9,8 @@ export function getCountries() {
         }));
 }
 
-export function getRegions(countryCode) {
-    return dispatch => addressApi.getRegionsByCountry(countryCode)
-        .then(data => dispatch({
-            type: actionType.GET_REGIONS_SUCCESSFULL,
-            payload: data
-        }));
-}
-
-export function getCities(countryCode, region) {
-    return dispatch => addressApi.getCitiesByRegion(countryCode, region)
+export function getCities(countryId) {
+    return dispatch => addressApi.getCities(countryId)
         .then(data => dispatch({
             type: actionType.GET_CITIES_SUCCESSFULL,
             payload: data

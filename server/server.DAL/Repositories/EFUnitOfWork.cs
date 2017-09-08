@@ -14,6 +14,9 @@ namespace Server.DAL.Repositories
         private CommonRepository<Advert> _advertRepository;
         private CommonRepository<Message> _messageRepository;
         private CommonRepository<Address> _addressRposiRepository;
+        private CommonRepository<Country> _countryRposiRepository;
+        private CommonRepository<City> _cityRposiRepository;
+
 
         private bool disposed = false;
 
@@ -26,7 +29,10 @@ namespace Server.DAL.Repositories
         public IRepository<Message> Messages => _messageRepository ?? (_messageRepository = new CommonRepository<Message>(_db));
 
         public IRepository<Address> Addresses => _addressRposiRepository ?? (_addressRposiRepository = new CommonRepository<Address>(_db));
-       
+        public IRepository<Country> Countries => _countryRposiRepository ?? (_countryRposiRepository = new CommonRepository<Country>(_db));
+        public IRepository<City> Cities => _cityRposiRepository ?? (_cityRposiRepository = new CommonRepository<City>(_db));
+
+
         public async Task SaveAsync()
         {
             await _db.SaveChangesAsync();

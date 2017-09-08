@@ -13,16 +13,13 @@ export default class AddAdvertForm extends React.Component {
             title: '',
             description: '',
             type: advertTypeInInt[advertTypeInString[1]],
-            country: '',
-            region: '',
-            city: '',
+            countryId: '',
+            cityId: '',
             street: '',
-            coordinate: '',
             errors: {
                 titleValid: validType.default,
                 descriptionValid: validType.default, 
                 countryValid: validType.default,
-                regionValid: validType.default,
                 cityValid: validType.default,
                 streetValid: validType.default,
             }
@@ -31,7 +28,6 @@ export default class AddAdvertForm extends React.Component {
         this.validateData = this.validateData.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.changeCountry = this.changeCountry.bind(this);
-        this.changeRegion = this.changeRegion.bind(this);
         this.changeCity = this.changeCity.bind(this);
     }
 
@@ -42,8 +38,6 @@ export default class AddAdvertForm extends React.Component {
     handleChange(e) {
         if (e.target.id == 'country') {
             this.changeCountry(e.target.value);
-        } else if (e.target.id == 'region') {
-            this.changeRegion(e.target.value);
         } else if (e.target.id == 'city') {
             this.changeCity(e.target.value)
         } else {
@@ -54,27 +48,17 @@ export default class AddAdvertForm extends React.Component {
     }
 
     changeCountry(value) {
-        let country = this.props.countries.find(country => country.name == value);
         this.setState({
-            country: { name: value, code: country.code},
+            countryId: value,
             region: '',
-            city:''
+            cityId:''
         });
-        this.props.getRegions(country.code);
-    }
-
-    changeRegion(value) {
-        this.setState({
-            region: value,
-            city:''
-        });
-        this.props.getCities(this.state.country.code, value);
+        this.props.getCities(value);
     }
 
     changeCity(value) {
-        let city = this.props.cities.find(city => city.city == value);
         this.setState({
-            city: city.city,
+            cityId: value,
             coordinate: { latitude: city.latitude, longitude: city.longitude }
         })
     }
@@ -86,10 +70,7 @@ export default class AddAdvertForm extends React.Component {
                 description: this.state.description,
                 type: this.state.type,
                 address: {
-                    country: this.state.country.name,
-                    region: this.state.region,
-                    city: this.state.city,
-                    coordinate: this.state.coordinate,
+                    cityId: this.state.cityId,
                     street: this.state.street,
                 }
                
@@ -102,10 +83,9 @@ export default class AddAdvertForm extends React.Component {
         let errors = {
             titleValid: validateOnExistence(this.state.title),
             descriptionValid: validateOnExistence(this.state.description),
-            countryValid: validateOnExistence(this.state.country),
-            regionValid: validateOnExistence(this.state.region),
-            cityValid: validateOnExistence(this.state.street),
-            streetValid: validateOnExistence(this.state.city),
+            countryValid: validateOnExistence(this.state.countryId),
+            cityValid: validateOnExistence(this.state.cityId),
+            streetValid: validateOnExistence(this.state.street),
         };
 
         this.setState({ errors });
@@ -118,15 +98,11 @@ export default class AddAdvertForm extends React.Component {
     render() {
         const countries = (
             this.props.countries.map(country => 
-            <option key={country.code} value={country.name}>{country.name}</option>)
-        );
-        const regions = (
-            this.props.regions.map(region => 
-            <option key={region.region} value={region.region}>{region.region}</option>)
+            <option key={country.id} value={country.id}>{country.name}</option>)
         );
         const cities = (
             this.props.cities.map(city => 
-            <option key={city.city} value={city.city}>{city.city}</option>)
+            <option key={city.id} value={city.id}>{city.name}</option>)
         );
         return(
             <Grid className='login-form'>
@@ -145,13 +121,6 @@ export default class AddAdvertForm extends React.Component {
                                 <FormControl componentClass="select">
                                     <option value=''></option>
                                     {countries}
-                                </FormControl>
-                            </FormGroup>
-                            <FormGroup controlId="region" validationState={this.state.errors.regionValid}>
-                                <ControlLabel>Select region</ControlLabel>
-                                <FormControl componentClass="select" >
-                                    <option value=''></option>
-                                    {regions}
                                 </FormControl>
                             </FormGroup>
                             <FormGroup controlId="city" validationState={this.state.errors.cityValid}>

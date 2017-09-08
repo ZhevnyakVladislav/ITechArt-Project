@@ -13,6 +13,9 @@ namespace Server.DAL.EntityFramework
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

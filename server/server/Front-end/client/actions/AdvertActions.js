@@ -53,7 +53,7 @@ export function getAdvert(id) {
     return async dispatch => {
         let advert = null;
         await advertApi.getAdvert(id).then(data => advert = data);
-        const address = `${advert.address.street}+${advert.address.city}+${advert.address.country}`;
+        const address = `${advert.address.street}+${advert.address.city.name}+${advert.address.city.country.name}`;
         advert.address.coordinate = await getCoordinate(address);
         return dispatch({
             type: actionType.GET_ADVERT_SUCCESSFUL,
