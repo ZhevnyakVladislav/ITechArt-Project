@@ -15,3 +15,10 @@ export function createMessage(message) {
             type: actionType.ADD_MESSAGE_SUCCESSFUL, 
         }));
 }
+
+export function updateMessages(messages) {
+    return dispatch => dispatch({
+        type: actionType.UPDATE_MESSAGES_SUCCESSFULL,
+        payload: messages
+    });
+}

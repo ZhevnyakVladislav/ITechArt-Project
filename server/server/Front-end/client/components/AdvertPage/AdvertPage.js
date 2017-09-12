@@ -6,12 +6,23 @@ import MessageBox from '../MessageBox/MessageBox';
 import Map from '../Map/Map';
 
 export default class AdvertPape extends React.Component {
-    
+    constructor(props) { 
+        super(props);
+        this.messagesHub = window.$.connection.MessageChat;
+        this.sendMessage = this.sendMessage.bind(this);
+    }
+
     componentDidMount() {
         this.props.getAdvert(this.props.match.params.id);
         this.props.getMessagesById(this.props.match.params.id);
+        this.messagesHub.client.Send = this.sendMessage;
+        let connection = window.$.connection.hub.start().done(() => console.log('SignalR Hub Started!'));
     }
-    
+
+    sendMessage(messages) {
+        this.props.updateMessages(messages);
+    }
+
     render() {
         return (
             <Grid>
@@ -33,9 +44,8 @@ export default class AdvertPape extends React.Component {
                     <Col xs={12} sm={10} smOffset={1}>
                         <h3>Comments</h3>
                         <MessageBox
-                            getMessagesById={this.props.getMessagesById}
-                            createMessage={this.props.createMessage} 
                             advertId={this.props.match.params.id}
+                            createMessage={this.props.createMessage} 
                             messages={this.props.messages}/>
                     </Col>
                 </Row>

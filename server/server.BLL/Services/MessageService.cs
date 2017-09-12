@@ -21,7 +21,7 @@ namespace Server.BLL.Services
         public void Create(MessageDTO model)
         {
             var advert = _unitOfWork.Adverts.Get(model.AdvertId);
-            if (advert.InterestedUserId == null && advert.IsActive)
+            if (advert.InterestedUserId == null && advert.InterestedUserId != advert.AuthorId && advert.IsActive)
             {
                 advert.IsActive = false;
                 advert.InterestedUserId = model.AuthorId;

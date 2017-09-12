@@ -1,7 +1,6 @@
 import axios from 'axios';
 import apiKey from '../../constants/GoogleMapsApiKey';
-import advertCache from '../../helpers/AdvertCacheHelper';
-import requestsCache from '../../helpers/RequestsCacheHelper';
+import Cache from '../../helpers/CacheHelper';
 
 const getAuthorsAdverts = () => axios.get('/api/advert?isForUserPage=true&type=authorAdverts');
 
@@ -17,17 +16,7 @@ const removeAdvert = (id) => axios.delete('/api/advert/' + id);
 
 const getAdvert = (id) => {
     let url = '/api/advert/' + id;
-    let advert = advertCache.get(id);
-    if(!advert) {
-        return requestsCache(url, getFromUrl); 
-    }
-    return new Promise(resolve => resolve(advert));
-};
-
-const getFromUrl = (url) => {
-    return axios.get(url).then(response => {
-        return response.data;
-    });
+    return Cache(url); 
 };
 
 const getCoordinate = (address) => axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${apiKey}`);

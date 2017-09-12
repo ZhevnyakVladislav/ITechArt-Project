@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAdvert } from '../actions/AdvertActions';
-import { getMessagesById, createMessage } from '../actions/MessageAction';
+import { getMessagesById, createMessage, updateMessages } from '../actions/MessageAction';
 
 import AdvertPage from '../components/AdvertPage/AdvertPage';
 
@@ -18,7 +18,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         getAdvert,
         getMessagesById,
-        createMessage
+        createMessage,
+        updateMessages
     },dispatch);
 }
 

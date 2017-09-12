@@ -18,7 +18,15 @@ function createMessage(state, action) {
     };
 }
 
+function updateMessages(state, action) {
+    return {
+        ...state,
+        messages: action.payload
+    };
+}
+
 export default createReducer(initialState, {
     [actionType.GET_MESSAGES_SUCCESSFUL]: getMessagesById,
     [actionType.ADD_MESSAGE_SUCCESSFUL]: createMessage,
+    [actionType.UPDATE_MESSAGES_SUCCESSFULL]: updateMessages
 });

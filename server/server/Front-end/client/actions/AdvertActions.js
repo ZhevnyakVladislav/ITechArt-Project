@@ -52,7 +52,7 @@ export function updateAdver(advert) {
 export function getAdvert(id) {
     return async dispatch => {
         let advert = null;
-        await advertApi.getAdvert(id).then(data => advert = data);
+        await advertApi.getAdvert(id).then(data => advert = data.data);
         const address = `${advert.address.street}+${advert.address.city.name}+${advert.address.city.country.name}`;
         advert.address.coordinate = await getCoordinate(address);
         return dispatch({

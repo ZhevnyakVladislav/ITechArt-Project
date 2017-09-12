@@ -28,10 +28,10 @@ export default class Footer extends React.Component {
             advertId: this.props.advertId,
             description: this.state.message
         });
-        this.props.getMessagesById(this.props.advertId);
     }
 
     render() {
+        console.log(this.props.messages);
         return(
             <div className="message-box">
                 {this.props.messages.map(message => 
@@ -47,7 +47,7 @@ export default class Footer extends React.Component {
                     </Media>
                 )}
                 <FormGroup controlId="formControlsTextarea" onChange={this.handleChange}>
-                    <FormControl componentClass="textarea" placeholder="Send comment..." />
+                    <FormControl componentClass="textarea" placeholder="Send comment..."/>
                     <Button onClick={this.handleSendMessage}>Send</Button>
                 </FormGroup>
             </div>

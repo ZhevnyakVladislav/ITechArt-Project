@@ -15,9 +15,12 @@ using System.Data.Entity;
 using System.Web.Configuration;
 using Infrastructure.Cache;
 using Infrastructure.Interfaces;
+using Microsoft.AspNet.SignalR;
 using Server;
 using Server.BLL.DTO;
 using Server.DAL.EntityFramework;
+using Microsoft.Web.WebSockets;
+using server.SignalR;
 
 namespace Server
 {
@@ -34,6 +37,7 @@ namespace Server
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<ICountryService, CountryService>()
                 .RegisterType<ICityService, CityService>()
+                .RegisterType<Hub, MessageHub>()
                 .RegisterType<IImageService, ImageService>(new InjectionConstructor(
                     WebConfigurationManager.AppSettings["cloudinaryName"], 
                     WebConfigurationManager.AppSettings["cloudinaryPassword"], 
