@@ -43,24 +43,25 @@ namespace Server.BLL.Services
         {
             _unitOfWork.Adverts.Delete(id);
             _unitOfWork.Save();
+            _cache.ResetCache();
         }
         public IEnumerable<AdvertDTO> GetAuthorAdverts(int? userId)
         {
-            var result = _cache.GetAuthorAdverts();
+            var result = _cache.GetAuthorAdverts("authorId=" + userId);
             if (result == null)
             {
                 result = MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.AuthorId == userId));
-                _cache.AddAuthorAdverts(result);
+                _cache.AddAuthorAdverts("authorId=" + userId, result);
             }
             return result;
         }
         public IEnumerable<AdvertDTO> GetInterestedAdverts(int? userId)
         {
-            var result = _cache.GetInterestedAdverts();
+            var result = _cache.GetInterestedAdverts("iterestedUserId=" + userId);
             if (result == null)
             {
                 result =  MapFewModel(_unitOfWork.Adverts.FindFew(advert => advert.InterestedUserId == userId));
-                _cache.AddInterestedAdverts(result);
+                _cache.AddInterestedAdverts("iterestedUserId=" + userId, result);
             }
             return result;
         }

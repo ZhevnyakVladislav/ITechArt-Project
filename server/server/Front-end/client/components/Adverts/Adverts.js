@@ -33,7 +33,7 @@ export default class Adverts extends React.Component {
         const type = e.target.id.split('-')[3];
         this.props.getFewAdverts(type, 1);  
         this.setState({
-            activeTab: advertTypeInInt[advertTypeInString[1]],
+            activeTab: advertTypeInInt[advertTypeInString[type]],
             activePage: 1
         });
           

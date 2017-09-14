@@ -31,7 +31,7 @@ export default class AddAdvertForm extends React.Component {
         this.changeCity = this.changeCity.bind(this);
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.props.getCountries();
     }
 
@@ -50,7 +50,6 @@ export default class AddAdvertForm extends React.Component {
     changeCountry(value) {
         this.setState({
             countryId: value,
-            region: '',
             cityId:''
         });
         this.props.getCities(value);
@@ -59,13 +58,12 @@ export default class AddAdvertForm extends React.Component {
     changeCity(value) {
         this.setState({
             cityId: value,
-            coordinate: { latitude: city.latitude, longitude: city.longitude }
-        })
+        });
     }
 
-    async handleSubmit(e) {
+    handleSubmit(e) {
         if(this.validateData()) {
-            await this.props.createAdvert({
+            this.props.createAdvert({
                 title: this.state.title,
                 description: this.state.description,
                 type: this.state.type,
@@ -98,11 +96,11 @@ export default class AddAdvertForm extends React.Component {
     render() {
         const countries = (
             this.props.countries.map(country => 
-            <option key={country.id} value={country.id}>{country.name}</option>)
+                <option key={country.id} value={country.id}>{country.name}</option>)
         );
         const cities = (
             this.props.cities.map(city => 
-            <option key={city.id} value={city.id}>{city.name}</option>)
+                <option key={city.id} value={city.id}>{city.name}</option>)
         );
         return(
             <Grid className='login-form'>

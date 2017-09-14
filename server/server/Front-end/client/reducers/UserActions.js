@@ -5,7 +5,12 @@ const initialState = {
     isUserAuth: true,
     user: {
         avatar: null,
-        languages: []
+        languages: [],
+        address: {
+            city: {
+                country: {}
+            }
+        }
     },   
     errors: {}
 };

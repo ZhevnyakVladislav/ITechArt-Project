@@ -5,7 +5,7 @@ import './advertPage.scss';
 import MessageBox from '../MessageBox/MessageBox';
 import Map from '../Map/Map';
 
-export default class AdvertPape extends React.Component {
+export default class AdvertPage extends React.Component {
     constructor(props) { 
         super(props);
         this.messagesHub = window.$.connection.MessageChat;
@@ -16,7 +16,12 @@ export default class AdvertPape extends React.Component {
         this.props.getAdvert(this.props.match.params.id);
         this.props.getMessagesById(this.props.match.params.id);
         this.messagesHub.client.Send = this.sendMessage;
-        let connection = window.$.connection.hub.start().done(() => console.log('SignalR Hub Started!'));
+        let connection = window.$.connection.hub.start().done(() => {
+            console.log('SignalR Hub Started!');
+            this.messagesHub.server.joinGroup(this.props.match.params.id);
+        });
+       
+        
     }
 
     sendMessage(messages) {
@@ -40,15 +45,17 @@ export default class AdvertPape extends React.Component {
                             <Map coordinate={this.props.advert.address.coordinate} />
                         </Col>
                     </Row>)}
-                <Row className="advert-comments">
-                    <Col xs={12} sm={10} smOffset={1}>
-                        <h3>Comments</h3>
-                        <MessageBox
-                            advertId={this.props.match.params.id}
-                            createMessage={this.props.createMessage} 
-                            messages={this.props.messages}/>
-                    </Col>
-                </Row>
+                {(this.props.user.id == this.props.advert.authorId && this.props.messages.length < 1) ? null : (
+                    <Row className="advert-comments">
+                        <Col xs={12} sm={10} smOffset={1}>
+                            <h3>Comments</h3>
+                            <MessageBox
+                                advertId={this.props.match.params.id}
+                                createMessage={this.props.createMessage} 
+                                messages={this.props.messages}/>
+                        </Col>
+                    </Row>
+                )}
             </Grid>
         );
     }

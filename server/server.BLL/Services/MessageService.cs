@@ -21,22 +21,35 @@ namespace Server.BLL.Services
         public void Create(MessageDTO model)
         {
             var advert = _unitOfWork.Adverts.Get(model.AdvertId);
-            if (advert.InterestedUserId == null && advert.InterestedUserId != advert.AuthorId && advert.IsActive)
-            {
-                advert.IsActive = false;
-                advert.InterestedUserId = model.AuthorId;
-            }
+            model.CreatedAt = DateTime.Now;
             var message = MapOneModel(model);
-            message.CreatedAt = DateTime.Now;
-            advert.UpdatedAt = DateTime.Now;
-            _unitOfWork.Messages.Create(message);
-            _unitOfWork.Adverts.Update(advert);
+            if (advert.InterestedUserId == null && advert.AuthorId != model.AuthorId)
+            {
+                CreateResponse(message, advert);
+            }
+            else
+            {
+                CreateMessage(message);
+            }
             _unitOfWork.Save();
         }
         public IEnumerable<MessageDTO> GetByAdvertId(int? AdvertId)
         {
-            var messages = MapFewModel(_unitOfWork.Messages.FindFew(item => item.AdvertId == AdvertId));
-            return messages;
+            return MapFewModel(_unitOfWork.Messages.FindFew(item => item.AdvertId == AdvertId));
+        }
+
+        private void CreateResponse(Message message, Advert advert)
+        {
+            advert.IsActive = false;
+            advert.InterestedUserId = message.AuthorId;
+            advert.UpdatedAt = DateTime.Now;
+            _unitOfWork.Adverts.Update(advert);
+            _unitOfWork.Messages.Create(message);
+        }
+
+        private void CreateMessage(Message message)
+        {
+            _unitOfWork.Messages.Create(message);
         }
         private Message MapOneModel(MessageDTO message)
         {

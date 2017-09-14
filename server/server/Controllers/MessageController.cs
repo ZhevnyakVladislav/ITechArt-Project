@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Web.WebSockets;
@@ -43,7 +44,8 @@ namespace Server.Controllers
             var user = _userService.FindByName(User.Identity.Name);
             message.AuthorId = user.Id;
             _messageService.Create(message);
-            _chatHub.Send(MapFewModel(_messageService.GetByAdvertId(model.AdvertId)));
+            Task.Delay(1000);
+            _chatHub.Send(MapFewModel(_messageService.GetByAdvertId(model.AdvertId)), model.AdvertId.ToString());
 
         }
 

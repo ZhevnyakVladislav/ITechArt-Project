@@ -11,8 +11,8 @@ namespace Server.BLL.DTO
         public string Pseudonym { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string County { get; set; }
-        public string City { get; set; }
+        public int AddressId { get; set; }
+        public virtual AddressDTO Address { get; set; }
         public string[] Languages { get; set; }
         public string Avatar { get; set; }
 

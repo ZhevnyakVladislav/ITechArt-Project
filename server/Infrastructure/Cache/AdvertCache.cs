@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Infrastructure.Interfaces;
 using System.Runtime.Caching;
 
@@ -11,29 +8,34 @@ namespace Infrastructure.Cache
     public class AdvertCache<T> : IAdvertCache<T> where T : class 
     {
 
-        public bool AddAuthorAdverts(IEnumerable<T> adverts)
+        public bool AddAuthorAdverts(string key, IEnumerable<T> adverts)
         {
-            return MemoryCache.Default.Add("author", adverts, DateTime.Now.AddSeconds(20));
+            return MemoryCache.Default.Add(key, adverts, DateTime.Now.AddSeconds(5));
         }
-        public bool AddInterestedAdverts(IEnumerable<T> adverts)
+        public bool AddInterestedAdverts(string key, IEnumerable<T> adverts)
         {
-            return MemoryCache.Default.Add("interested", adverts, DateTime.Now.AddSeconds(20));
+            return MemoryCache.Default.Add(key, adverts, DateTime.Now.AddSeconds(5));
         }
         public bool AddTypedAdverts(string key, IEnumerable<T> adverts)
         {
-            return MemoryCache.Default.Add(key, adverts, DateTime.Now.AddSeconds(20));
+            return MemoryCache.Default.Add(key, adverts, DateTime.Now.AddSeconds(5));
         }
-        public IEnumerable<T> GetAuthorAdverts()
+        public IEnumerable<T> GetAuthorAdverts(string key)
         {
-            return MemoryCache.Default.Get("author") as IEnumerable<T>;
+            return MemoryCache.Default.Get(key) as IEnumerable<T>;
         }
-        public IEnumerable<T> GetInterestedAdverts()
+        public IEnumerable<T> GetInterestedAdverts(string key)
         {
-            return MemoryCache.Default.Get("interested") as IEnumerable<T>;
+            return MemoryCache.Default.Get(key) as IEnumerable<T>;
         }
         public IEnumerable<T> GetAdvertsByType(string key)
         {
             return MemoryCache.Default.Get(key) as IEnumerable<T>;
+        }
+
+        public void ResetCache()
+        {
+            MemoryCache.Default.Dispose();
         }
     }
 }

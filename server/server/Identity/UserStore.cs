@@ -12,14 +12,15 @@ namespace Server.Identity
     public class UserStore : IUserStore<UserViewModel, int>
     {
         IUserService _userService;
-        public UserStore(IUserService userService)
+        IMapper _mapper;
+        public UserStore(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
         public Task CreateAsync(UserViewModel user)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<UserViewModel, UserDTO>());
-            return Task.Factory.StartNew(() => _userService.Create(Mapper.Map<UserViewModel, UserDTO>(user)));
+            return Task.Factory.StartNew(() => _userService.Create(_mapper.Map<UserViewModel, UserDTO>(user)));
         }   
 
         public Task DeleteAsync(UserViewModel user)
@@ -39,8 +40,7 @@ namespace Server.Identity
         public Task<UserViewModel> FindByNameAsync(string email)
         {
             var user = _userService.FindByName(email);
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDTO, UserViewModel>());
-            return Task.FromResult<UserViewModel>(Mapper.Map<UserDTO, UserViewModel>(user));
+            return Task.FromResult<UserViewModel>(_mapper.Map<UserDTO, UserViewModel>(user));
         }
         public void Dispose()
         {

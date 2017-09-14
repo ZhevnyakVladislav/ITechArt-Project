@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using server.Models;
 
 namespace Server.Models
 {
@@ -15,8 +13,8 @@ namespace Server.Models
         public string Pseudonym { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string County { get; set; }
-        public string City { get; set; }
+        public int AddressId { get; set; }
+        public virtual AddressViewModel Address { get; set; }
         public string[] Languages { get; set; }
         public string Avatar { get; set; }
 

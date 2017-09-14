@@ -4,9 +4,7 @@ using System.Web.Http;
 using Server.BLL.DTO;
 using Server.BLL.Interfaces;
 using AutoMapper;
-using System;
 using System.Net;
-using System.Web;
 using server.Models;
 using WebApi.OutputCache.V2;
 

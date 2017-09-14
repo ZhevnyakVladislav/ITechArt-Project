@@ -41,8 +41,6 @@ function createAdvert(state, action) {
 function removeAdvert(state, action) {
     return {
         ...state,
-        authorsAdverts: state.authorsAdverts,
-        interestedAdverts: state.interestedAdverts
     };
 }
 
@@ -72,10 +70,10 @@ export default createReducer(initialState, {
 });
 
 function removeAdvertFromState(array, advertId) {
-    const removedAdvert = array
-        .find(advert => advert.id == advertId); 
+    const removedAdvert = array.find(advert => advert.id == advertId); 
     if (!removedAdvert) {
         return array;
     }
-    return array.splice(array.indexOf(removedAdvert), 1);;
+    array.splice(array.indexOf(removedAdvert), 1);
+    return array;
 }

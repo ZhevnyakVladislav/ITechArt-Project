@@ -20,11 +20,11 @@ export default class Footer extends React.Component {
 
     }
     
-    async handleSendMessage() {
+    handleSendMessage() {
         this.setState({
             message: ''
         });
-        await this.props.createMessage({
+        this.props.createMessage({
             advertId: this.props.advertId,
             description: this.state.message
         });
@@ -47,7 +47,7 @@ export default class Footer extends React.Component {
                     </Media>
                 )}
                 <FormGroup controlId="formControlsTextarea" onChange={this.handleChange}>
-                    <FormControl componentClass="textarea" placeholder="Send comment..."/>
+                    <FormControl componentClass="textarea" placeholder="Send comment..." value={this.state.message}/>
                     <Button onClick={this.handleSendMessage}>Send</Button>
                 </FormGroup>
             </div>

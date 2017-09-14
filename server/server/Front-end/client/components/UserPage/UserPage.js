@@ -84,8 +84,8 @@ export default  class UserPage extends React.Component {
                     <Col xs={12} sm={7} className="user-info">
                         <ListGroupItem header="Pseudnym">{this.props.user.pseudonym}</ListGroupItem>
                         <ListGroupItem header="Email">{this.props.user.email}</ListGroupItem>
-                        <ListGroupItem header="Country">{this.props.user.country}</ListGroupItem> 
-                        <ListGroupItem header="City">{this.props.user.city}</ListGroupItem> 
+                        <ListGroupItem header="Country">{this.props.user.address.city.country.name}</ListGroupItem> 
+                        <ListGroupItem header="City">{this.props.user.address.city.name}</ListGroupItem> 
                         {renderLanguages}
                     </Col>        
                 </Row>

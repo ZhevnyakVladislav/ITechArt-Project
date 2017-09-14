@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using server.DAL.Entities;
 
 namespace Server.DAL.Entities
 {
@@ -16,9 +17,10 @@ namespace Server.DAL.Entities
         public string Pseudonym { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string County { get; set; }
-        public string City { get; set; }
-        public string[] Languages { get; set; }
+        public int AddressId { get; set; }
+        public virtual Address Address { get; set; }
+        public int LanguageId { get; set; }
+        public virtual Language Language { get; set; }
         public string Avatar { get; set; }
 
         public DateTime CreatedAt { get; set; }

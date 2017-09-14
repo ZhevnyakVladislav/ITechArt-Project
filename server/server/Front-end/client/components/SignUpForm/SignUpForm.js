@@ -16,8 +16,8 @@ export default class LogInform extends React.Component {
             password: '', 
             confirmPassword: '',
             languages: [],
-            country: '',
-            city: '',
+            countryId: '',
+            cityId: '',
             errors: {
                 firstNameValid: validType.default,
                 secondNameValid: validType.default,
@@ -25,6 +25,8 @@ export default class LogInform extends React.Component {
                 emailValid: validType.default,
                 passwordValid: validType.default, 
                 confirmPasswordValid: validType.default,
+                countryValid: validType.default,
+                cityValid: validType.default,
             }
         };
         this.handleChange = this.handleChange.bind(this);
@@ -33,11 +35,21 @@ export default class LogInform extends React.Component {
         this.renderWarningMessage = this.renderWarningMessage.bind(this);
         this.addLanguage = this.addLanguage.bind(this);
         this.deleteLanguage = this.deleteLanguage.bind(this);
+        this.changeCountry = this.changeCountry.bind(this);
+        this.changeCity = this.changeCity.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getCountries();
     }
 
     handleChange(e) {
         if(e.target.id === 'languages') {
             this.addLanguage(e.target.value);
+        } else if (e.target.id == 'country') {
+            this.changeCountry(e.target.value);
+        } else if (e.target.id == 'city') {
+            this.changeCity(e.target.value);
         } else {
             this.setState({
                 [e.target.id]: e.target.value
@@ -48,6 +60,20 @@ export default class LogInform extends React.Component {
     addLanguage(language) {
         this.state.languages.push(language);
         this.setState({ languages: this.state.languages });
+    }
+
+    changeCountry(value) {
+        this.setState({
+            countryId: value,
+            cityId:''
+        });
+        this.props.getCities(value);
+    }
+
+    changeCity(value) {
+        this.setState({
+            cityId: value,
+        });
     }
 
     deleteLanguage(e) { 
@@ -64,8 +90,9 @@ export default class LogInform extends React.Component {
                 email: this.state.email,
                 password: this.state.password,
                 languages:  this.state.languages,
-                country: this.state.country,
-                city: this.state.city
+                address: {
+                    cityId: this.state.cityId,
+                }
             });
         }
     }
@@ -77,7 +104,9 @@ export default class LogInform extends React.Component {
             pseudonymValid: validateOnExistence(this.state.pseudonym),
             emailValid: validateEmail(this.state.email),
             passwordValid: validatePassword(this.state.password),
-            confirmPasswordValid: validateConfirmPassword(this.state.password, this.state.confirmPassword)
+            confirmPasswordValid: validateConfirmPassword(this.state.password, this.state.confirmPassword),
+            countryValid: validateOnExistence(this.state.countryId),
+            cityValid: validateOnExistence(this.state.cityId),
         };
 
         this.setState({ errors });
@@ -109,7 +138,14 @@ export default class LogInform extends React.Component {
                 
             </ListGroup>
         );
-
+        const countries = (
+            this.props.countries.map(country => 
+                <option key={country.id} value={country.id}>{country.name}</option>)
+        );
+        const cities = (
+            this.props.cities.map(city => 
+                <option key={city.id} value={city.id}>{city.name}</option>)
+        );
         return(
             <Grid className='login-form'>
                 <Row>
@@ -145,18 +181,18 @@ export default class LogInform extends React.Component {
                                 <FormControl type="password" placeholder="Password"/>
                                 {this.renderWarningMessage('passwords do not match', this.state.errors.confirmPasswordValid)}
                             </FormGroup>
-                            <FormGroup controlId="country">
+                            <FormGroup controlId="country" validationState={this.state.errors.countryValid}>
                                 <ControlLabel>Select country</ControlLabel>
                                 <FormControl componentClass="select">
-                                    <option value="belarus">Belarus</option>
-                                    <option value="england">England</option>
+                                    <option value=''></option>
+                                    {countries}
                                 </FormControl>
                             </FormGroup>
-                            <FormGroup controlId="city">
+                            <FormGroup controlId="city" validationState={this.state.errors.cityValid}>
                                 <ControlLabel>Select city</ControlLabel>
                                 <FormControl componentClass="select">
-                                    <option value="minsk">Minsk</option>
-                                    <option value="london">London</option>
+                                    <option value=''></option>
+                                    {cities}
                                 </FormControl>
                             </FormGroup>
                             <FormGroup controlId="languages">
