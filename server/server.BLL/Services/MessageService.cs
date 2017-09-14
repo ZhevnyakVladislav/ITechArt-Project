@@ -5,6 +5,8 @@ using Server.DAL.Entities;
 using Server.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Server.BLL.Services
 {
@@ -35,7 +37,12 @@ namespace Server.BLL.Services
         }
         public IEnumerable<MessageDTO> GetByAdvertId(int? AdvertId)
         {
-            return MapFewModel(_unitOfWork.Messages.FindFew(item => item.AdvertId == AdvertId));
+            var messages = _unitOfWork.Messages
+                                      .GetQuryable()
+                                      .Include(message => message.Author)
+                                      .Where(message => message.AdvertId == AdvertId)
+                                      .ToList();
+            return MapFewModel(messages);
         }
 
         private void CreateResponse(Message message, Advert advert)

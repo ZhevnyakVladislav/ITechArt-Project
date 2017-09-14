@@ -44,7 +44,6 @@ namespace Server.Controllers
             var user = _userService.FindByName(User.Identity.Name);
             message.AuthorId = user.Id;
             _messageService.Create(message);
-            Task.Delay(1000);
             _chatHub.Send(MapFewModel(_messageService.GetByAdvertId(model.AdvertId)), model.AdvertId.ToString());
 
         }
