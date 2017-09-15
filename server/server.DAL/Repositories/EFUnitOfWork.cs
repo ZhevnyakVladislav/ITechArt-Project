@@ -16,6 +16,7 @@ namespace Server.DAL.Repositories
         private CommonRepository<Address> _addressRposiRepository;
         private CommonRepository<Country> _countryRposiRepository;
         private CommonRepository<City> _cityRposiRepository;
+        private CommonRepository<Language> _languageRepository;
 
 
         private bool disposed = false;
@@ -31,6 +32,7 @@ namespace Server.DAL.Repositories
         public IRepository<Address> Addresses => _addressRposiRepository ?? (_addressRposiRepository = new CommonRepository<Address>(_db));
         public IRepository<Country> Countries => _countryRposiRepository ?? (_countryRposiRepository = new CommonRepository<Country>(_db));
         public IRepository<City> Cities => _cityRposiRepository ?? (_cityRposiRepository = new CommonRepository<City>(_db));
+        public IRepository<Language> Languages => _languageRepository ?? (_languageRepository = new CommonRepository<Language>(_db));
 
 
         public async Task SaveAsync()

@@ -32,6 +32,9 @@ namespace Server
 
             CreateMap<CityDTO, CityViewModel>().ReverseMap();
             CreateMap<City, CityDTO>().ReverseMap();
+
+            CreateMap<LanguageDTO, LanguageViewModel>().ReverseMap();
+            CreateMap<Language, LanguageDTO>().ReverseMap();
         }
     }
 

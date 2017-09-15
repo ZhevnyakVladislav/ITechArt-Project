@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Server.BLL.DTO
 {
@@ -13,7 +14,7 @@ namespace Server.BLL.DTO
         public string Password { get; set; }
         public int AddressId { get; set; }
         public virtual AddressDTO Address { get; set; }
-        public string[] Languages { get; set; }
+        public virtual ICollection<LanguageDTO> Languages { get; set; }
         public string Avatar { get; set; }
 
         public DateTime CreatedAt { get; set; }

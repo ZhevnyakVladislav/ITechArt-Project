@@ -31,6 +31,7 @@ namespace Server.Controllers
         public UserViewModel Get()
         {
             return MapOneModel(_userService.FindByName(User.Identity.Name));
+            
         }
 
         [Authorize]

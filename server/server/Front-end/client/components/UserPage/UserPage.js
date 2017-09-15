@@ -62,7 +62,7 @@ export default  class UserPage extends React.Component {
     render() {
         const renderLanguages = (
             <ListGroupItem header="Languages">
-                {this.props.user.languages.map((language, i) => <Label key={i}>{language}</Label>)}       
+                {this.props.user.languages.map(language => <Label key={language.id}>{language.name}</Label>)}       
             </ListGroupItem>
         );
         return(

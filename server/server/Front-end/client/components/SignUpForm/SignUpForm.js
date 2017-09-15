@@ -15,8 +15,8 @@ export default class LogInform extends React.Component {
             pseudonym: '',
             password: '', 
             confirmPassword: '',
-            languages: [],
             countryId: '',
+            selectedLanguages: [],
             cityId: '',
             errors: {
                 firstNameValid: validType.default,
@@ -27,6 +27,7 @@ export default class LogInform extends React.Component {
                 confirmPasswordValid: validType.default,
                 countryValid: validType.default,
                 cityValid: validType.default,
+                matchLanguage: validType.default
             }
         };
         this.handleChange = this.handleChange.bind(this);
@@ -41,6 +42,7 @@ export default class LogInform extends React.Component {
 
     componentDidMount() {
         this.props.getCountries();
+        this.props.getLanguages();
     }
 
     handleChange(e) {
@@ -57,31 +59,52 @@ export default class LogInform extends React.Component {
         }
     }
        
-    addLanguage(language) {
-        this.state.languages.push(language);
-        this.setState({ languages: this.state.languages });
+    addLanguage(id) {
+        if(id >= 0) {
+            let currentLanguage = this.state.selectedLanguages.find(language => language.id == id);
+            if(currentLanguage) {
+                let errors = {
+                    matchLanguage: validType.error
+                };
+                this.setState({ 
+                    errors
+                });
+            } else {
+                currentLanguage = this.props.languages.find(language => language.id == id);
+                this.state.selectedLanguages.push(currentLanguage);
+                this.setState({ selectedLanguages: this.state.selectedLanguages, errors:{} });
+            }
+        }
     }
 
-    changeCountry(value) {
-        this.setState({
-            countryId: value,
-            cityId:''
-        });
-        this.props.getCities(value);
+    changeCountry(id) {
+        if(id >= 0) {
+            this.setState({
+                countryId: id,
+                cityId:''
+            });
+            this.props.getCities(id);
+        }
+        this.state.countryId = '';
     }
 
-    changeCity(value) {
-        this.setState({
-            cityId: value,
-        });
+    changeCity(id) {
+        if(id >= 0) {
+            this.setState({
+                cityId: id,
+            });
+        }
+        this.state.cityId = '';
+        
     }
 
     deleteLanguage(e) { 
-        const changedLanguages = [...this.state.languages.slice(0, e.target.id),...this.state.languages.slice(e.target.id + 1)];
-        this.setState({ languages: changedLanguages });
+        const currentLanguage = this.state.selectedLanguages.find(language => language.id == e.target.id);
+        this.state.selectedLanguages.splice(this.state.selectedLanguages.indexOf(currentLanguage),1);
+        this.setState({ selectedLanguages:  this.state.selectedLanguages });
     }
 
-    handleSubmit() {
+    async handleSubmit() {
         if (this.validateData()) {
             this.props.signUp({
                 firstName: this.state.firstName,
@@ -89,7 +112,7 @@ export default class LogInform extends React.Component {
                 pseudonym:  this.state.pseudonym,
                 email: this.state.email,
                 password: this.state.password,
-                languages:  this.state.languages,
+                languages: this.state.selectedLanguages,
                 address: {
                     cityId: this.state.cityId,
                 }
@@ -127,11 +150,11 @@ export default class LogInform extends React.Component {
     render() {
         const renderLanguage = (
             <ListGroup>
-                {this.state.languages.map((language, i) => 
-                    <Label key={i}>
-                        {language}
+                {this.state.selectedLanguages.map(language => 
+                    <Label key={language.id}>
+                        {language.name}
                         <Button className="load-img" onClick={this.deleteLanguage}>
-                            <Glyphicon id={i} glyph="remove"/>
+                            <Glyphicon id={language.id} glyph="remove"/>
                         </Button>
                     </Label>
                 )}
@@ -145,6 +168,10 @@ export default class LogInform extends React.Component {
         const cities = (
             this.props.cities.map(city => 
                 <option key={city.id} value={city.id}>{city.name}</option>)
+        );
+        const languages = (
+            this.props.languages.map(language => 
+                <option key={language.id} value={language.id}>{language.name}</option>)
         );
         return(
             <Grid className='login-form'>
@@ -184,23 +211,24 @@ export default class LogInform extends React.Component {
                             <FormGroup controlId="country" validationState={this.state.errors.countryValid}>
                                 <ControlLabel>Select country</ControlLabel>
                                 <FormControl componentClass="select">
-                                    <option value=''></option>
+                                    <option value={-1}></option>
                                     {countries}
                                 </FormControl>
                             </FormGroup>
                             <FormGroup controlId="city" validationState={this.state.errors.cityValid}>
                                 <ControlLabel>Select city</ControlLabel>
                                 <FormControl componentClass="select">
-                                    <option value=''></option>
+                                    <option value={-1}></option>
                                     {cities}
                                 </FormControl>
                             </FormGroup>
-                            <FormGroup controlId="languages">
+                            <FormGroup controlId="languages" validationState={this.state.errors.matchLanguage}>
                                 <ControlLabel>Select languages</ControlLabel>
                                 <FormControl componentClass="select">
-                                    <option value="russian">russian</option>
-                                    <option value="belorusian">belorusian</option>
+                                    <option value={-1}></option>
+                                    {languages}
                                 </FormControl>
+                                {this.renderWarningMessage('Language already exist', this.state.errors.matchLanguage)}
                             </FormGroup>
                             {renderLanguage}
                             <FormGroup>

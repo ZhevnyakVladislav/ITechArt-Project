@@ -7,6 +7,7 @@ using Microsoft.Owin.Security;
 using System.Net.Http;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Server.Controllers
 {

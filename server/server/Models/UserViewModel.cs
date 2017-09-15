@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using server.Models;
 
 namespace Server.Models
@@ -15,7 +16,7 @@ namespace Server.Models
         public string Password { get; set; }
         public int AddressId { get; set; }
         public virtual AddressViewModel Address { get; set; }
-        public string[] Languages { get; set; }
+        public virtual ICollection<LanguageViewModel> Languages { get; set; }
         public string Avatar { get; set; }
 
         public DateTime CreatedAt { get; set; }

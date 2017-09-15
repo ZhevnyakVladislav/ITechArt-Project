@@ -132,12 +132,14 @@
     <Compile Include="DTO\AdvertTypeDTO.cs" />
     <Compile Include="DTO\CityDTO.cs" />
     <Compile Include="DTO\CountryDTO.cs" />
+    <Compile Include="DTO\LanguageDTO.cs" />
     <Compile Include="DTO\MessageDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Interfaces\IAdvertService.cs" />
     <Compile Include="Interfaces\ICityService.cs" />
     <Compile Include="Interfaces\ICountryService.cs" />
     <Compile Include="Interfaces\IImageService.cs" />
+    <Compile Include="Interfaces\ILanguageService.cs" />
     <Compile Include="Interfaces\IMessageService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Services\CityService.cs" />
     <Compile Include="Services\CountryService.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\LanguageService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>

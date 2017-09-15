@@ -133,6 +133,7 @@
     <Compile Include="Entities\AdvertType.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Country.cs" />
+    <Compile Include="Entities\Language.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFramework\ProjectContext.cs" />

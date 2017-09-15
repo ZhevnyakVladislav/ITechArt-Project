@@ -37,6 +37,7 @@ namespace Server
                 .RegisterType<IMessageService, MessageService>()
                 .RegisterType<ICountryService, CountryService>()
                 .RegisterType<ICityService, CityService>()
+                .RegisterType<ILanguageService, LanguageService>()
                 .RegisterType<Hub, MessageHub>()
                 .RegisterType<IImageService, ImageService>(new InjectionConstructor(
                     WebConfigurationManager.AppSettings["cloudinaryName"], 

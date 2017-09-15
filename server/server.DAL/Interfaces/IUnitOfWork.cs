@@ -15,6 +15,7 @@ namespace Server.DAL.Interfaces
         IRepository<Address> Addresses { get; }
         IRepository<Country> Countries { get; }
         IRepository<City> Cities { get; }
+        IRepository<Language> Languages { get; }
 
         Task SaveAsync();
         void Save();

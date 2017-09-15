@@ -1,14 +1,16 @@
-﻿using Server.DAL.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using server.DAL.Entities;
 
 namespace Server.DAL.Entities
 {
     public class User
     {
+        public User()
+        {
+            this.Languages = new HashSet<Language>();
+        }
         [Key]
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -19,8 +21,7 @@ namespace Server.DAL.Entities
         public string Password { get; set; }
         public int AddressId { get; set; }
         public virtual Address Address { get; set; }
-        public int LanguageId { get; set; }
-        public virtual Language Language { get; set; }
+        public virtual ICollection<Language> Languages { get; set; }
         public string Avatar { get; set; }
 
         public DateTime CreatedAt { get; set; }

@@ -10,7 +10,7 @@ namespace Server.DAL.EntityFramework
     {
         public ProjectContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new PjojectDbInitializer());
+            Database.SetInitializer(new ProjectDbInitializer());
         }
        
         public DbSet<User> Users { get; set;}
@@ -19,7 +19,7 @@ namespace Server.DAL.EntityFramework
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
-
+        public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -32,14 +32,19 @@ namespace Server.DAL.EntityFramework
                 .HasRequired(c => c.Address)
                 .WithMany()
                 .WillCascadeOnDelete(false);
-            
-            modelBuilder.Entity<Message>()
-                .HasRequired(c => c.Author)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.Languages)
+                .WithMany(x => x.Users)
+                .Map(x =>
+                {
+                    x.ToTable("UsersLanguages");
+                    x.MapLeftKey("UserId");
+                    x.MapRightKey("LanguageId");
+                });
 
         }
-        public class PjojectDbInitializer: DropCreateDatabaseAlways<ProjectContext>
+        public class ProjectDbInitializer: CreateDatabaseIfNotExists<ProjectContext>
         {
             protected override void Seed(ProjectContext context)
             {
@@ -47,6 +52,14 @@ namespace Server.DAL.EntityFramework
                 context.Countries.Add(new Country() {Name = "Belarus"});
                 context.Countries.Add(new Country() { Name = "Russia" });
                 context.Countries.Add(new Country() { Name = "England" });
+                context.Cities.Add(new City() {Name = "Minsk", CountryId = 1});
+                context.Cities.Add(new City() { Name = "Vitebsk", CountryId = 1 });
+                context.Cities.Add(new City() { Name = "Grodno", CountryId = 1 });
+                context.Cities.Add(new City() { Name = "Moscow", CountryId = 2 });
+                context.Cities.Add(new City() { Name = "Smolensk", CountryId = 2 });
+                context.Languages.Add(new Language() {Name = "Russian"});
+                context.Languages.Add(new Language() { Name = "Belorusian" });
+                context.Languages.Add(new Language() { Name = "English" });
                 base.Seed(context);
             }
         }
